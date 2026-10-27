@@ -46,6 +46,7 @@ function screenHome() {
     h('div', { class: 'card strip' }, h('span', {}, tp.atlas(a.opened.length, total)),
       typeof best === 'number' ? h('span', { class: 'muted' }, t.best(best)) : ''),
   ];
+  nodes.push(h('button', { class: 'btn secondary', type: 'button', onclick: () => openPaywall() }, tp.pay.homeLink));
   if (CFG.proPreview) nodes.push(h('p', { class: 'sub muted' }, tp.previewNote));
   render(...nodes);
 }

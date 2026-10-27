@@ -8,10 +8,16 @@ export const PRODUCT_FEATURES = {
 };
 export const FREE_FEATURES = ['quiz', 'help', 'protectionCore', 'atlas'];
 
+/** Продукты с действующим сроком: exp[productId] (мс) в прошлом означает, что доступ закончился. */
+export function ownedProducts(entitlements, now = Date.now()) {
+  const exp = (entitlements && entitlements.exp) || {};
+  return ((entitlements && entitlements.products) || []).filter((p) => !exp[p] || exp[p] > now);
+}
+
 export function hasAccess(feature, entitlements, cfg = {}) {
   if (FREE_FEATURES.includes(feature)) return true;
   if (cfg.proPreview) return true;
-  const owned = (entitlements && entitlements.products) || [];
+  const owned = ownedProducts(entitlements);
   return owned.some((p) => (PRODUCT_FEATURES[p] || []).some((f) => f === '*' || f === feature));
 }
 

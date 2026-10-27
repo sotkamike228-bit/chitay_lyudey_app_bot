@@ -138,3 +138,11 @@ a.tel{color:var(--accent);font-weight:700}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .col h3{margin-top:10px}
 @media (max-width:340px){.cols{grid-template-columns:1fr}}
+/* тарифы */
+.benefits{padding-left:20px;margin:8px 0 4px}.benefits li{margin:4px 0}
+.plan{border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
+.plan-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.plan-head h3{margin:0;text-transform:none;letter-spacing:0;font-size:17px;color:var(--text)}
+.plan-price{font-size:28px;font-weight:800;margin:4px 0;color:var(--gold-text)}
+.plan.owned{opacity:.75}
+.pay-status{min-height:24px;font-weight:600}
