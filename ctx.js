@@ -2,13 +2,20 @@
 import { T } from './ui-text.js';
 import { TP } from './ui-pro-text.js';
 import { CONFIG } from './config.js';
-import { read, patch, KEYS } from './store.js';
+import { read, write, patch, KEYS } from './store.js';
 
 export const tg = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData !== undefined ? window.Telegram.WebApp : null;
 const tgLang = tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code;
-export const lang = ((tgLang || navigator.language || 'ru').toLowerCase().startsWith('ru')) ? 'ru' : 'en';
-export const t = T[lang];
-export const tp = TP[lang];
+const detected = ((tgLang || navigator.language || 'ru').toLowerCase().startsWith('ru')) ? 'ru' : 'en';
+const savedLang = (() => { const v = read(KEYS.lang, null); return v === 'ru' || v === 'en' ? v : null; })();
+// lang меняется на лету: t и tp — прокси к текущему языку, поэтому экраны подхватывают переключение без перезагрузки.
+export let lang = savedLang || detected;
+export const t = new Proxy({}, { get: (_, k) => T[lang][k] });
+export const tp = new Proxy({}, { get: (_, k) => TP[lang][k] });
+export function setLang(l) {
+  if (l !== 'ru' && l !== 'en') return;
+  lang = l; write(KEYS.lang, l); document.documentElement.lang = l;
+}
 // Если сервер подключён (apiBase), бета-режим отключается: права решает сервер, а не флаг.
 export const CFG = { ...CONFIG, proPreview: !!CONFIG.proPreview && !CONFIG.apiBase };
 export const root = document.getElementById('app');

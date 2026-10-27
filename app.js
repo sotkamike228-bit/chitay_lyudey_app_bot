@@ -1,4 +1,4 @@
-import { h, html, L, t, tp, tg, data, state, render, nav, loadJson, CFG, closeSheet, ageOk, setAge, topbar } from './ctx.js';
+import { h, html, L, t, tp, tg, lang, setLang, data, state, render, nav, loadJson, CFG, closeSheet, ageOk, setAge, topbar } from './ctx.js';
 import { read, patch, KEYS } from './store.js';
 import { hasAccess } from './access.js';
 import { openQuiz, openCalibration } from './quiz.js';
@@ -41,13 +41,19 @@ function tile(key, badge, badgeKind, onclick, disabled) {
     h('span', { class: 'badge ' + badgeKind }, badge));
 }
 
+function langToggle() {
+  const btn = (code) => h('button', { class: 'lang-btn', type: 'button', 'aria-pressed': String(lang === code), 'aria-label': code === 'ru' ? 'Русский' : 'English',
+    onclick: () => { if (lang === code) return; setLang(code); applyStatic(); screenHome(); } }, code.toUpperCase());
+  return h('div', { class: 'lang-toggle', role: 'group', 'aria-label': 'Language' }, btn('ru'), btn('en'));
+}
+
 function screenHome() {
   const ent = read(KEYS.ent, {});
   const a = read(KEYS.atlas, { opened: [] });
   const best = read(KEYS.core, {}).best;
   const total = data.pro ? totalZones(data.pro) : 11;
   const nodes = [
-    h('div', { class: 'home-head' }, h('h1', {}, t.appName), h('p', { class: 'muted' }, tp.homeSub)),
+    h('div', { class: 'home-head' }, h('div', {}, h('h1', {}, t.appName), h('p', { class: 'muted' }, tp.homeSub)), langToggle()),
     h('div', { class: 'grid' },
       tile('quiz', tp.badges.free, 'free', () => nav.go(openQuiz)),
       tile('anatomy', hasAccess('anatomy', ent, CFG) && CFG.proPreview ? tp.badges.pro : tp.badges.part, 'pro', () => nav.go(openAnatomy)),
@@ -63,9 +69,14 @@ function screenHome() {
 }
 
 // ---------- запуск ----------
-const disc = document.getElementById('disclaimer'); disc.textContent = t.disclaimer;
-const helpBtn = document.getElementById('helpLink'); helpBtn.textContent = t.help; helpBtn.addEventListener('click', () => openHelp());
-if (CFG.privacyUrl) { const a = document.getElementById('privacyLink'); a.hidden = false; a.href = CFG.privacyUrl; a.textContent = t.privacy; }
+const disc = document.getElementById('disclaimer');
+const helpBtn = document.getElementById('helpLink'); helpBtn.addEventListener('click', () => openHelp());
+function applyStatic() {
+  document.documentElement.lang = lang;
+  disc.textContent = t.disclaimer; helpBtn.textContent = t.help;
+  if (CFG.privacyUrl) { const a = document.getElementById('privacyLink'); a.hidden = false; a.href = CFG.privacyUrl; a.textContent = t.privacy; }
+}
+applyStatic();
 
 function applyTheme() {
   const scheme = (tg && tg.colorScheme) || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');

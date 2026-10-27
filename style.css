@@ -165,3 +165,8 @@ a.tel{color:var(--accent);font-weight:700}
 .sec{margin:14px 0}.sec h3{display:flex;align-items:center;gap:8px;margin:0 0 6px}
 .sec .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--on-accent);font:700 12px/1 inherit}
 .qs{margin:4px 0 0;padding-left:0;list-style:none}.qs li{background:var(--surface2,var(--surface));border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:6px 0}
+/* переключатель языка */
+.home-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.lang-toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none;margin-top:4px}
+.lang-btn{min-width:48px;min-height:44px;padding:0 12px;border:0;background:transparent;color:var(--muted);font:700 13px inherit;font-family:inherit;letter-spacing:.04em;cursor:pointer}
+.lang-btn[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}

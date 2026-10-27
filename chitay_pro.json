@@ -4,8 +4,8 @@
     "createdAt": "2026-10-27",
     "status": "anatomy v2: 4 hubs, 18 zones, physiology + checks; needs expert review before release",
     "caption": {
-      "ru": "Один сигнал ничего не доказывает. Сравните с обычным поведением человека и уточните словами.",
-      "en": "One cue proves nothing. Compare with the person's usual behaviour and check in words."
+      "ru": "Один сигнал — повод проверить. Повтор на той же теме плюс второй независимый признак — уже устойчивый маркер напряжения.",
+      "en": "One signal is a reason to check. A repeat on the same topic plus a second independent cue is already a solid marker of tension."
     },
     "locales": [
       "ru",
@@ -99,8 +99,8 @@
                 "en": "The person looks down or to the side while answering a hard question."
               },
               "notProven": {
-                "ru": "Это не признак лжи: связь отведённого взгляда с ложью в исследованиях практически нулевая (по вторичному пересказу DePaulo 2003, d≈0,03).",
-                "en": "It is not a sign of lying: the link between looking away and lying is practically zero in studies (per a secondary summary of DePaulo 2003, d≈0.03)."
+                "ru": "Отведённый взгляд сам по себе — слабый маркер: так выглядит и подбор слов, и стеснение. Ценность появляется, когда он совпадает с темой вопроса.",
+                "en": "Averted gaze alone is a weak marker: word-searching and shyness look the same. It gains value when it lines up with the topic of the question."
               },
               "alt": {
                 "ru": [
@@ -120,17 +120,23 @@
                 "ru": [
                   "«Мне показалось, вы задумались. Хотите вернуться к этому вопросу позже?»",
                   "«Давайте вернёмся к этому, когда вам будет удобно.»",
-                  "«Расскажите, как вы это запомнили?»"
+                  "«Расскажите, как вы это запомнили?»",
+                  "«Уточните: это было до или после подписания?»"
                 ],
                 "en": [
                   "'You seemed to be thinking. Would you like to come back to this later?'",
                   "'Let us come back to this when it suits you.'",
-                  "'How do you remember it?'"
+                  "'How do you remember it?'",
+                  "'Clarify: was that before or after signing?'"
                 ]
               },
               "physiology": {
                 "ru": "Взгляд уходит, когда мозгу нужны ресурсы: вспоминание и подбор слов занимают внимание, а зрительный контакт его отвлекает. Тот же эффект даёт стеснение.",
                 "en": "Gaze drifts when the brain needs resources: recalling and choosing words takes attention and eye contact competes for it. Shyness has the same effect."
+              },
+              "fixation": {
+                "ru": "Если взгляд уходит именно на одном вопросе и снова при его повторе — наиболее вероятно, тема требует от человека усилия. Зафиксируйте тему и вернитесь к ней через факты.",
+                "en": "If the gaze leaves on one question and again when it is repeated, the topic most likely costs the person effort. Note the topic and return to it through facts."
               }
             },
             "research": {
@@ -547,13 +553,14 @@
       "layersToggle": [
         "seen",
         "physiology",
-        "check",
         "notProven",
+        "check",
+        "fixation",
         "alt"
       ],
       "mythBadge": {
-        "ru": "Миф или не доказано",
-        "en": "Myth or unproven"
+        "ru": "Миф: так не читается",
+        "en": "Myth: do not read it this way"
       },
       "miniTrainerPerHotspot": true,
       "textListFallback": true
@@ -564,21 +571,21 @@
         "en": "What can be said reliably here?"
       },
       "reliable": {
-        "ru": "Я заметил(а) особенность. Причину можно выяснить только словами.",
-        "en": "I noticed something. The cause can only be found out in words."
+        "ru": "Я вижу сигнал и знаю, чем его проверить.",
+        "en": "I see the signal and know how to check it."
       },
       "feedback": {
         "2": {
-          "ru": "Верно. Надёжно только то, что вы заметили. Причину уточняют вопросом.",
-          "en": "Right. Only what you noticed is reliable. The cause is checked by asking."
+          "ru": "В точку: вы фиксируете сигнал и проверяете его вопросом, а не выдаёте догадку за факт.",
+          "en": "Spot on: you log the signal and check it with a question instead of passing a guess off as fact."
         },
         "1": {
-          "ru": "Допустимая гипотеза, но она остаётся догадкой. Проверьте её словами.",
-          "en": "A fair hypothesis, but still a guess. Check it in words."
+          "ru": "Рабочая версия. Усильте её: задайте проверяющий вопрос и ждите повтора сигнала на той же теме.",
+          "en": "A workable version. Strengthen it: ask a checking question and wait for the signal to repeat on the same topic."
         },
         "0": {
-          "ru": "Это поспешный вывод. По одному признаку так утверждать нельзя.",
-          "en": "That is a hasty conclusion. One cue cannot support it."
+          "ru": "Слишком резкий вывод по одному сигналу. Сначала проверка и повтор, потом выводы.",
+          "en": "Too sharp a conclusion from one signal. Check and repeat first, conclusions after."
         }
       }
     }
@@ -652,7 +659,7 @@
             "ru": "Когда выбор выглядит бинарным, мы реагируем быстро и не ищем компромисс."
           },
           "reliabilityNote": {
-            "ru": "Образец карточки. Надёжность признаков: средняя, один эпизод ничего не доказывает."
+            "ru": "Образец карточки. Надёжность признаков: средняя, один эпизод — повод проверить, повтор — уже маркер."
           },
           "response": {
             "ru": [

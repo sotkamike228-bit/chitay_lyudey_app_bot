@@ -8,7 +8,7 @@ import { openHelp } from './help-view.js';
 import { openHypo } from './hypo-view.js';
 import { proLoader, refreshEntitlements } from './services.js';
 
-const S = tp.sheets;
+const S = new Proxy({}, { get: (_, k) => tp.sheets[k] });   // живой доступ: язык может смениться на лету
 const ent = () => read(KEYS.ent, {});
 const list = (arr) => h('ul', {}, ...arr.map((x) => h('li', {}, x)));
 const block = (title, node) => (node ? h('div', { class: 'blk' }, h('h3', {}, title), node) : '');

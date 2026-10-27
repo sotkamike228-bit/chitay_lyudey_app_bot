@@ -134,8 +134,10 @@ function renderSheet(id) {
   } else {
     const L_ = hs.layers;
     body.append(secBlock(1, tp.sec.seen, layerNode(L_.seen)), secBlock(2, tp.sec.physiology, layerNode(L_.physiology)),
-      secBlock(3, tp.sec.check, layerNode(L_.check, 'qs')),
-      h('details', { class: 'src' }, h('summary', {}, tp.sec.limits), layerNode(L_.notProven), h('h3', {}, tp.layers.alt), layerNode(L_.alt)));
+      secBlock(3, tp.sec.caveat, layerNode(L_.notProven)),
+      secBlock(4, tp.sec.check, layerNode(L_.check, 'qs')),
+      secBlock(5, tp.sec.fix, h('div', { class: 'fixation' }, layerNode(L_.fixation))),
+      h('details', { class: 'src' }, h('summary', {}, tp.sec.limits), layerNode(L_.alt)));
     if (hs.research) body.append(h('details', { class: 'src' }, h('summary', {}, tp.source), h('p', { class: 'sub muted' }, L(hs.research))));
     body.append(trainerBlock(full));
     body.append(h('p', { class: 'sub muted' }, L(data.pro.meta.caption)));

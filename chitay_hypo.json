@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "caption": {
-    "ru": "Один признак ничего не доказывает. Проверяйте кластером: триггер, вопросы, повторная реакция.",
-    "en": "One cue proves nothing. Check as a cluster: trigger, questions, repeat reaction."
+    "ru": "Один сигнал — повод проверить. Кластер из нескольких независимых признаков на одной теме — уже рабочая картина.",
+    "en": "One signal is a reason to check. A cluster of independent cues on one topic is already a working picture."
   },
   "fairNote": {
-    "ru": "Вопросы не ловушки. Задавайте их спокойно и открыто: цель — дать человеку возможность прояснить, а не поймать его.",
-    "en": "These are not traps. Ask them calmly and openly: the aim is to let the person clarify, not to catch them."
+    "ru": "Задавайте вопросы спокойно и открыто: ваша цель — получить точные факты, а не загнать человека в угол. Так вы и точнее прочтёте реакцию.",
+    "en": "Ask calmly and openly: your goal is exact facts, not cornering the person. That also reads the reaction more accurately."
   },
   "baselineQ": {
     "ru": "Знаете ли вы, как этот человек обычно себя ведёт?",
@@ -65,19 +65,19 @@
         "en": "Not confirmed"
       },
       "text": {
-        "ru": "Признак не повторился и не сложился в картину. Чаще всего он был случайным или связан со стрессом.",
-        "en": "The cue did not return or form a pattern. Most often it was random or stress-related."
+        "ru": "Сигнал не повторился и в картину не сложился. Версию с этой темой пока отложите и держите её в поле зрения.",
+        "en": "The signal did not return or form a picture. Set the version aside for now and keep the topic in view."
       },
       "tactics": {
         "ru": [
-          "Не делайте вывода о человеке",
-          "Вернитесь к обычному общению",
-          "Если тема важна, спросите прямо и открыто"
+          "Вернитесь к теме позже другими словами",
+          "Проверьте факты по документам, а не по реакции",
+          "Смотрите, повторится ли сигнал в другой момент"
         ],
         "en": [
-          "Draw no conclusion about the person",
-          "Go back to normal conversation",
-          "If the topic matters, ask directly and openly"
+          "Return to the topic later in other words",
+          "Check facts in documents, not by reaction",
+          "See whether the signal returns at another moment"
         ]
       }
     },
@@ -87,19 +87,19 @@
         "en": "Weak"
       },
       "text": {
-        "ru": "Повторился один независимый признак. Для вывода этого мало, но достаточно, чтобы уточнить.",
-        "en": "One independent cue returned. Not enough for a conclusion, enough to ask."
+        "ru": "Один независимый сигнал повторился. Наиболее вероятно, тема чуть выбивает человека из обычного ритма. Уточните её точным вопросом.",
+        "en": "One independent signal returned. Most likely the topic nudges the person off their usual rhythm. Sharpen it with an exact question."
       },
       "tactics": {
         "ru": [
-          "Задайте открытый вопрос по теме: «Что здесь для вас самое сложное?»",
+          "Задайте точный вопрос: «Уточните число / дату / порядок»",
           "Проверьте факты по документам или другому источнику",
-          "Вернитесь к теме позже и сравните"
+          "Вернитесь к теме позже и сравните реакцию"
         ],
         "en": [
-          "Ask an open question: 'What is hardest for you here?'",
-          "Check the facts in documents or another source",
-          "Come back to the topic later and compare"
+          "Ask an exact question: 'Clarify the number / date / order'",
+          "Check facts in documents or another source",
+          "Return to the topic later and compare the reaction"
         ]
       }
     },
@@ -109,30 +109,30 @@
         "en": "Robust"
       },
       "text": {
-        "ru": "При повторе вернулись минимум два независимых признака в той же теме, и вы знаете обычное поведение человека. Это серьёзный повод разобраться в теме, но не доказательство обмана.",
-        "en": "At least two independent cues returned on the same topic and you know the person's usual behaviour. A solid reason to look into the topic, not proof of deceit."
+        "ru": "Минимум два независимых сигнала повторились на одной теме, и вы знаете обычное поведение человека. С высокой долей вероятности тема для него значима и напряжённа: это устойчивый маркер скрытого напряжения. Что за ним стоит, покажут факты.",
+        "en": "At least two independent signals returned on one topic and you know the person's usual behaviour. The topic is very likely significant and tense for them: a solid marker of hidden tension. What stands behind it, facts will show."
       },
       "tactics": {
         "ru": [
-          "Назовите тему вслух без обвинений: «Вижу, что эта тема даётся трудно. Давайте разберём»",
-          "Проверьте факты независимо, прежде чем принимать решение",
-          "Не принимайте необратимых решений только по невербалике; при рисках привлеките второго человека"
+          "Назовите тему спокойно: «Вижу, что здесь непросто. Давайте по фактам»",
+          "Проверьте факты независимо, прежде чем действовать",
+          "Не принимайте необратимых решений только по невербалике; при высоких ставках привлеките второго человека"
         ],
         "en": [
-          "Name the topic without blame: 'This seems hard to talk about. Let us go through it'",
-          "Verify the facts independently before deciding",
+          "Name the topic calmly: 'This looks hard. Let us go by the facts'",
+          "Verify the facts independently before acting",
           "Make no irreversible decision on nonverbal cues alone; involve a second person when stakes are high"
         ]
       }
     }
   },
   "capNote": {
-    "ru": "Оценка не выше «Слабой», пока вы не знаете обычного поведения человека: сравнивать не с чем.",
-    "en": "The rating stays at 'Weak' while you do not know the person's usual behaviour: there is nothing to compare with."
+    "ru": "Оценка не выше «Слабой», пока вы не знаете обычного поведения человека: сравнивать пока не с чем. Понаблюдайте за ним на нейтральных темах.",
+    "en": "The rating stays at 'Weak' while you do not know the person's usual behaviour: nothing to compare with yet. Watch them on neutral topics."
   },
   "alwaysAdd": {
-    "ru": "Причиной может быть стресс, неловкость или сама тема, а не сокрытие. Сила гипотезы — это не вероятность и не вердикт о человеке.",
-    "en": "The cause may be stress, awkwardness or the topic itself, not concealment. Strength of a hypothesis is not a probability and not a verdict on a person."
+    "ru": "Сила гипотезы показывает, насколько устойчива картина, а не причину. Причина — тема, стресс или неловкость, а чем именно, выясняют факты и вопросы.",
+    "en": "Hypothesis strength shows how stable the picture is, not the cause. The cause is the topic, stress or awkwardness, and facts and questions show which."
   },
   "free": [
     {
