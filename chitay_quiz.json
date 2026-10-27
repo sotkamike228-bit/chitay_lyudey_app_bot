@@ -1,0 +1,888 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "name": {
+      "ru": "Читай людей",
+      "en": "Read People"
+    },
+    "subtitle": {
+      "ru": "Невербалика без мифов",
+      "en": "Body language without myths"
+    },
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "createdAt": "2026-10-27",
+    "status": "draft: needs psychologist review (Q1, Q3, Q4, Q5) and native-speaker check of EN before release",
+    "disclaimer": {
+      "ru": "Развлекательно-образовательный симулятор профайлинга. Не полиграф и не заменяет профессиональную оценку. Результаты игровые и не доказывают ложь или намерения человека.",
+      "en": "An entertainment and educational profiling simulator. Not a polygraph and not a substitute for professional assessment. Results are for play and do not prove lying or anyone's intentions."
+    },
+    "caption": {
+      "ru": "Один сигнал ничего не доказывает. Сравните с обычным поведением человека и уточните словами.",
+      "en": "One cue proves nothing. Compare with the person's usual behaviour and check in words."
+    },
+    "minAge": 16,
+    "ageGate": {
+      "serviceMinAge": 16,
+      "rule": "Service is 16+. A case is adultOnly (18+, self-declared) when its tracks include 'relationships' (same rule as isAdultOnly in shared/lib/cards.ts)",
+      "adultOnlyCaseIds": [
+        "Q1",
+        "Q4"
+      ],
+      "adultMinAge": 18
+    },
+    "safety": {
+      "crisisFilter": "Run needsHelp()/crisis filter on any free text. On match: show Help screen, hide paywall and share buttons.",
+      "neverMonetizeAfterCrisis": true,
+      "relationshipsWarningKey": "TRACK_WARNINGS.relationships"
+    }
+  },
+  "scoring": {
+    "observations": {
+      "signal": 1,
+      "weak": 0,
+      "jump": -1,
+      "maxPick": 2,
+      "caseMinimum": 0
+    },
+    "actions": {
+      "best": 2,
+      "ok": 1,
+      "risky": 0
+    },
+    "maxPerCase": 4,
+    "maxTotal": 20,
+    "note": "Observation points are summed over picked options and clamped to 0..2 per case."
+  },
+  "statusTiers": [
+    {
+      "id": "predator",
+      "minPercent": 80,
+      "title": {
+        "ru": "Хищник",
+        "en": "Predator"
+      },
+      "line": {
+        "ru": "Ты видишь детали и не прыгаешь к выводам.",
+        "en": "You see details and do not jump to conclusions."
+      }
+    },
+    {
+      "id": "insightful",
+      "minPercent": 50,
+      "title": {
+        "ru": "Проницательный",
+        "en": "Insightful"
+      },
+      "line": {
+        "ru": "Видишь много. Проверяй догадки вопросом.",
+        "en": "You see a lot. Check your guesses with a question."
+      }
+    },
+    {
+      "id": "trusting",
+      "minPercent": 0,
+      "title": {
+        "ru": "Доверчивый",
+        "en": "Trusting"
+      },
+      "line": {
+        "ru": "Есть что тренировать. Вот твои слепые зоны.",
+        "en": "There is room to train. Here are your blind spots."
+      }
+    }
+  ],
+  "statusCardFooter": {
+    "ru": "Это игровой результат наблюдательности, а не оценка человека.",
+    "en": "This is a game result of observation skill, not an assessment of a person."
+  },
+  "blindSpots": {
+    "note": "After the round, group missed 'signal' options by signalId cluster (see signals.ts) and offer a practice pack. Local calculation only.",
+    "upsell": "Offer only after the result card; never before value, never after a crisis match."
+  },
+  "cases": [
+    {
+      "id": "Q1",
+      "order": 1,
+      "track": "relationships",
+      "tracks": [
+        "relationships"
+      ],
+      "adultOnly": true,
+      "title": {
+        "ru": "Он стал другим",
+        "en": "They have changed lately"
+      },
+      "hook": {
+        "ru": "Что-то изменилось, а спросить страшно. Что из этого сигнал, а что твоя тревога?",
+        "en": "Something has changed and you are afraid to ask. What is a real cue and what is your anxiety?"
+      },
+      "scene": {
+        "ru": "Вы вместе полтора года. Последние недели партнёр отвечает на простые вопросы с долгой паузой. Раньше он много жестикулировал, сейчас, когда вы спросили про его неделю, почти не двигает руками. Один раз телефон лежал экраном вниз.",
+        "en": "You have been together for a year and a half. Lately your partner pauses a long time before answering simple questions. They used to gesture a lot; now, when you asked about their week, they hardly moved their hands. Once, their phone lay face down."
+      },
+      "observePrompt": {
+        "ru": "Что здесь заметно по существу? Выберите до двух.",
+        "en": "What is actually observable here? Pick up to two."
+      },
+      "observations": [
+        {
+          "id": "a",
+          "kind": "signal",
+          "text": {
+            "ru": "Жесты стали заметно меньше, чем обычно",
+            "en": "Gestures have clearly dropped compared with usual"
+          },
+          "why": {
+            "ru": "Это изменение относительно их обычного поведения, а не «жест измены». Такие изменения бывают от усталости, стресса, плохих новостей.",
+            "en": "This is a change from their own baseline, not a 'cheating gesture'. Changes like this also come from fatigue, stress or bad news."
+          },
+          "signalId": "HAND-003"
+        },
+        {
+          "id": "b",
+          "kind": "signal",
+          "text": {
+            "ru": "Перед простыми ответами появилась долгая пауза",
+            "en": "A long pause appeared before simple answers"
+          },
+          "why": {
+            "ru": "Пауза показывает нагрузку или осторожность, а не обязательно что-то скрытое. Сравните с тем, как было раньше.",
+            "en": "A pause shows load or caution, not necessarily something hidden. Compare with how it used to be."
+          },
+          "signalId": "PAUSE-001"
+        },
+        {
+          "id": "c",
+          "kind": "weak",
+          "text": {
+            "ru": "Телефон лежал экраном вниз",
+            "en": "The phone lay face down"
+          },
+          "why": {
+            "ru": "Один раз, без повторений и без базовой линии это почти ничего не говорит: сюрприз, работа, привычка.",
+            "en": "Once, with no pattern and no baseline, this says almost nothing: a surprise, work, habit."
+          }
+        },
+        {
+          "id": "d",
+          "kind": "jump",
+          "text": {
+            "ru": "Он точно что-то скрывает",
+            "en": "They are definitely hiding something"
+          },
+          "why": {
+            "ru": "Это вывод, а не наблюдение. Приложение не может это проверить, и вы тоже по этим признакам не можете.",
+            "en": "That is a conclusion, not an observation. The app cannot verify it, and neither can you from these cues."
+          }
+        }
+      ],
+      "actionPrompt": {
+        "ru": "Что вы сделаете дальше?",
+        "en": "What do you do next?"
+      },
+      "actions": [
+        {
+          "id": "a",
+          "grade": "best",
+          "points": 2,
+          "text": {
+            "ru": "Сказать: «Ты последнее время тише. Хочешь поговорить?»",
+            "en": "Say: 'You have seemed quieter lately. Do you want to talk?'"
+          },
+          "why": {
+            "ru": "Открытый вопрос без обвинения проверяет догадку словами и сохраняет доверие.",
+            "en": "An open question without blame tests your guess in words and keeps trust."
+          }
+        },
+        {
+          "id": "b",
+          "grade": "ok",
+          "points": 1,
+          "text": {
+            "ru": "Подождать несколько дней и понаблюдать, вернётся ли обычное поведение",
+            "en": "Wait a few days and see whether usual behaviour returns"
+          },
+          "why": {
+            "ru": "Разумно как первый шаг, но без разговора догадки накапливаются.",
+            "en": "Reasonable as a first step, but without a conversation, guesses pile up."
+          }
+        },
+        {
+          "id": "c",
+          "grade": "risky",
+          "points": 0,
+          "text": {
+            "ru": "Посмотреть его телефон, пока он в душе",
+            "en": "Check their phone while they are in the shower"
+          },
+          "why": {
+            "ru": "Слежка разрушает доверие и в ряде стран незаконна. Сигналы из сцены ничего не доказывают.",
+            "en": "Snooping destroys trust and is illegal in some countries. The cues in the scene prove nothing."
+          }
+        }
+      ],
+      "debrief": {
+        "ru": "Вы смотрели на изменения относительно обычного поведения. Это правильный подход: один признак ничего не значит, смотрите минимум на три и всегда уточняйте словами.",
+        "en": "You looked at changes from usual behaviour. That is the right approach: one cue means nothing, look at three or more and always check in words."
+      },
+      "altExplanations": {
+        "ru": [
+          "Усталость или стресс на работе",
+          "Плохие новости, о которых он не готов говорить",
+          "Подготовка сюрприза",
+          "Проблемы со здоровьем"
+        ],
+        "en": [
+          "Fatigue or work stress",
+          "Bad news they are not ready to discuss",
+          "Planning a surprise",
+          "A health issue"
+        ]
+      },
+      "checkQuestion": {
+        "ru": "Ты последнее время тише. Хочешь поговорить?",
+        "en": "You have seemed quieter lately. Do you want to talk?"
+      },
+      "signalIds": [
+        "HAND-003",
+        "PAUSE-001"
+      ],
+      "reliabilityNote": {
+        "ru": "Надёжность признаков: средняя. Это не способ проверить верность партнёра.",
+        "en": "Reliability of cues: medium. This is not a way to check a partner's faithfulness."
+      },
+      "safetyFlag": "relationships",
+      "shareHook": {
+        "ru": "Я прошёл(а) кейс «Он стал другим». А ты заметишь, что важно?",
+        "en": "I played the case 'They have changed lately'. Would you spot what matters?"
+      }
+    },
+    {
+      "id": "Q2",
+      "order": 2,
+      "track": "business",
+      "tracks": [
+        "business"
+      ],
+      "adultOnly": false,
+      "title": {
+        "ru": "Блеф на переговорах",
+        "en": "Bluff at the table"
+      },
+      "hook": {
+        "ru": "Он кивает и говорит «в целом согласны». Но что в этой сцене не сходится со словами?",
+        "en": "They nod and say 'broadly agreed'. What in this scene does not match the words?"
+      },
+      "scene": {
+        "ru": "Вы называете цену. Собеседник кивает: «В целом согласны». Но после названной суммы откидывается на спинку, отвечает короче и дважды возвращается к срокам поставки. Руки скрещены.",
+        "en": "You name your price. The other side nods: 'Broadly agreed.' But after the number they lean back, answer more briefly and twice return to the delivery date. Their arms are crossed."
+      },
+      "observePrompt": {
+        "ru": "Что здесь заметно по существу? Выберите до двух.",
+        "en": "What is actually observable here? Pick up to two."
+      },
+      "observations": [
+        {
+          "id": "a",
+          "kind": "signal",
+          "text": {
+            "ru": "После названной цены он откинулся назад",
+            "en": "After the price they leaned back"
+          },
+          "why": {
+            "ru": "Откидывание после конкретного пункта может означать сомнение или дистанцию, но и просто смену позы.",
+            "en": "Leaning back after a specific point may mean doubt or distance, or just a change of posture."
+          },
+          "signalId": "POST-002"
+        },
+        {
+          "id": "b",
+          "kind": "signal",
+          "text": {
+            "ru": "Он дважды вернулся к одному и тому же пункту",
+            "en": "They came back to the same point twice"
+          },
+          "why": {
+            "ru": "Возврат к теме часто важнее жеста: это то, что его действительно занимает. Это наблюдение за поведением, не диагноз.",
+            "en": "Returning to a topic often matters more than a gesture: it is what really concerns them. It is an observation of behaviour, not a diagnosis."
+          }
+        },
+        {
+          "id": "c",
+          "kind": "weak",
+          "text": {
+            "ru": "У него скрещены руки",
+            "en": "Their arms are crossed"
+          },
+          "why": {
+            "ru": "Спорный сигнал: так сидят от холода, привычки, удобства. Сам по себе ничего не доказывает.",
+            "en": "A disputed cue: people sit like this from cold, habit, comfort. It proves nothing on its own."
+          },
+          "signalId": "HAND-001"
+        },
+        {
+          "id": "d",
+          "kind": "jump",
+          "text": {
+            "ru": "Он блефует",
+            "en": "They are bluffing"
+          },
+          "why": {
+            "ru": "Это вывод. Несовпадение слов и поведения повод уточнить, а не вердикт.",
+            "en": "That is a conclusion. A mismatch between words and behaviour is a reason to ask, not a verdict."
+          }
+        }
+      ],
+      "actionPrompt": {
+        "ru": "Что вы скажете?",
+        "en": "What do you say?"
+      },
+      "actions": [
+        {
+          "id": "a",
+          "grade": "best",
+          "points": 2,
+          "text": {
+            "ru": "«Что в этом пункте вызывает у вас сомнения? Давайте разберём»",
+            "en": "'What about this point concerns you? Let us go through it'"
+          },
+          "why": {
+            "ru": "Вопрос превращает догадку в информацию и не давит.",
+            "en": "The question turns a guess into information and does not pressure."
+          }
+        },
+        {
+          "id": "b",
+          "grade": "ok",
+          "points": 1,
+          "text": {
+            "ru": "Сделать паузу и дать ему договорить",
+            "en": "Pause and let them finish"
+          },
+          "why": {
+            "ru": "Хорошо для сбора информации, но не уточняет причину сомнения.",
+            "en": "Good for gathering information, but it does not clarify the cause of doubt."
+          }
+        },
+        {
+          "id": "c",
+          "grade": "risky",
+          "points": 0,
+          "text": {
+            "ru": "«Вы блефуете» и надавить",
+            "en": "'You are bluffing' and push"
+          },
+          "why": {
+            "ru": "Обвинение по неподтверждённым признакам портит переговоры и может быть просто неверным.",
+            "en": "Accusing on unconfirmed cues damages the negotiation and may simply be wrong."
+          }
+        }
+      ],
+      "debrief": {
+        "ru": "Лучший результат даёт кластер сигналов плюс вопрос. Помните: так нельзя оценивать кандидатов и сотрудников, это ненадёжно и ведёт к дискриминации.",
+        "en": "The best result comes from a cluster of cues plus a question. Remember: do not use this to judge candidates or employees; it is unreliable and leads to discrimination."
+      },
+      "altExplanations": {
+        "ru": [
+          "Ему нужно согласование внутри компании",
+          "Он нервничает или устал",
+          "Сроки действительно критичны",
+          "Так он обычно сидит"
+        ],
+        "en": [
+          "They need internal approval",
+          "They are nervous or tired",
+          "The deadline is genuinely critical",
+          "This is how they usually sit"
+        ]
+      },
+      "checkQuestion": {
+        "ru": "Что в этом пункте вызывает у вас сомнения?",
+        "en": "What about this point concerns you?"
+      },
+      "signalIds": [
+        "POST-002",
+        "HAND-001"
+      ],
+      "reliabilityNote": {
+        "ru": "Надёжность признаков: от спорной до средней.",
+        "en": "Reliability of cues: from disputed to medium."
+      },
+      "safetyFlag": "business",
+      "shareHook": {
+        "ru": "Кейс «Блеф на переговорах»: сколько сигналов заметишь ты?",
+        "en": "The case 'Bluff at the table': how many cues will you notice?"
+      }
+    },
+    {
+      "id": "Q3",
+      "order": 3,
+      "track": "business",
+      "tracks": [
+        "business"
+      ],
+      "adultOnly": false,
+      "title": {
+        "ru": "Давление руководителя",
+        "en": "Pressure from a boss"
+      },
+      "hook": {
+        "ru": "«Это просто совет», сказал он при всех. Но что было до и после?",
+        "en": "'It is just advice,' they said in front of everyone. But what came before and after?"
+      },
+      "scene": {
+        "ru": "На планёрке руководитель при всех «шутит» о вашей ошибке. Когда вы начинаете объяснять, он перебивает и повышает голос. После встречи подходит вплотную: «Это просто совет». Это уже третий раз за месяц.",
+        "en": "In a team meeting your manager 'jokes' about your mistake in front of everyone. When you start to explain, they interrupt and raise their voice. After the meeting they step close: 'It is just advice.' This is the third time this month."
+      },
+      "observePrompt": {
+        "ru": "Что здесь заметно по существу? Выберите до двух.",
+        "en": "What is actually observable here? Pick up to two."
+      },
+      "observations": [
+        {
+          "id": "a",
+          "kind": "signal",
+          "text": {
+            "ru": "Он повторяет это третий раз за месяц и при всех",
+            "en": "It has happened three times this month, in front of others"
+          },
+          "why": {
+            "ru": "Повторяемость и публичность главное отличие давления от разового резкого слова.",
+            "en": "Repetition and publicity are what separate pressure from a single sharp remark."
+          }
+        },
+        {
+          "id": "b",
+          "kind": "signal",
+          "text": {
+            "ru": "Он перебивает и повышает голос",
+            "en": "They interrupt and raise their voice"
+          },
+          "why": {
+            "ru": "Громкий голос и перебивания признак давления в разговоре, но по одному эпизоду характер человека не оценить.",
+            "en": "A loud voice and interruptions are a mark of pressure in a conversation, but one episode does not tell you about someone's character."
+          },
+          "signalId": "VOICE-002"
+        },
+        {
+          "id": "c",
+          "kind": "weak",
+          "text": {
+            "ru": "Он подошёл близко после встречи",
+            "en": "They stepped close after the meeting"
+          },
+          "why": {
+            "ru": "Сокращение дистанции может быть давлением, а может быть привычкой или шумом в зале. Смотрите на повторяемость.",
+            "en": "Closing distance can be pressure, or a habit, or noise in the room. Look for repetition."
+          },
+          "signalId": "DIST-001"
+        },
+        {
+          "id": "d",
+          "kind": "jump",
+          "text": {
+            "ru": "Он просто плохой человек",
+            "en": "They are simply a bad person"
+          },
+          "why": {
+            "ru": "Это ярлык человеку. Полезнее описывать поведение: что, когда, сколько раз.",
+            "en": "That is a label on a person. It is more useful to describe behaviour: what, when, how many times."
+          }
+        }
+      ],
+      "actionPrompt": {
+        "ru": "Что вы сделаете?",
+        "en": "What do you do?"
+      },
+      "actions": [
+        {
+          "id": "a",
+          "grade": "best",
+          "points": 2,
+          "text": {
+            "ru": "Записать факты (дата, слова, свидетели) и попросить о разговоре наедине про формат обратной связи",
+            "en": "Record the facts (date, words, witnesses) and ask for a private talk about the feedback format"
+          },
+          "why": {
+            "ru": "Факты защищают вас, а конкретная просьба даёт шанс изменить поведение без эскалации.",
+            "en": "Facts protect you, and a specific request gives a chance to change behaviour without escalation."
+          }
+        },
+        {
+          "id": "b",
+          "grade": "ok",
+          "points": 1,
+          "text": {
+            "ru": "Промолчать и посмотреть, повторится ли",
+            "en": "Stay quiet and see whether it repeats"
+          },
+          "why": {
+            "ru": "Это уже повторилось трижды: ожидание без записи фактов оставляет вас без опоры.",
+            "en": "It has already repeated three times: waiting without recording facts leaves you without support."
+          }
+        },
+        {
+          "id": "c",
+          "grade": "risky",
+          "points": 0,
+          "text": {
+            "ru": "Ответить публичной колкостью",
+            "en": "Answer with a public jab"
+          },
+          "why": {
+            "ru": "Эскалация при всех обычно ухудшает ваше положение.",
+            "en": "Escalating in front of everyone usually worsens your position."
+          }
+        }
+      ],
+      "debrief": {
+        "ru": "Один резкий эпизод повод уточнить. Если повторяется, фиксируйте факты и обращайтесь к HR или коллеге, которому доверяете. Если есть угрозы или насилие, это уже не тренировка наблюдательности: откройте раздел «Помощь».",
+        "en": "A single sharp episode is a reason to clarify. If it repeats, record facts and talk to HR or a colleague you trust. If there are threats or violence, this is no longer an observation exercise: open the Help section."
+      },
+      "altExplanations": {
+        "ru": [
+          "Жёсткий стиль руководителя без умысла унизить",
+          "Давление сроков на него самого",
+          "Культура компании с резкими шутками"
+        ],
+        "en": [
+          "A harsh management style without intent to humiliate",
+          "Deadline pressure on them as well",
+          "A company culture of sharp jokes"
+        ]
+      },
+      "checkQuestion": {
+        "ru": "Мне важно получать обратную связь наедине. Можем так договориться?",
+        "en": "It matters to me to get feedback in private. Can we agree on that?"
+      },
+      "signalIds": [
+        "VOICE-002",
+        "DIST-001"
+      ],
+      "reliabilityNote": {
+        "ru": "Надёжность признаков: средняя. Важнее повторяемость, чем отдельный жест.",
+        "en": "Reliability of cues: medium. Repetition matters more than a single gesture."
+      },
+      "safetyFlag": "business",
+      "shareHook": {
+        "ru": "Кейс «Давление руководителя»: отличишь жёсткий стиль от давления?",
+        "en": "The case 'Pressure from a boss': can you tell a harsh style from pressure?"
+      }
+    },
+    {
+      "id": "Q4",
+      "order": 4,
+      "track": "relationships",
+      "tracks": [
+        "relationships"
+      ],
+      "adultOnly": true,
+      "title": {
+        "ru": "Первое свидание",
+        "en": "The first date"
+      },
+      "hook": {
+        "ru": "Она взглянула в телефон. Интерес пропал или просто волнуется?",
+        "en": "They glanced at their phone. Is interest gone, or are they just nervous?"
+      },
+      "scene": {
+        "ru": "Кафе, первое свидание. Сначала собеседница отвечает коротко и один раз смотрит на телефон. Когда вы спрашиваете про скалолазание, она оживляется и начинает активно жестикулировать. Пока вы ждёте заказ, её руки скрещены.",
+        "en": "A café, a first date. At first your date answers briefly and glances once at their phone. When you ask about climbing, they brighten and start gesturing actively. While you wait for the order, their arms are crossed."
+      },
+      "observePrompt": {
+        "ru": "Что здесь заметно по существу? Выберите до двух.",
+        "en": "What is actually observable here? Pick up to two."
+      },
+      "observations": [
+        {
+          "id": "a",
+          "kind": "signal",
+          "text": {
+            "ru": "Она оживилась и стала жестикулировать на теме скалолазания",
+            "en": "They brightened and gestured on the topic of climbing"
+          },
+          "why": {
+            "ru": "Оживление на конкретную тему подсказывает, что ей интересно именно это. Это лучшая подсказка, о чём говорить.",
+            "en": "Brightening on a specific topic suggests that is what interests them. It is the best hint about what to talk about."
+          },
+          "signalId": "HAND-002"
+        },
+        {
+          "id": "b",
+          "kind": "signal",
+          "text": {
+            "ru": "Она один раз взглянула на телефон",
+            "en": "They glanced at their phone once"
+          },
+          "why": {
+            "ru": "Один взгляд ничего не доказывает: сообщение, привычка, нервозность. Важнее, повторяется ли.",
+            "en": "One glance proves nothing: a message, a habit, nerves. What matters is whether it repeats."
+          },
+          "signalId": "EYE-006"
+        },
+        {
+          "id": "c",
+          "kind": "weak",
+          "text": {
+            "ru": "У неё скрещены руки, пока ждёте заказ",
+            "en": "Their arms are crossed while you wait"
+          },
+          "why": {
+            "ru": "Спорный сигнал: прохлада в кафе, привычка, удобство.",
+            "en": "A disputed cue: a cool café, habit, comfort."
+          },
+          "signalId": "HAND-001"
+        },
+        {
+          "id": "d",
+          "kind": "jump",
+          "text": {
+            "ru": "Я ей не интересен",
+            "en": "They are not interested in me"
+          },
+          "why": {
+            "ru": "Это вывод по малому числу сигналов. Лучше спросить или заметить, на что она отзывается.",
+            "en": "That is a conclusion from too few cues. Better to ask, or notice what they respond to."
+          }
+        }
+      ],
+      "actionPrompt": {
+        "ru": "Что вы сделаете?",
+        "en": "What do you do?"
+      },
+      "actions": [
+        {
+          "id": "a",
+          "grade": "best",
+          "points": 2,
+          "text": {
+            "ru": "Спросить, комфортно ли ей, и продолжить тему, которая её оживила",
+            "en": "Ask if they are comfortable and continue the topic that lit them up"
+          },
+          "why": {
+            "ru": "Вы проверяете догадку словами и уважаете её комфорт.",
+            "en": "You check your guess in words and respect their comfort."
+          }
+        },
+        {
+          "id": "b",
+          "grade": "ok",
+          "points": 1,
+          "text": {
+            "ru": "Больше рассказать о себе",
+            "en": "Tell more about yourself"
+          },
+          "why": {
+            "ru": "Не плохо, но вы не используете подсказку о её интересах.",
+            "en": "Not bad, but you are not using the hint about their interests."
+          }
+        },
+        {
+          "id": "c",
+          "grade": "risky",
+          "points": 0,
+          "text": {
+            "ru": "Взять её за руку, чтобы проверить реакцию",
+            "en": "Take their hand to test the reaction"
+          },
+          "why": {
+            "ru": "Интерес не равен согласию. Касание без вопроса нарушает границы: сначала спросите словами.",
+            "en": "Interest is not consent. Touching without asking crosses boundaries: ask in words first."
+          }
+        }
+      ],
+      "debrief": {
+        "ru": "Интерес и согласие разные вещи. Согласие даётся словами, добровольно и может быть отозвано в любой момент. Услышали «нет», «не сейчас» или тишину, остановитесь.",
+        "en": "Interest and consent are different things. Consent is given in words, freely, and can be withdrawn at any moment. If you hear 'no', 'not now' or silence, stop."
+      },
+      "altExplanations": {
+        "ru": [
+          "Она ждёт важное сообщение",
+          "Ей зябко",
+          "Ей нужно время, чтобы привыкнуть",
+          "Новая обстановка"
+        ],
+        "en": [
+          "They are waiting for an important message",
+          "They feel chilly",
+          "They need time to warm up",
+          "An unfamiliar setting"
+        ]
+      },
+      "checkQuestion": {
+        "ru": "Как тебе здесь, комфортно?",
+        "en": "How are you finding it here, comfortable?"
+      },
+      "signalIds": [
+        "HAND-002",
+        "EYE-006",
+        "HAND-001"
+      ],
+      "reliabilityNote": {
+        "ru": "Надёжность признаков: от спорной до средней. Интерес не согласие.",
+        "en": "Reliability of cues: from disputed to medium. Interest is not consent."
+      },
+      "safetyFlag": "relationships",
+      "shareHook": {
+        "ru": "Кейс «Первое свидание»: заметишь, что действительно важно?",
+        "en": "The case 'The first date': will you notice what really matters?"
+      }
+    },
+    {
+      "id": "Q5",
+      "order": 5,
+      "track": "business",
+      "tracks": [
+        "business"
+      ],
+      "adultOnly": false,
+      "title": {
+        "ru": "Слишком хорошо, чтобы быть правдой",
+        "en": "Too good to be true"
+      },
+      "hook": {
+        "ru": "«Только сегодня» и уверенная улыбка. Что здесь должно насторожить?",
+        "en": "'Only today' and a confident smile. What here should make you stop?"
+      },
+      "scene": {
+        "ru": "Новый знакомый предлагает вложиться в «проверенный» проект. Он говорит уверенно и улыбается. Торопит: «Предложение только сегодня». На вопрос о документах переводит разговор на отзывы.",
+        "en": "A new acquaintance offers you a share in a 'proven' project. They speak confidently and smile. They hurry you: 'The offer is only today.' When you ask about documents, they steer the talk to testimonials."
+      },
+      "observePrompt": {
+        "ru": "Что здесь заметно по существу? Выберите до двух.",
+        "en": "What is actually observable here? Pick up to two."
+      },
+      "observations": [
+        {
+          "id": "a",
+          "kind": "signal",
+          "text": {
+            "ru": "Он торопит: «только сегодня»",
+            "en": "They hurry you: 'only today'"
+          },
+          "why": {
+            "ru": "Искусственная срочность типичный приём давления: решение без времени на проверку выгодно только ему.",
+            "en": "Artificial urgency is a typical pressure tactic: a decision without time to check benefits only the person pushing."
+          }
+        },
+        {
+          "id": "b",
+          "kind": "signal",
+          "text": {
+            "ru": "Он уходит от вопроса о документах",
+            "en": "They dodge the question about documents"
+          },
+          "why": {
+            "ru": "Уход от конкретики на проверяемый вопрос повод остановиться и проверить, как бы приятно ни звучало.",
+            "en": "Dodging a checkable question is a reason to stop and verify, however pleasant it sounds."
+          }
+        },
+        {
+          "id": "c",
+          "kind": "weak",
+          "text": {
+            "ru": "Он уверенно говорит и улыбается",
+            "en": "They speak confidently and smile"
+          },
+          "why": {
+            "ru": "Уверенность и улыбка не доказывают ни честность, ни обман: так выглядят и честные, и нечестные люди.",
+            "en": "Confidence and a smile prove neither honesty nor deceit: honest and dishonest people both look like this."
+          },
+          "signalId": "FACE-001"
+        },
+        {
+          "id": "d",
+          "kind": "jump",
+          "text": {
+            "ru": "Он мошенник",
+            "en": "They are a fraudster"
+          },
+          "why": {
+            "ru": "Это вывод. Но чтобы не терять деньги, вам не нужно его доказывать: достаточно проверить предложение.",
+            "en": "That is a conclusion. But to protect your money you do not need to prove it: just verify the offer."
+          }
+        }
+      ],
+      "actionPrompt": {
+        "ru": "Что вы сделаете?",
+        "en": "What do you do?"
+      },
+      "actions": [
+        {
+          "id": "a",
+          "grade": "best",
+          "points": 2,
+          "text": {
+            "ru": "Взять паузу на сутки, запросить документы и спросить мнение второго человека",
+            "en": "Take a day, ask for documents and get a second opinion"
+          },
+          "why": {
+            "ru": "Пауза и проверка защищают вас в любом случае: честное предложение выдержит сутки.",
+            "en": "A pause and verification protect you either way: an honest offer survives a day."
+          }
+        },
+        {
+          "id": "b",
+          "grade": "ok",
+          "points": 1,
+          "text": {
+            "ru": "Вложить небольшую сумму «на пробу»",
+            "en": "Invest a small amount 'as a test'"
+          },
+          "why": {
+            "ru": "Это всё равно риск потери денег, а проверки документов не заменяет.",
+            "en": "It is still a risk of losing money and does not replace checking documents."
+          }
+        },
+        {
+          "id": "c",
+          "grade": "risky",
+          "points": 0,
+          "text": {
+            "ru": "Перевести деньги сегодня, чтобы не упустить",
+            "en": "Transfer the money today so as not to miss out"
+          },
+          "why": {
+            "ru": "Именно этого и добивается срочность.",
+            "en": "That is exactly what the urgency is designed to achieve."
+          }
+        }
+      ],
+      "debrief": {
+        "ru": "Здесь работает не чтение мимики, а проверка предложения: срочность, уход от конкретики, отказ дать время. Это защита от давления независимо от того, как выглядит человек.",
+        "en": "What works here is not reading faces but checking the offer: urgency, vagueness, refusal to give time. This protects you from pressure regardless of how the person looks."
+      },
+      "altExplanations": {
+        "ru": [
+          "Он сам верит в проект и неопытен",
+          "Он действительно ограничен сроками",
+          "Нужные документы у него просто не под рукой"
+        ],
+        "en": [
+          "They sincerely believe in the project and are inexperienced",
+          "They genuinely have a deadline",
+          "The documents are simply not at hand"
+        ]
+      },
+      "checkQuestion": {
+        "ru": "Пришлите документы, я отвечу завтра.",
+        "en": "Send me the documents and I will reply tomorrow."
+      },
+      "signalIds": [
+        "FACE-001"
+      ],
+      "reliabilityNote": {
+        "ru": "Мимика ненадёжна. Надёжнее проверять предложение: срочность и уход от деталей.",
+        "en": "Facial cues are unreliable. It is more reliable to verify the offer: urgency and vagueness."
+      },
+      "safetyFlag": "business",
+      "shareHook": {
+        "ru": "Кейс «Слишком хорошо, чтобы быть правдой»: что тебя насторожит?",
+        "en": "The case 'Too good to be true': what would make you stop?"
+      }
+    }
+  ]
+}
