@@ -155,3 +155,13 @@ a.tel{color:var(--accent);font-weight:700}
 .opt:disabled{opacity:.7;cursor:default}.opt[aria-pressed="true"]:disabled{opacity:1}
 /* сила гипотезы */
 .status.strength-none .tier{color:var(--muted)}.status.strength-weak .tier{color:var(--warn)}.status.strength-strong .tier{color:var(--accent)}
+/* анатомия v2: акцентные линии зон напряжения и шкала надёжности */
+.fig .accent{stroke:var(--accent2);opacity:.75}
+.relbar{display:flex;align-items:center;gap:8px;margin:6px 0}
+.relbar .seg3{display:flex;gap:3px}.relbar .seg3 i{width:22px;height:6px;border-radius:3px;background:var(--line)}
+.relbar.high i.on{background:var(--good)}.relbar.medium i.on{background:var(--accent)}.relbar.disputed i.on{background:var(--warn)}.relbar.low i.on{background:var(--bad)}
+.relbar .lbl{font-size:13px;font-weight:650}
+.relnote{margin:2px 0 8px}
+.sec{margin:14px 0}.sec h3{display:flex;align-items:center;gap:8px;margin:0 0 6px}
+.sec .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--on-accent);font:700 12px/1 inherit}
+.qs{margin:4px 0 0;padding-left:0;list-style:none}.qs li{background:var(--surface2,var(--surface));border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:6px 0}

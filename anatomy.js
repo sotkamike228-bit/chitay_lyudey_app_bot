@@ -12,6 +12,21 @@ const ent = () => read(KEYS.ent, {});
 const atlas = () => read(KEYS.atlas, { opened: [], trained: {} });
 function saveAtlas(a) { write(KEYS.atlas, a); }
 
+const REL_N = { high: 3, medium: 2, disputed: 1, low: 1 };
+function relBar(rel) {
+  const r = REL_N[rel] != null ? rel : 'disputed';
+  return h('div', { class: 'relbar ' + r }, h('span', { class: 'seg3', 'aria-hidden': 'true' }, ...[0, 1, 2].map((i) => h('i', { class: i < REL_N[r] ? 'on' : '' }))),
+    h('span', { class: 'lbl' }, tp.rel[r]));
+}
+/** Слой зоны: строка, список или список вопросов (check). */
+function layerNode(o, cls) {
+  if (!o) return '';
+  const v = o[lang] || o.en || o.ru;
+  if (Array.isArray(v)) return h('ul', { class: cls || '' }, ...v.map((x) => h('li', {}, x)));
+  return h('p', {}, v || '');
+}
+const secBlock = (n, title, node) => (node ? h('div', { class: 'sec' }, h('h3', {}, h('span', { class: 'n', 'aria-hidden': 'true' }, String(n)), title), node) : '');
+
 export function totalZones(pro) { return pro.anatomy.sections.reduce((n, s) => n + s.hotspots.length, 0); }
 
 export async function openAnatomy() {
@@ -107,7 +122,7 @@ function renderSheet(id) {
   const unlocked = hotspotUnlocked(hs0, ent(), CFG);
   const head = h('div', { class: 'sheet-head' },
     h('div', {}, h('h2', {}, L(hs.label)),
-      h('p', { class: 'rel ' + hs.reliability }, h('span', { 'aria-hidden': 'true' }, tp.relIcon[hs.reliability] + ' '), tp.rel[hs.reliability]),
+      relBar(hs.reliability), h('p', { class: 'sub muted relnote' }, tp.relDesc[hs.reliability] || ''),
       hs.myth ? h('span', { class: 'tag jump' }, L(an.ui.mythBadge)) : ''),
     h('button', { class: 'x', type: 'button', 'aria-label': tp.close, onclick: () => { A.sel = null; screen(); } }, '×'));
   const body = h('div', { class: 'sheet-body' });
@@ -117,14 +132,10 @@ function renderSheet(id) {
   } else if (!full) {
     body.append(...pendingState(id));
   } else {
-    const tabs = h('div', { class: 'chips small', role: 'tablist' }, ...an.ui.layersToggle.map((k) =>
-      h('button', { class: 'chip' + (k === A.layer ? ' on' : ''), role: 'tab', 'aria-selected': String(k === A.layer), type: 'button',
-        onclick: () => { A.layer = k; renderSheet(id); } }, tp.layers[k])));
-    const lay = hs.layers[A.layer];
-    const content = Array.isArray(lay[lang] || lay.ru)
-      ? h('ul', {}, ...LA(lay).map((x) => h('li', {}, x)))
-      : h('p', {}, L(lay));
-    body.append(tabs, h('div', { class: 'layer' }, content));
+    const L_ = hs.layers;
+    body.append(secBlock(1, tp.sec.seen, layerNode(L_.seen)), secBlock(2, tp.sec.physiology, layerNode(L_.physiology)),
+      secBlock(3, tp.sec.check, layerNode(L_.check, 'qs')),
+      h('details', { class: 'src' }, h('summary', {}, tp.sec.limits), layerNode(L_.notProven), h('h3', {}, tp.layers.alt), layerNode(L_.alt)));
     if (hs.research) body.append(h('details', { class: 'src' }, h('summary', {}, tp.source), h('p', { class: 'sub muted' }, L(hs.research))));
     body.append(trainerBlock(full));
     body.append(h('p', { class: 'sub muted' }, L(data.pro.meta.caption)));

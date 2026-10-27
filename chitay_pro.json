@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "createdAt": "2026-10-27",
-    "status": "seed: structure + sample entries; needs expert review before release",
+    "status": "anatomy v2: 4 hubs, 18 zones, physiology + checks; needs expert review before release",
     "caption": {
       "ru": "Один сигнал ничего не доказывает. Сравните с обычным поведением человека и уточните словами.",
       "en": "One cue proves nothing. Compare with the person's usual behaviour and check in words."
@@ -54,24 +54,22 @@
       "en": "Anatomy of nonverbal cues"
     },
     "intro": {
-      "ru": "Нажмите на часть схемы: что видно, что НЕ доказано, какие бывают другие причины и как проверить словами.",
-      "en": "Tap a part of the diagram: what is visible, what is NOT proven, what else could explain it and how to check in words."
+      "ru": "Нажмите на метку: что видно глазом, что происходит при напряжении, чем перепроверить. Шкала показывает, насколько надёжен признак.",
+      "en": "Tap a marker: what is visible, what happens under tension, how to double-check. The scale shows how reliable the cue is."
     },
     "figure": {
       "style": "stylized-no-real-faces",
       "variants": [
-        "neutral",
-        "female",
-        "male"
+        "neutral"
       ],
-      "note": "Единый SVG-стиль, слой подписей отдельно для RU/EN"
+      "note": "Единый линейный SVG-стиль: лицо, рот, корпус и кисти; подписи отдельно для RU/EN"
     },
     "sections": [
       {
         "id": "eyes",
         "title": {
-          "ru": "Взгляд",
-          "en": "Gaze"
+          "ru": "Лицо и взгляд",
+          "en": "Face and gaze"
         },
         "figureView": "face",
         "freeHotspots": [
@@ -119,8 +117,20 @@
                 ]
               },
               "check": {
-                "ru": "«Мне показалось, вы задумались. Хотите вернуться к этому вопросу позже?»",
-                "en": "'You seemed to be thinking. Would you like to come back to this later?'"
+                "ru": [
+                  "«Мне показалось, вы задумались. Хотите вернуться к этому вопросу позже?»",
+                  "«Давайте вернёмся к этому, когда вам будет удобно.»",
+                  "«Расскажите, как вы это запомнили?»"
+                ],
+                "en": [
+                  "'You seemed to be thinking. Would you like to come back to this later?'",
+                  "'Let us come back to this when it suits you.'",
+                  "'How do you remember it?'"
+                ]
+              },
+              "physiology": {
+                "ru": "Взгляд уходит, когда мозгу нужны ресурсы: вспоминание и подбор слов занимают внимание, а зрительный контакт его отвлекает. Тот же эффект даёт стеснение.",
+                "en": "Gaze drifts when the brain needs resources: recalling and choosing words takes attention and eye contact competes for it. Shyness has the same effect."
               }
             },
             "research": {
@@ -163,16 +173,62 @@
               "x": 88,
               "y": 42
             }
+          },
+          {
+            "id": "eyes-blink",
+            "signalId": null,
+            "needsSource": true,
+            "label": {
+              "ru": "Моргание изменилось",
+              "en": "Blinking changed"
+            },
+            "region": {
+              "shape": "ellipse",
+              "cx": 50,
+              "cy": 42,
+              "rx": 20,
+              "ry": 6
+            },
+            "reliability": "low",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 12,
+              "y": 20
+            }
+          },
+          {
+            "id": "brow-tension",
+            "signalId": null,
+            "needsSource": true,
+            "label": {
+              "ru": "Напряжение бровей и век",
+              "en": "Tension in brows and lids"
+            },
+            "region": {
+              "shape": "ellipse",
+              "cx": 50,
+              "cy": 33,
+              "rx": 22,
+              "ry": 4
+            },
+            "reliability": "medium",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 88,
+              "y": 20
+            }
           }
         ]
       },
       {
         "id": "lips",
         "title": {
-          "ru": "Губы и мимика",
-          "en": "Lips and expression"
+          "ru": "Рот и челюсть",
+          "en": "Mouth and jaw"
         },
-        "figureView": "face",
+        "figureView": "mouth",
         "freeHotspots": [],
         "hotspots": [
           {
@@ -185,16 +241,16 @@
             "region": {
               "shape": "ellipse",
               "cx": 50,
-              "cy": 65,
-              "rx": 13,
-              "ry": 5
+              "cy": 50,
+              "rx": 20,
+              "ry": 6
             },
             "reliability": "disputed",
             "myth": true,
             "tier": "pro",
             "pin": {
               "x": 12,
-              "y": 66
+              "y": 30
             }
           },
           {
@@ -207,16 +263,16 @@
             "region": {
               "shape": "ellipse",
               "cx": 50,
-              "cy": 65,
-              "rx": 8,
-              "ry": 3
+              "cy": 50,
+              "rx": 12,
+              "ry": 3.5
             },
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 50,
-              "y": 94
+              "x": 88,
+              "y": 30
             }
           },
           {
@@ -228,17 +284,63 @@
             },
             "region": {
               "shape": "ellipse",
-              "cx": 59,
-              "cy": 65,
-              "rx": 4,
-              "ry": 3.5
+              "cx": 62,
+              "cy": 50,
+              "rx": 5,
+              "ry": 4
             },
             "reliability": "medium",
             "myth": false,
             "tier": "pro",
             "pin": {
               "x": 88,
+              "y": 54
+            }
+          },
+          {
+            "id": "jaw-clench",
+            "signalId": null,
+            "needsSource": true,
+            "label": {
+              "ru": "Сжатая челюсть",
+              "en": "Clenched jaw"
+            },
+            "region": {
+              "shape": "ellipse",
+              "cx": 28,
+              "cy": 62,
+              "rx": 9,
+              "ry": 11
+            },
+            "reliability": "medium",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 12,
               "y": 66
+            }
+          },
+          {
+            "id": "mouth-swallow",
+            "signalId": null,
+            "needsSource": true,
+            "label": {
+              "ru": "Сглатывание перед ответом",
+              "en": "Swallowing before answering"
+            },
+            "region": {
+              "shape": "ellipse",
+              "cx": 50,
+              "cy": 86,
+              "rx": 9,
+              "ry": 7
+            },
+            "reliability": "low",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 88,
+              "y": 80
             }
           }
         ]
@@ -246,12 +348,35 @@
       {
         "id": "posture",
         "title": {
-          "ru": "Закрытые позы",
-          "en": "Closed postures"
+          "ru": "Плечи и корпус",
+          "en": "Shoulders and torso"
         },
         "figureView": "body",
         "freeHotspots": [],
         "hotspots": [
+          {
+            "id": "shoulders-raise",
+            "signalId": null,
+            "needsSource": true,
+            "label": {
+              "ru": "Плечи подняты к ушам",
+              "en": "Shoulders raised toward the ears"
+            },
+            "region": {
+              "shape": "ellipse",
+              "cx": 50,
+              "cy": 30,
+              "rx": 24,
+              "ry": 6
+            },
+            "reliability": "medium",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 88,
+              "y": 22
+            }
+          },
           {
             "id": "posture-arms",
             "signalId": "HAND-001",
@@ -317,16 +442,37 @@
               "x": 88,
               "y": 88
             }
+          },
+          {
+            "id": "adaptors-face",
+            "signalId": "FACE-007",
+            "label": {
+              "ru": "Касается лица, носа, шеи",
+              "en": "Touches face, nose, neck"
+            },
+            "region": {
+              "shape": "circle",
+              "cx": 59,
+              "cy": 17,
+              "r": 6
+            },
+            "reliability": "disputed",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 12,
+              "y": 10
+            }
           }
         ]
       },
       {
         "id": "adaptors",
         "title": {
-          "ru": "Жесты-адаптеры",
-          "en": "Adaptor gestures"
+          "ru": "Кисти и жесты",
+          "en": "Hands and gestures"
         },
-        "figureView": "body",
+        "figureView": "hands",
         "freeHotspots": [],
         "hotspots": [
           {
@@ -351,27 +497,6 @@
             }
           },
           {
-            "id": "adaptors-face",
-            "signalId": "FACE-007",
-            "label": {
-              "ru": "Касается лица, носа, шеи",
-              "en": "Touches face, nose, neck"
-            },
-            "region": {
-              "shape": "circle",
-              "cx": 59,
-              "cy": 17,
-              "r": 6
-            },
-            "reliability": "disputed",
-            "myth": false,
-            "tier": "pro",
-            "pin": {
-              "x": 88,
-              "y": 16
-            }
-          },
-          {
             "id": "adaptors-still",
             "signalId": "HAND-003",
             "label": {
@@ -391,6 +516,29 @@
               "x": 90,
               "y": 66
             }
+          },
+          {
+            "id": "hands-hidden",
+            "signalId": null,
+            "needsSource": true,
+            "label": {
+              "ru": "Прячет ладони",
+              "en": "Hides the palms"
+            },
+            "region": {
+              "shape": "ellipse",
+              "cx": 50,
+              "cy": 84,
+              "rx": 22,
+              "ry": 7
+            },
+            "reliability": "disputed",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 50,
+              "y": 95
+            }
           }
         ]
       }
@@ -398,9 +546,10 @@
     "ui": {
       "layersToggle": [
         "seen",
+        "physiology",
+        "check",
         "notProven",
-        "alt",
-        "check"
+        "alt"
       ],
       "mythBadge": {
         "ru": "Миф или не доказано",

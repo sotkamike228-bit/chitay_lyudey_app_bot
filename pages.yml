@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node --test tests/engine.test.mjs
+      - run: node --test tests/*.mjs
   deploy:
     needs: test
     runs-on: ubuntu-latest
@@ -31,7 +31,8 @@ jobs:
       - name: Собрать публичную папку (без тестов и служебных файлов)
         run: |
           mkdir _site
-          cp index.html style.css app.js engine.js config.js help.js ui-text.js chitay_quiz.json .nojekyll _site/
+          cp index.html style.css app.js access.js anatomy.js billing.js calib.js config.js ctx.js engine.js figures.js help-view.js help.js hypo-view.js hypo.js paywall.js pricing.js proapi.js quiz.js services.js sheets.js store.js ui-pro-text.js ui-text.js chitay_pro.json chitay_calib.json chitay_hypo.json chitay_quiz.json .nojekyll _site/
+          # платный контент (chitay_server/content/pro_content.json) и chitay_pro_full.json сюда не попадают
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
