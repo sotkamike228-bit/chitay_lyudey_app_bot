@@ -6,6 +6,7 @@ import { openAnatomy, totalZones } from './anatomy.js';
 import { openPaywall } from './paywall.js';
 import { openSheets } from './sheets.js';
 import { openHelp } from './help-view.js';
+import { refreshEntitlements } from './services.js';
 
 // ---------- возраст ----------
 function screenAge() {
@@ -65,6 +66,7 @@ applyTheme();
 if (tg) { try { tg.ready(); tg.expand(); tg.onEvent && tg.onEvent('themeChanged', applyTheme); } catch { /* нет */ } }
 
 nav.setHome(() => (state.age16 ? screenHome() : screenAge()));
+const withTimeout = (p, ms) => Promise.race([p, new Promise((r) => setTimeout(r, ms))]);
 loadJson('chitay_quiz.json')
-  .then((q) => { data.quiz = q; nav.reset(); })
+  .then(async (q) => { data.quiz = q; await withTimeout(refreshEntitlements(), 2500); nav.reset(); })
   .catch(() => render(h('div', { class: 'card' }, t.loadError)));

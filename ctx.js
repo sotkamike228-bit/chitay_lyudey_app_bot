@@ -9,7 +9,8 @@ const tgLang = tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataU
 export const lang = ((tgLang || navigator.language || 'ru').toLowerCase().startsWith('ru')) ? 'ru' : 'en';
 export const t = T[lang];
 export const tp = TP[lang];
-export const CFG = CONFIG;
+// Если сервер подключён (apiBase), бета-режим отключается: права решает сервер, а не флаг.
+export const CFG = { ...CONFIG, proPreview: !!CONFIG.proPreview && !CONFIG.apiBase };
 export const root = document.getElementById('app');
 export const L = (o) => (o && (o[lang] || o.en || o.ru)) || '';
 export const LA = (o) => (o && (o[lang] || o.en || o.ru)) || [];

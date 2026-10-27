@@ -5,6 +5,7 @@ import { hasAccess } from './access.js';
 import { openPaywall } from './paywall.js';
 import { openCalibration } from './quiz.js';
 import { openHelp } from './help-view.js';
+import { proLoader, refreshEntitlements } from './services.js';
 
 const S = tp.sheets;
 const ent = () => read(KEYS.ent, {});
@@ -17,6 +18,20 @@ function lockedNote(feature) {
   return h('div', { class: 'card pro-card' }, h('span', { class: 'badge pro' }, tp.badges.pro), h('p', {}, S.lockedText),
     h('button', { class: 'btn', onclick: () => openPaywall(feature) }, tp.paywallTitle));
 }
+/** Показывает «Загружаем…», подгружает платную часть раздела и строит экран. Сервер проверяет право сам. */
+function loadError(e, retry, feature) {
+  const code = (e && e.code) || 'network';
+  if (code === 'locked') { refreshEntitlements(); return lockedNote(feature); }
+  return h('div', { class: 'card' }, h('p', {}, tp.load[code] || tp.load.network),
+    code === 'network' || code === 'unavailable' ? h('button', { class: 'btn', onclick: retry }, tp.load.retry) : '');
+}
+async function withContent(section, feature, title, build) {
+  render(topbar(title), h('p', { class: 'muted' }, tp.load.loading));
+  const here = () => document.querySelector('.topbar-title')?.textContent === title;
+  try { const c = await proLoader.load(section); if (here()) build(c); }
+  catch (e) { if (here()) render(topbar(title), loadError(e, () => withContent(section, feature, title, build), feature)); }
+}
+
 const acc = (title, ...kids) => h('details', { class: 'acc' }, h('summary', {}, title), h('div', { class: 'acc-body' }, ...kids));
 
 async function ensure() {
@@ -47,6 +62,10 @@ function openDating() {
     return;
   }
   if (!hasAccess('cheatsheets', ent(), CFG)) { render(topbar(S.dating), lockedNote('cheatsheets')); return; }
+  withContent('dating', 'cheatsheets', S.dating, (c) => renderDating({ ...d, ...c }));
+}
+
+function renderDating(d) {
   const iv = d.interestVsDistance;
   const col = (title, items) => h('div', { class: 'col' }, h('h3', {}, title), list(items.map((x) => L(x.text))));
   render(topbar(S.dating),
@@ -60,27 +79,39 @@ function openDating() {
 function openNegotiation() {
   const n = sec('negotiation');
   if (!hasAccess('cheatsheets', ent(), CFG)) { render(topbar(S.negotiation), lockedNote('cheatsheets')); return; }
+  withContent('negotiation', 'cheatsheets', S.negotiation, (c) => renderNegotiation({ ...n, ...c }));
+}
+
+function renderNegotiation(n) {
   render(topbar(S.negotiation), h('div', { class: 'card banner' }, L(n.guardrail)),
     ...n.cards.map((c) => acc(L(c.title),
       block(S.seen, lst(c.seen)), block(S.meaning, para(c.meaning)), block(S.alt, lst(c.alt)), block(S.doThis, lst(c.doThis || c.steps)),
       block(S.never, lst(c.neverSay)), block(S.say, lst(c.saySomething)))),
-    h('div', { class: 'card' }, h('p', { class: 'hook' }, S.calibCta), para(n.confidenceCalibration.pitch),
+    h('div', { class: 'card' }, h('p', { class: 'hook' }, S.calibCta), h('p', {}, tp.calibPitch),
       h('button', { class: 'btn', onclick: () => nav.go(openCalibration) }, S.calibGo)));
 }
 
 function openProtection() {
   const p = sec('protection');
   const proOk = hasAccess('protection', ent(), CFG);
-  const nodes = [topbar(S.protection),
+  const part = h('div', {});
+  const loadPart = async () => {
+    part.replaceChildren(h('p', { class: 'muted' }, tp.load.loading));
+    try {
+      const c = await proLoader.load('protection');
+      const full = { ...p, ...c };
+      part.replaceChildren(...full.patterns.map((x) => acc(L(x.title),
+        block(S.seen, para(x.seen)), block(S.why, para(x.whyItWorks)), h('p', { class: 'sub muted' }, L(x.reliabilityNote)),
+        block(S.doThis, lst(x.response)), block(S.sayThis, lst(x.sayThis)), block(S.escalate, para(x.escalate))),
+      ), h('h2', {}, L(full.nlpClaims.title)), h('p', { class: 'muted sub' }, L(full.nlpClaims.rule)),
+      ...full.nlpClaims.items.map((cl) => acc(L(cl.claim),
+        h('p', {}, h('span', { class: 'tag ' + (cl.status === 'notConfirmed' ? 'jump' : 'weak') }, S.nlpStatus[cl.status] || cl.status)),
+        block(S.evidence, para(cl.evidence)), block(S.doThis, para(cl.whatToDo)))));
+    } catch (e) { part.replaceChildren(loadError(e, loadPart, 'protection')); }
+  };
+  render(topbar(S.protection),
     h('div', { class: 'card' }, h('span', { class: 'badge free' }, S.freeBadge), h('h2', {}, L(p.freeCore.title)), para(p.freeCore.text),
-      h('p', { class: 'sub' }, S.helpCta), h('button', { class: 'btn secondary', onclick: () => openHelp() }, S.helpBtn))];
-  if (!proOk) { nodes.push(lockedNote('protection')); render(...nodes); return; }
-  nodes.push(...p.patterns.map((x) => acc(L(x.title),
-    block(S.seen, para(x.seen)), block(S.why, para(x.whyItWorks)), h('p', { class: 'sub muted' }, L(x.reliabilityNote)),
-    block(S.doThis, lst(x.response)), block(S.sayThis, lst(x.sayThis)), block(S.escalate, para(x.escalate)))));
-  nodes.push(h('h2', {}, L(p.nlpClaims.title)), h('p', { class: 'muted sub' }, L(p.nlpClaims.rule)),
-    ...p.nlpClaims.items.map((c) => acc(L(c.claim),
-      h('p', {}, h('span', { class: 'tag ' + (c.status === 'notConfirmed' ? 'jump' : 'weak') }, S.nlpStatus[c.status] || c.status)),
-      block(S.evidence, para(c.evidence)), block(S.doThis, para(c.whatToDo)))));
-  render(...nodes);
+      h('p', { class: 'sub' }, S.helpCta), h('button', { class: 'btn secondary', onclick: () => openHelp() }, S.helpBtn)),
+    part);
+  if (proOk) loadPart(); else part.replaceChildren(lockedNote('protection'));
 }

@@ -5,8 +5,9 @@ import { hotspotUnlocked, hasAccess } from './access.js';
 import { figureSvg, overlaySvg } from './figures.js';
 import { shuffle } from './engine.js';
 import { openPaywall } from './paywall.js';
+import { proLoader, refreshEntitlements } from './services.js';
 
-const A = { sec: 0, sel: null, layer: 'seen' };
+const A = { sec: 0, sel: null, layer: 'seen', content: null, err: null };
 const ent = () => read(KEYS.ent, {});
 const atlas = () => read(KEYS.atlas, { opened: [], trained: {} });
 function saveAtlas(a) { write(KEYS.atlas, a); }
@@ -18,8 +19,36 @@ export async function openAnatomy() {
     try { data.pro = await loadJson('chitay_pro.json'); }
     catch { render(topbar(tp.anatomyTitle), h('div', { class: 'card' }, t.loadError)); return; }
   }
-  A.sel = null; A.layer = 'seen';
+  A.sel = null; A.layer = 'seen'; A.err = null;
   screen();
+  prefetch();
+}
+
+/** Тихая предзагрузка платных слоёв, если право есть: первое открытие зоны тогда мгновенное. */
+function prefetch() {
+  if (A.content || !hasAccess('anatomy', ent(), CFG)) return;
+  proLoader.load('anatomy').then((c) => { A.content = c; }).catch(() => {});
+}
+
+function markOpened(id) {
+  const a = atlas();
+  if (!a.opened.includes(id)) { a.opened.push(id); saveAtlas(a); }
+}
+
+/** Полные данные зоны: бесплатная целиком в открытом файле, платная = каркас + слои с сервера. */
+function fullOf(hs) {
+  if (hs.tier === 'free') return hs;
+  const part = A.content && A.content.hotspots && A.content.hotspots[hs.id];
+  return part ? { ...hs, ...part } : null;
+}
+
+async function loadFor(id) {
+  try {
+    const c = await proLoader.load('anatomy');
+    if (!c.hotspots || !c.hotspots[id]) throw Object.assign(new Error('missing'), { code: 'unavailable' });
+    A.content = c; A.err = null; markOpened(id);
+  } catch (e) { A.err = e.code || 'network'; if (A.err === 'locked') refreshEntitlements(); }
+  if (A.sel === id) screen();
 }
 
 function allHotspots() { return data.pro.anatomy.sections.flatMap((s) => s.hotspots); }
@@ -57,22 +86,25 @@ function screen() {
 }
 
 function select(id) {
-  A.sel = id; A.layer = 'seen'; haptic('light');
+  A.sel = id; A.layer = 'seen'; A.err = null; haptic('light');
   const hs = find(id);
+  let needLoad = false;
   if (hotspotUnlocked(hs, ent(), CFG)) {
-    const a = atlas();
-    if (!a.opened.includes(id)) { a.opened.push(id); saveAtlas(a); }
+    if (fullOf(hs)) markOpened(id); else needLoad = true;
   }
   screen();
   const st = document.querySelector('.stage');
   if (st) st.scrollIntoView({ block: 'start' });
+  if (needLoad) loadFor(id);
 }
 
 function renderSheet(id) {
   closeSheet();
-  const hs = find(id);
+  const hs0 = find(id);
+  const hs = fullOf(hs0) || hs0;
+  const full = fullOf(hs0);
   const an = data.pro.anatomy;
-  const unlocked = hotspotUnlocked(hs, ent(), CFG);
+  const unlocked = hotspotUnlocked(hs0, ent(), CFG);
   const head = h('div', { class: 'sheet-head' },
     h('div', {}, h('h2', {}, L(hs.label)),
       h('p', { class: 'rel ' + hs.reliability }, h('span', { 'aria-hidden': 'true' }, tp.relIcon[hs.reliability] + ' '), tp.rel[hs.reliability]),
@@ -82,6 +114,8 @@ function renderSheet(id) {
   if (!unlocked) {
     body.append(h('p', { class: 'hook' }, tp.locked), h('p', {}, tp.lockedText),
       h('button', { class: 'btn', type: 'button', onclick: () => { A.sel = null; openPaywall('anatomy'); } }, tp.paywallTitle));
+  } else if (!full) {
+    body.append(...pendingState(id));
   } else {
     const tabs = h('div', { class: 'chips small', role: 'tablist' }, ...an.ui.layersToggle.map((k) =>
       h('button', { class: 'chip' + (k === A.layer ? ' on' : ''), role: 'tab', 'aria-selected': String(k === A.layer), type: 'button',
@@ -92,12 +126,25 @@ function renderSheet(id) {
       : h('p', {}, L(lay));
     body.append(tabs, h('div', { class: 'layer' }, content));
     if (hs.research) body.append(h('details', { class: 'src' }, h('summary', {}, tp.source), h('p', { class: 'sub muted' }, L(hs.research))));
-    body.append(trainerBlock(hs));
+    body.append(trainerBlock(full));
     body.append(h('p', { class: 'sub muted' }, L(data.pro.meta.caption)));
   }
   const host = h('div', { class: 'sheet-host' }, h('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'false', 'aria-label': L(hs.label) }, head, body));
   document.body.append(host);
   document.body.classList.add('sheet-open');
+}
+
+/** Состояние платной зоны, пока слои не пришли: загрузка, ошибка или «нужен доступ». */
+function pendingState(id) {
+  const e = A.err;
+  if (!e) return [h('p', { class: 'muted' }, tp.load.loading)];
+  if (e === 'locked') return [h('p', { class: 'hook' }, tp.locked), h('p', {}, tp.load.locked),
+    h('button', { class: 'btn', type: 'button', onclick: () => { A.sel = null; openPaywall('anatomy'); } }, tp.paywallTitle)];
+  const out = [h('p', {}, tp.load[e] || tp.load.network)];
+  if (e === 'network' || e === 'unavailable') {
+    out.push(h('button', { class: 'btn', type: 'button', onclick: () => { A.err = null; screen(); loadFor(id); } }, tp.load.retry));
+  }
+  return out;
 }
 
 function trainerBlock(hs) {

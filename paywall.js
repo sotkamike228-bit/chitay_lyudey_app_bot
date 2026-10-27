@@ -2,9 +2,7 @@ import { h, tp, tg, CFG, render, nav, topbar, toast } from './ctx.js';
 import { read, write, KEYS } from './store.js';
 import { ownedProducts } from './access.js';
 import { PRODUCTS, perMonth } from './pricing.js';
-import { createBilling } from './billing.js';
-
-const billing = createBilling({ apiBase: CFG.apiBase, tg });
+import { billing, proLoader } from './services.js';
 
 /** Экран тарифов. Пока сервера нет (apiBase пуст), тап по тарифу ничего не списывает. */
 export function openPaywall() {
@@ -25,7 +23,7 @@ function screen() {
         if (busy) return; busy = true; btns.forEach((b) => { b.disabled = true; });
         const r = await billing.checkout(p.id, (st) => say(st === 'stub' ? P.stubTap(L.name) : P.states[st]));
         if (r.state === 'done') {
-          write(KEYS.ent, { products: r.ent.products || [], exp: r.ent.exp || {} }); toast(P.states.done); screen(); return;
+          write(KEYS.ent, { products: r.ent.products || [], exp: r.ent.exp || {} }); proLoader.clear(); toast(P.states.done); screen(); return;
         }
         busy = false; btns.forEach((b, i) => { b.disabled = owned.includes(PRODUCTS[i].id); });
       } }, has ? P.ownedBadge : L.btn);

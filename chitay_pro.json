@@ -159,47 +159,9 @@
             "reliability": "disputed",
             "myth": true,
             "tier": "pro",
-            "layers": {
-              "seen": {
-                "ru": "Глаза уходят вверх и в сторону во время ответа.",
-                "en": "The eyes move up and to the side during an answer."
-              },
-              "notProven": {
-                "ru": "Утверждение НЛП «вверх-вправо = ложь» не подтвердилось в трёх исследованиях (Wiseman и др., 2012).",
-                "en": "The NLP claim 'up-right = lying' was not confirmed in three studies (Wiseman et al., 2012)."
-              },
-              "alt": {
-                "ru": [
-                  "Человек вспоминает",
-                  "Привычка"
-                ],
-                "en": [
-                  "The person is remembering",
-                  "A habit"
-                ]
-              },
-              "check": {
-                "ru": "«Расскажите, как это было?»",
-                "en": "'Can you tell me how it went?'"
-              }
-            },
-            "research": {
-              "ru": "Wiseman и др., 2012, PLoS ONE (три эксперимента, связи с ложью не найдено). Проверить первоисточник перед релизом.",
-              "en": "Wiseman et al., 2012, PLoS ONE (three experiments, no link to lying found). Verify the primary source before release."
-            },
             "pin": {
               "x": 88,
               "y": 42
-            },
-            "trainer": {
-              "hypothesis": {
-                "ru": "Человек, возможно, что-то вспоминает.",
-                "en": "The person may be remembering something."
-              },
-              "hasty": {
-                "ru": "Он выдумывает ответ.",
-                "en": "They are making up the answer."
-              }
             }
           }
         ]
@@ -230,49 +192,9 @@
             "reliability": "disputed",
             "myth": true,
             "tier": "pro",
-            "layers": {
-              "seen": {
-                "ru": "Очень короткая вспышка эмоции на лице (доли секунды).",
-                "en": "A very brief flash of emotion on the face (fractions of a second)."
-              },
-              "notProven": {
-                "ru": "Нельзя использовать как улику обмана. В единственном опубликованном эксперименте (Porter и ten Brinke, 2008) такие вспышки нашлись лишь в 14 фрагментах (около 2 %), и 6 из них у говорящих правду.",
-                "en": "Do not use as evidence of deceit. In the only published experiment (Porter and ten Brinke, 2008) such flashes were found in only 14 segments (about 2%), and 6 of them were in people telling the truth."
-              },
-              "alt": {
-                "ru": [
-                  "Реакция на сказанное или услышанное",
-                  "Усталость",
-                  "Эмоция, не связанная с темой разговора"
-                ],
-                "en": [
-                  "A reaction to what was said or heard",
-                  "Fatigue",
-                  "An emotion unrelated to the topic"
-                ]
-              },
-              "check": {
-                "ru": "«Что вы сейчас почувствовали?» (если уместно и без давления)",
-                "en": "'What did you just feel?' (only if appropriate and without pressure)"
-              }
-            },
-            "research": {
-              "ru": "research/01, раздел 4 (источник S3). Решение для продукта: не заявлять, что микровыражения выдают ложь.",
-              "en": "research/01, section 4 (source S3). Product decision: never claim microexpressions reveal lies."
-            },
             "pin": {
               "x": 12,
               "y": 66
-            },
-            "trainer": {
-              "hypothesis": {
-                "ru": "Возможна короткая эмоциональная реакция на услышанное.",
-                "en": "There may have been a brief emotional reaction to what was heard."
-              },
-              "hasty": {
-                "ru": "Эта эмоция выдала обман.",
-                "en": "That emotion gave away deceit."
-              }
             }
           },
           {
@@ -292,45 +214,9 @@
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
-            "layers": {
-              "seen": {
-                "ru": "Губы плотно сжаты или поджаты.",
-                "en": "Lips pressed tightly together."
-              },
-              "notProven": {
-                "ru": "Не доказывает ни скрытность, ни злость.",
-                "en": "Proves neither secrecy nor anger."
-              },
-              "alt": {
-                "ru": [
-                  "Сдерживает слова или эмоцию",
-                  "Концентрация",
-                  "Привычка"
-                ],
-                "en": [
-                  "Holding back words or emotion",
-                  "Concentration",
-                  "A habit"
-                ]
-              },
-              "check": {
-                "ru": "«Хотите что-то добавить?»",
-                "en": "'Would you like to add something?'"
-              }
-            },
             "pin": {
               "x": 50,
               "y": 94
-            },
-            "trainer": {
-              "hypothesis": {
-                "ru": "Человек, возможно, сдерживает слова или сосредоточен.",
-                "en": "The person may be holding back words or concentrating."
-              },
-              "hasty": {
-                "ru": "Он злится и скрывает это.",
-                "en": "They are angry and hiding it."
-              }
             }
           },
           {
@@ -350,45 +236,9 @@
             "reliability": "medium",
             "myth": false,
             "tier": "pro",
-            "layers": {
-              "seen": {
-                "ru": "Один уголок рта поднят.",
-                "en": "One corner of the mouth is raised."
-              },
-              "notProven": {
-                "ru": "Может означать сомнение, но и иронию или шутку.",
-                "en": "May mean doubt, but also irony or a joke."
-              },
-              "alt": {
-                "ru": [
-                  "Ирония",
-                  "Сомнение",
-                  "Дружеская шутка"
-                ],
-                "en": [
-                  "Irony",
-                  "Doubt",
-                  "A friendly joke"
-                ]
-              },
-              "check": {
-                "ru": "«Мне показалось, вы не согласны?»",
-                "en": "'It seemed you might disagree?'"
-              }
-            },
             "pin": {
               "x": 88,
               "y": 66
-            },
-            "trainer": {
-              "hypothesis": {
-                "ru": "Возможно, это ирония или сомнение.",
-                "en": "It may be irony or doubt."
-              },
-              "hasty": {
-                "ru": "Он презирает собеседника.",
-                "en": "They despise the other person."
-              }
             }
           }
         ]
@@ -419,47 +269,9 @@
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
-            "layers": {
-              "seen": {
-                "ru": "Руки сложены на груди.",
-                "en": "Arms folded across the chest."
-              },
-              "notProven": {
-                "ru": "Не доказывает несогласие или защиту: так сидят от холода, по привычке, из удобства.",
-                "en": "Does not prove disagreement or defensiveness: people sit like this from cold, habit or comfort."
-              },
-              "alt": {
-                "ru": [
-                  "Холод",
-                  "Удобство",
-                  "Привычка",
-                  "Сомнение"
-                ],
-                "en": [
-                  "Cold",
-                  "Comfort",
-                  "Habit",
-                  "Doubt"
-                ]
-              },
-              "check": {
-                "ru": "«Всё ли понятно? Что бы вы изменили?»",
-                "en": "'Is everything clear? What would you change?'"
-              }
-            },
             "pin": {
               "x": 88,
               "y": 44
-            },
-            "trainer": {
-              "hypothesis": {
-                "ru": "Возможно, человеку холодно, удобно так сидеть или он сомневается.",
-                "en": "The person may be cold, comfortable, or doubtful."
-              },
-              "hasty": {
-                "ru": "Он закрыт и не согласен.",
-                "en": "They are closed off and disagree."
-              }
             }
           },
           {
@@ -479,45 +291,9 @@
             "reliability": "medium",
             "myth": false,
             "tier": "pro",
-            "layers": {
-              "seen": {
-                "ru": "Человек откидывается на спинку стула или отклоняется назад.",
-                "en": "The person leans back in the chair or away."
-              },
-              "notProven": {
-                "ru": "Может быть дистанцией после неудобного пункта, но и просто сменой позы.",
-                "en": "May be distance after an awkward point, or just a change of posture."
-              },
-              "alt": {
-                "ru": [
-                  "Сомнение",
-                  "Усталость",
-                  "Смена позы"
-                ],
-                "en": [
-                  "Doubt",
-                  "Fatigue",
-                  "A change of posture"
-                ]
-              },
-              "check": {
-                "ru": "«Что в этом пункте вызывает сомнения?»",
-                "en": "'What about this point gives you doubts?'"
-              }
-            },
             "pin": {
               "x": 12,
               "y": 30
-            },
-            "trainer": {
-              "hypothesis": {
-                "ru": "Возможно, это дистанция после неудобного пункта или просто смена позы.",
-                "en": "It may be distance after an awkward point, or just a change of posture."
-              },
-              "hasty": {
-                "ru": "Предложение ему неинтересно.",
-                "en": "The offer does not interest them."
-              }
             }
           },
           {
@@ -537,45 +313,9 @@
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
-            "layers": {
-              "seen": {
-                "ru": "Стопы или корпус развёрнуты к двери.",
-                "en": "Feet or torso turned toward the door."
-              },
-              "notProven": {
-                "ru": "Не доказывает желание уйти.",
-                "en": "Does not prove a wish to leave."
-              },
-              "alt": {
-                "ru": [
-                  "Ждёт звонка или человека",
-                  "Так удобнее сидеть",
-                  "Хочет закончить"
-                ],
-                "en": [
-                  "Waiting for a call or a person",
-                  "It is more comfortable",
-                  "Wants to wrap up"
-                ]
-              },
-              "check": {
-                "ru": "«У нас есть ещё время, или вам пора?»",
-                "en": "'Do we have more time, or do you need to go?'"
-              }
-            },
             "pin": {
               "x": 88,
               "y": 88
-            },
-            "trainer": {
-              "hypothesis": {
-                "ru": "Возможно, человеку нужно уйти или он ждёт звонка.",
-                "en": "The person may need to leave or be waiting for a call."
-              },
-              "hasty": {
-                "ru": "Он хочет сбежать от разговора.",
-                "en": "They want to escape the conversation."
-              }
             }
           }
         ]
@@ -605,47 +345,9 @@
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
-            "layers": {
-              "seen": {
-                "ru": "Человек вертит ручку, кольцо или другой предмет.",
-                "en": "The person twirls a pen, a ring or another object."
-              },
-              "notProven": {
-                "ru": "Адаптеры показывают, что человек чем-то занят руками: напряжение, скука, привычка. Они ничего не говорят об обмане.",
-                "en": "Adaptors show the hands are busy: tension, boredom, habit. They do not show lying."
-              },
-              "alt": {
-                "ru": [
-                  "Волнение",
-                  "Скука",
-                  "Привычка",
-                  "Ожидание"
-                ],
-                "en": [
-                  "Nervousness",
-                  "Boredom",
-                  "Habit",
-                  "Waiting"
-                ]
-              },
-              "check": {
-                "ru": "«Хотите сделать паузу?»",
-                "en": "'Would you like a break?'"
-              }
-            },
             "pin": {
               "x": 10,
               "y": 66
-            },
-            "trainer": {
-              "hypothesis": {
-                "ru": "Возможно, человек волнуется, скучает или это привычка.",
-                "en": "The person may be nervous, bored, or it is a habit."
-              },
-              "hasty": {
-                "ru": "Он нервничает, значит что-то скрывает.",
-                "en": "They are nervous, so they are hiding something."
-              }
             }
           },
           {
@@ -664,45 +366,9 @@
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
-            "layers": {
-              "seen": {
-                "ru": "Рука поднимается к лицу, носу или шее.",
-                "en": "A hand moves to the face, nose or neck."
-              },
-              "notProven": {
-                "ru": "Расхожее мнение «касание носа выдаёт обман» не доказано.",
-                "en": "The popular belief that touching the nose gives away deceit is not proven."
-              },
-              "alt": {
-                "ru": [
-                  "Зуд или привычка",
-                  "Волнение",
-                  "Задумчивость"
-                ],
-                "en": [
-                  "An itch or habit",
-                  "Nervousness",
-                  "Thinking"
-                ]
-              },
-              "check": {
-                "ru": "«Всё в порядке?»",
-                "en": "'Is everything okay?'"
-              }
-            },
             "pin": {
               "x": 88,
               "y": 16
-            },
-            "trainer": {
-              "hypothesis": {
-                "ru": "Возможно, это зуд, привычка или задумчивость.",
-                "en": "It may be an itch, a habit or thinking."
-              },
-              "hasty": {
-                "ru": "Касание носа выдаёт обман.",
-                "en": "Touching the nose gives away deceit."
-              }
             }
           },
           {
@@ -721,45 +387,9 @@
             "reliability": "medium",
             "myth": false,
             "tier": "pro",
-            "layers": {
-              "seen": {
-                "ru": "Человек, который жестикулировал, почти перестал двигать руками.",
-                "en": "Someone who gestured freely almost stopped moving their hands."
-              },
-              "notProven": {
-                "ru": "Изменение от обычного поведения заметнее, чем сам жест. Причина неизвестна.",
-                "en": "A change from usual behaviour is more telling than the gesture itself. The cause is unknown."
-              },
-              "alt": {
-                "ru": [
-                  "Концентрация на ответе",
-                  "Волнение",
-                  "Усталость"
-                ],
-                "en": [
-                  "Concentrating on the answer",
-                  "Nervousness",
-                  "Fatigue"
-                ]
-              },
-              "check": {
-                "ru": "«Вы стали говорить спокойнее. Всё хорошо?»",
-                "en": "'You became quieter. Is everything fine?'"
-              }
-            },
             "pin": {
               "x": 90,
               "y": 66
-            },
-            "trainer": {
-              "hypothesis": {
-                "ru": "Возможно, человек сосредоточился на ответе или устал.",
-                "en": "The person may be concentrating on the answer or tired."
-              },
-              "hasty": {
-                "ru": "Он напрягся, потому что ему есть что скрывать.",
-                "en": "They tensed up because they have something to hide."
-              }
             }
           }
         ]
@@ -816,169 +446,6 @@
         "title": {
           "ru": "Свидания и отношения",
           "en": "Dating and relationships"
-        },
-        "interestVsDistance": {
-          "title": {
-            "ru": "Интерес или дистанция: что чаще замечают",
-            "en": "Interest or distance: what people often notice"
-          },
-          "rule": {
-            "ru": "Смотрите на 3 и больше признаков сразу и на изменение относительно обычного поведения. Это не тест человека и не способ узнать, нравитесь ли вы.",
-            "en": "Look at three or more cues at once and at change from usual behaviour. This is not a test of a person and not a way to learn whether they like you."
-          },
-          "moreOftenWithInterest": [
-            {
-              "signalId": "POST-001",
-              "text": {
-                "ru": "Наклон корпуса вперёд",
-                "en": "Leaning forward"
-              }
-            },
-            {
-              "signalId": "VOC-013",
-              "text": {
-                "ru": "Совместный смех",
-                "en": "Shared laughter"
-              }
-            },
-            {
-              "signalId": "HAND-002",
-              "text": {
-                "ru": "Оживлённая жестикуляция на конкретной теме",
-                "en": "Animated gesturing on a specific topic"
-              }
-            },
-            {
-              "signalId": "EYE-001",
-              "text": {
-                "ru": "Устойчивый взгляд (в вашей культуре и для этого человека)",
-                "en": "Steady gaze (in your culture and for this person)"
-              }
-            }
-          ],
-          "moreOftenWithDistance": [
-            {
-              "signalId": "EYE-006",
-              "text": {
-                "ru": "Повторные взгляды на телефон или часы",
-                "en": "Repeated glances at phone or watch"
-              }
-            },
-            {
-              "signalId": "POST-002",
-              "text": {
-                "ru": "Откидывается назад после темы",
-                "en": "Leans back after a topic"
-              }
-            },
-            {
-              "signalId": "DIST-002",
-              "text": {
-                "ru": "Отступает, когда вы приближаетесь",
-                "en": "Steps back when you come closer"
-              }
-            },
-            {
-              "signalId": "LEGS-001",
-              "text": {
-                "ru": "Корпус или стопы к выходу",
-                "en": "Torso or feet toward the exit"
-              }
-            }
-          ],
-          "reliability": "medium",
-          "alwaysAdd": {
-            "ru": "Интерес не равен согласию. Согласие даётся словами, добровольно и может быть отозвано. «Нет», «не сейчас» и молчание значат: остановитесь.",
-            "en": "Interest is not consent. Consent is given in words, freely, and can be withdrawn. 'No', 'not now' and silence mean: stop."
-          }
-        },
-        "checkQuestions": {
-          "title": {
-            "ru": "5 вопросов, которые проверяют догадку словами",
-            "en": "5 questions that check a guess in words"
-          },
-          "items": [
-            {
-              "id": "d1",
-              "text": {
-                "ru": "Тебе здесь комфортно или выберем другое место?",
-                "en": "Are you comfortable here, or shall we pick another place?"
-              },
-              "when": {
-                "ru": "Если заметили напряжение или частые взгляды по сторонам.",
-                "en": "If you noticed tension or frequent glances around."
-              },
-              "listenFor": {
-                "ru": "Слова о комфорте и готовность выбрать иное. Не толкуйте паузу как «да».",
-                "en": "Words about comfort and readiness for a change. Do not read a pause as 'yes'."
-              },
-              "tier": "pro"
-            },
-            {
-              "id": "d2",
-              "text": {
-                "ru": "О чём тебе интереснее всего говорить?",
-                "en": "What do you most enjoy talking about?"
-              },
-              "when": {
-                "ru": "Если человек оживился на одной теме.",
-                "en": "If the person lit up on one topic."
-              },
-              "listenFor": {
-                "ru": "Тема, которую человек выбирает сам.",
-                "en": "The topic the person picks themselves."
-              },
-              "tier": "pro"
-            },
-            {
-              "id": "d3",
-              "text": {
-                "ru": "Хочешь продолжить вечер или лучше закончить на сегодня?",
-                "en": "Do you want to continue the evening or end it for today?"
-              },
-              "when": {
-                "ru": "Если заметили усталость или дистанцию.",
-                "en": "If you noticed fatigue or distance."
-              },
-              "listenFor": {
-                "ru": "Прямой ответ. Любой вариант нормален, и «закончить» нужно принять без уговоров.",
-                "en": "A direct answer. Either is fine, and 'end it' must be accepted without persuasion."
-              },
-              "tier": "pro"
-            },
-            {
-              "id": "d4",
-              "text": {
-                "ru": "Тебе подходит такой темп: быстрее, медленнее или так же?",
-                "en": "Does this pace suit you: faster, slower or the same?"
-              },
-              "when": {
-                "ru": "Перед любым шагом ближе: слова, прикосновение, договорённости.",
-                "en": "Before any step closer: words, touch, plans."
-              },
-              "listenFor": {
-                "ru": "Слова о темпе. Если ответ уклончивый, замедлитесь.",
-                "en": "Words about pace. If the answer is vague, slow down."
-              },
-              "tier": "pro"
-            },
-            {
-              "id": "d5",
-              "text": {
-                "ru": "Что для тебя важно в таких знакомствах?",
-                "en": "What matters to you in getting to know someone?"
-              },
-              "when": {
-                "ru": "Когда нужно понять ожидания обеих сторон.",
-                "en": "When you need to understand both sides' expectations."
-              },
-              "listenFor": {
-                "ru": "Ожидания человека своими словами. Не додумывайте за него.",
-                "en": "The person's expectations in their own words. Do not fill in for them."
-              },
-              "tier": "pro"
-            }
-          ]
         }
       },
       {
@@ -993,172 +460,6 @@
         "guardrail": {
           "ru": "Используйте знания, чтобы лучше понимать и ясно объясняться, а не чтобы давить. Не оценивайте кандидатов и сотрудников по невербалике: это ненадёжно и ведёт к дискриминации.",
           "en": "Use this to understand others and explain yourself clearly, not to pressure people. Do not judge candidates or employees from nonverbal cues: it is unreliable and leads to discrimination."
-        },
-        "cards": [
-          {
-            "id": "n-script",
-            "kind": "scriptDeviation",
-            "tier": "pro",
-            "title": {
-              "ru": "Собеседник ушёл от привычного сценария",
-              "en": "The other side left their usual script"
-            },
-            "seen": {
-              "ru": [
-                "Фраза повторяется почти дословно, как заученная",
-                "Резкая смена темы или темпа на одном пункте",
-                "Ответ не о том, о чём вы спросили"
-              ],
-              "en": [
-                "A phrase repeats almost word for word, as if rehearsed",
-                "A sudden change of topic or pace on one point",
-                "The answer is not about what you asked"
-              ]
-            },
-            "meaning": {
-              "ru": "Это место, где человеку важно или трудно. Это не доказательство обмана.",
-              "en": "This is where something matters to them or is hard. It is not proof of deceit."
-            },
-            "alt": {
-              "ru": [
-                "Заготовленная позиция компании",
-                "Нет полномочий отвечать",
-                "Волнение"
-              ],
-              "en": [
-                "The company's prepared position",
-                "No authority to answer",
-                "Nervousness"
-              ]
-            },
-            "doThis": {
-              "ru": [
-                "Отметьте тему, а не жест",
-                "Задайте открытый вопрос: «Что здесь для вас главное?»",
-                "Вернитесь к теме позже"
-              ],
-              "en": [
-                "Note the topic, not the gesture",
-                "Ask an open question: 'What matters most to you here?'",
-                "Come back to the topic later"
-              ]
-            },
-            "signalIds": [
-              "PAUSE-001",
-              "VOC-011"
-            ]
-          },
-          {
-            "id": "n-mismatch",
-            "kind": "wordsBehaviourMismatch",
-            "tier": "pro",
-            "title": {
-              "ru": "Слова и поведение не сходятся",
-              "en": "Words and behaviour do not match"
-            },
-            "steps": {
-              "ru": [
-                "Первые 5 минут запомните обычное поведение (базовая линия)",
-                "Отметьте, на какой теме оно изменилось",
-                "Найдите минимум 3 признака, не один",
-                "Задайте уточняющий вопрос вместо вывода"
-              ],
-              "en": [
-                "Note usual behaviour in the first 5 minutes (baseline)",
-                "Mark the topic where it changed",
-                "Look for at least 3 cues, not one",
-                "Ask a clarifying question instead of concluding"
-              ]
-            },
-            "neverSay": {
-              "ru": "«Вы блефуете.» Это вывод без проверки.",
-              "en": "'You are bluffing.' That is a conclusion without verification."
-            },
-            "saySomething": {
-              "ru": "«Давайте уточню: что для вас здесь самое важное?»",
-              "en": "'Let me clarify: what matters most to you here?'"
-            },
-            "signalIds": [
-              "POST-002",
-              "HAND-003",
-              "VOICE-001"
-            ]
-          }
-        ],
-        "confidenceCalibration": {
-          "id": "n-calibration",
-          "tier": "pro",
-          "title": {
-            "ru": "Калибровка уверенности",
-            "en": "Confidence calibration"
-          },
-          "pitch": {
-            "ru": "Тренируем не «видеть насквозь», а знать, насколько вы правы, когда уверены.",
-            "en": "We train not 'seeing through people' but knowing how right you are when you feel sure."
-          },
-          "flow": {
-            "ru": "Перед разбором ситуации выберите уверенность: «Скорее нет», «Возможно», «Почти уверен(а)». Затем смотрите итог.",
-            "en": "Before the breakdown pick a confidence level: 'Probably not', 'Maybe', 'Almost sure'. Then see the result."
-          },
-          "levels": [
-            {
-              "id": 1,
-              "p": 0.55,
-              "label": {
-                "ru": "Скорее нет",
-                "en": "Probably not"
-              }
-            },
-            {
-              "id": 2,
-              "p": 0.75,
-              "label": {
-                "ru": "Возможно",
-                "en": "Maybe"
-              }
-            },
-            {
-              "id": 3,
-              "p": 0.95,
-              "label": {
-                "ru": "Почти уверен(а)",
-                "en": "Almost sure"
-              }
-            }
-          ],
-          "correctness": "1 if the picked observation has kind 'signal' and no 'jump' picked, else 0",
-          "metrics": {
-            "gap": "mean(p) - accuracy",
-            "brier": "mean((p - correct)^2)",
-            "minItems": 10
-          },
-          "verdicts": [
-            {
-              "id": "under",
-              "gapMax": -0.1,
-              "text": {
-                "ru": "Вы правее, чем думаете. Можно доверять себе чуть больше.",
-                "en": "You are more right than you think. You can trust yourself a bit more."
-              }
-            },
-            {
-              "id": "calibrated",
-              "gapMax": 0.1,
-              "text": {
-                "ru": "Ваша уверенность близка к реальной точности.",
-                "en": "Your confidence is close to your actual accuracy."
-              }
-            },
-            {
-              "id": "over",
-              "gapMax": 1.0,
-              "text": {
-                "ru": "Вы уверены чаще, чем бываете правы. Проверяйте догадки вопросом.",
-                "en": "You are sure more often than you are right. Check guesses with a question."
-              }
-            }
-          ],
-          "note": "Показывается только после 10 ответов; без сравнения с другими людьми и без давления."
         }
       },
       {
@@ -1180,222 +481,17 @@
             "ru": "Давление — это повторяющееся поведение, а не один резкий момент: срочность, публичные «шутки», уход от вопросов, угрозы. Сделайте паузу, запишите факты, попросите время. Если есть угрозы или насилие, откройте «Помощь».",
             "en": "Pressure is repeated behaviour, not a single sharp moment: urgency, public 'jokes', dodging questions, threats. Pause, record facts, ask for time. If there are threats or violence, open 'Help'."
           }
-        },
-        "patterns": [
-          {
-            "id": "p-urgency",
-            "tier": "pro",
-            "title": {
-              "ru": "Искусственная срочность",
-              "en": "Artificial urgency"
-            },
-            "seen": {
-              "ru": "«Только сегодня», «решайте сейчас», нет времени на документы или совет с близкими.",
-              "en": "'Only today', 'decide now', no time for documents or advice from others."
-            },
-            "whyItWorks": {
-              "ru": "Решение без времени на проверку выгодно тому, кто торопит.",
-              "en": "A decision without time to check benefits the one who hurries you."
-            },
-            "reliabilityNote": {
-              "ru": "Надёжность признаков: средняя. Важна повторяемость, а не один эпизод.",
-              "en": "Reliability of cues: medium. Repetition matters, not a single episode."
-            },
-            "response": {
-              "ru": [
-                "Попросите сутки",
-                "Запросите документы письменно",
-                "Спросите мнение второго человека"
-              ],
-              "en": [
-                "Ask for a day",
-                "Ask for documents in writing",
-                "Get a second opinion"
-              ]
-            },
-            "sayThis": {
-              "ru": [
-                "«Я отвечу завтра.»",
-                "«Пришлите это письменно.»"
-              ],
-              "en": [
-                "'I will reply tomorrow.'",
-                "'Please send that in writing.'"
-              ]
-            },
-            "escalate": {
-              "ru": "Если на вас давят после отказа или угрожают, прекратите разговор.",
-              "en": "If they push after a refusal or threaten you, end the conversation."
-            },
-            "signalIds": [
-              "VOC-011",
-              "DIST-001"
-            ]
-          },
-          {
-            "id": "p-volume",
-            "tier": "pro",
-            "title": {
-              "ru": "Громкость и перебивания",
-              "en": "Volume and interruptions"
-            },
-            "seen": {
-              "ru": "Человек повышает голос и перебивает, когда вы объясняете.",
-              "en": "The person raises their voice and interrupts when you explain."
-            },
-            "whyItWorks": {
-              "ru": "Тот, кто перебивает, управляет темпом разговора.",
-              "en": "Whoever interrupts controls the pace of the conversation."
-            },
-            "reliabilityNote": {
-              "ru": "Надёжность признаков: средняя. Важна повторяемость, а не один эпизод.",
-              "en": "Reliability of cues: medium. Repetition matters, not a single episode."
-            },
-            "response": {
-              "ru": [
-                "Спокойно договорите фразу",
-                "Назовите поведение: «Меня перебили»",
-                "Предложите вернуться к теме позже"
-              ],
-              "en": [
-                "Calmly finish your sentence",
-                "Name the behaviour: 'I was interrupted'",
-                "Suggest returning to the topic later"
-              ]
-            },
-            "sayThis": {
-              "ru": [
-                "«Я договорю, и тогда вы ответите.»"
-              ],
-              "en": [
-                "'Let me finish, then you answer.'"
-              ]
-            },
-            "escalate": {
-              "ru": "Если это повторяется, фиксируйте даты и слова и обратитесь к HR или человеку, которому доверяете.",
-              "en": "If it repeats, record dates and words and talk to HR or someone you trust."
-            },
-            "signalIds": [
-              "VOICE-002",
-              "VOC-022"
-            ]
-          },
-          {
-            "id": "p-closing-distance",
-            "tier": "pro",
-            "title": {
-              "ru": "Сокращение дистанции",
-              "en": "Closing the distance"
-            },
-            "seen": {
-              "ru": "Человек подходит вплотную, нависает, блокирует путь.",
-              "en": "The person steps very close, looms, blocks the way."
-            },
-            "whyItWorks": {
-              "ru": "Близость создаёт чувство давления, особенно при разнице в положении.",
-              "en": "Closeness creates a feeling of pressure, especially with a power gap."
-            },
-            "reliabilityNote": {
-              "ru": "Надёжность признаков: средняя. Важна повторяемость, а не один эпизод.",
-              "en": "Reliability of cues: medium. Repetition matters, not a single episode."
-            },
-            "response": {
-              "ru": [
-                "Сделайте шаг назад",
-                "Назовите границу словами",
-                "Выйдите, если не получается"
-              ],
-              "en": [
-                "Step back",
-                "State your boundary in words",
-                "Leave if it does not work"
-              ]
-            },
-            "sayThis": {
-              "ru": [
-                "«Мне нужно больше пространства. Продолжим так?»"
-              ],
-              "en": [
-                "'I need more space. Shall we continue like this?'"
-              ]
-            },
-            "escalate": {
-              "ru": "Если вам страшно или вас не отпускают, это не тренировка: звоните в экстренную службу или откройте «Помощь».",
-              "en": "If you feel afraid or are not let go, this is not practice: call emergency services or open 'Help'."
-            },
-            "signalIds": [
-              "DIST-001"
-            ]
-          }
-        ],
-        "nlpClaims": {
-          "title": {
-            "ru": "НЛП: что подтверждено, а что нет",
-            "en": "NLP: what is confirmed and what is not"
-          },
-          "rule": {
-            "ru": "Не приписывайте человеку «приём НЛП». Описывайте поведение и проверяйте словами.",
-            "en": "Do not attribute an 'NLP technique' to a person. Describe behaviour and check in words."
-          },
-          "items": [
-            {
-              "id": "nlp-eyes",
-              "tier": "pro",
-              "claim": {
-                "ru": "«Глаза вверх-вправо означают ложь»",
-                "en": "'Eyes up-right mean lying'"
-              },
-              "status": "notConfirmed",
-              "evidence": {
-                "ru": "Не подтвердилось в трёх исследованиях (Wiseman и др., 2012).",
-                "en": "Not confirmed in three studies (Wiseman et al., 2012)."
-              },
-              "signalId": "EYE-003",
-              "whatToDo": {
-                "ru": "Игнорируйте. Смотрите на изменение от обычного поведения и задавайте вопрос.",
-                "en": "Ignore it. Look at change from usual behaviour and ask a question."
-              }
-            },
-            {
-              "id": "nlp-mirroring",
-              "tier": "pro",
-              "claim": {
-                "ru": "«Зеркаление поз создаёт контакт»",
-                "en": "'Mirroring posture builds rapport'"
-              },
-              "status": "partial",
-              "evidence": {
-                "ru": "Синхронность поз часто сопутствует контакту (карточка POST-004), но сила эффекта в разговоре не доказана нами.",
-                "en": "Synchrony often accompanies rapport (card POST-004), but we have not verified the size of the effect in conversation."
-              },
-              "signalId": "POST-004",
-              "whatToDo": {
-                "ru": "Не копируйте нарочно: это заметно и вызывает недоверие. Слушайте и отвечайте по существу.",
-                "en": "Do not copy deliberately: it is noticeable and breeds distrust. Listen and answer on substance."
-              }
-            },
-            {
-              "id": "nlp-embedded",
-              "tier": "pro",
-              "claim": {
-                "ru": "«Скрытые команды и якоря управляют решением собеседника»",
-                "en": "'Embedded commands and anchors steer the other person's decision'"
-              },
-              "status": "unverifiedByUs",
-              "needsSource": true,
-              "evidence": {
-                "ru": "Убедительных проверок эффекта в обычном разговоре мы не нашли. Не заявляйте эффект, пока нет источника.",
-                "en": "We found no convincing tests of an effect in ordinary conversation. Do not state an effect until a source is found."
-              },
-              "signalId": null,
-              "whatToDo": {
-                "ru": "Если фразы звучат гладко и вам трудно возразить, замедлите разговор: «Повторите, пожалуйста, простыми словами, что вы предлагаете».",
-                "en": "If phrases sound smooth and it is hard to object, slow it down: 'Please repeat in plain words what you are proposing.'"
-              }
-            }
-          ]
         }
       }
+    ]
+  },
+  "split": {
+    "version": 1,
+    "serverSections": [
+      "anatomy",
+      "dating",
+      "negotiation",
+      "protection"
     ]
   }
 }
