@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "caption": {
+    "ru": "Один признак ничего не доказывает. Проверяйте кластером: триггер, вопросы, повторная реакция.",
+    "en": "One cue proves nothing. Check as a cluster: trigger, questions, repeat reaction."
+  },
+  "fairNote": {
+    "ru": "Вопросы не ловушки. Задавайте их спокойно и открыто: цель — дать человеку возможность прояснить, а не поймать его.",
+    "en": "These are not traps. Ask them calmly and openly: the aim is to let the person clarify, not to catch them."
+  },
+  "baselineQ": {
+    "ru": "Знаете ли вы, как этот человек обычно себя ведёт?",
+    "en": "Do you know how this person usually behaves?"
+  },
+  "families": [
+    {
+      "id": "speech",
+      "label": {
+        "ru": "Речь",
+        "en": "Speech"
+      },
+      "hint": {
+        "ru": "Пауза, темп, дословно повторяемая фраза.",
+        "en": "Pause, pace, a phrase repeated word for word."
+      }
+    },
+    {
+      "id": "gaze",
+      "label": {
+        "ru": "Взгляд и лицо",
+        "en": "Gaze and face"
+      },
+      "hint": {
+        "ru": "Заметное изменение относительно обычного.",
+        "en": "A clear change from usual."
+      }
+    },
+    {
+      "id": "body",
+      "label": {
+        "ru": "Тело и жесты",
+        "en": "Body and gestures"
+      },
+      "hint": {
+        "ru": "Напряжение, замирание, предметы в руках.",
+        "en": "Tension, freezing, fiddling with objects."
+      }
+    },
+    {
+      "id": "content",
+      "label": {
+        "ru": "Содержание",
+        "en": "Content"
+      },
+      "hint": {
+        "ru": "Противоречие, уход от вопроса, нет деталей.",
+        "en": "Contradiction, dodging, no details."
+      }
+    }
+  ],
+  "strengths": {
+    "none": {
+      "title": {
+        "ru": "Не подтвердилась",
+        "en": "Not confirmed"
+      },
+      "text": {
+        "ru": "Признак не повторился и не сложился в картину. Чаще всего он был случайным или связан со стрессом.",
+        "en": "The cue did not return or form a pattern. Most often it was random or stress-related."
+      },
+      "tactics": {
+        "ru": [
+          "Не делайте вывода о человеке",
+          "Вернитесь к обычному общению",
+          "Если тема важна, спросите прямо и открыто"
+        ],
+        "en": [
+          "Draw no conclusion about the person",
+          "Go back to normal conversation",
+          "If the topic matters, ask directly and openly"
+        ]
+      }
+    },
+    "weak": {
+      "title": {
+        "ru": "Слабая",
+        "en": "Weak"
+      },
+      "text": {
+        "ru": "Повторился один независимый признак. Для вывода этого мало, но достаточно, чтобы уточнить.",
+        "en": "One independent cue returned. Not enough for a conclusion, enough to ask."
+      },
+      "tactics": {
+        "ru": [
+          "Задайте открытый вопрос по теме: «Что здесь для вас самое сложное?»",
+          "Проверьте факты по документам или другому источнику",
+          "Вернитесь к теме позже и сравните"
+        ],
+        "en": [
+          "Ask an open question: 'What is hardest for you here?'",
+          "Check the facts in documents or another source",
+          "Come back to the topic later and compare"
+        ]
+      }
+    },
+    "strong": {
+      "title": {
+        "ru": "Устойчивая",
+        "en": "Robust"
+      },
+      "text": {
+        "ru": "При повторе вернулись минимум два независимых признака в той же теме, и вы знаете обычное поведение человека. Это серьёзный повод разобраться в теме, но не доказательство обмана.",
+        "en": "At least two independent cues returned on the same topic and you know the person's usual behaviour. A solid reason to look into the topic, not proof of deceit."
+      },
+      "tactics": {
+        "ru": [
+          "Назовите тему вслух без обвинений: «Вижу, что эта тема даётся трудно. Давайте разберём»",
+          "Проверьте факты независимо, прежде чем принимать решение",
+          "Не принимайте необратимых решений только по невербалике; при рисках привлеките второго человека"
+        ],
+        "en": [
+          "Name the topic without blame: 'This seems hard to talk about. Let us go through it'",
+          "Verify the facts independently before deciding",
+          "Make no irreversible decision on nonverbal cues alone; involve a second person when stakes are high"
+        ]
+      }
+    }
+  },
+  "capNote": {
+    "ru": "Оценка не выше «Слабой», пока вы не знаете обычного поведения человека: сравнивать не с чем.",
+    "en": "The rating stays at 'Weak' while you do not know the person's usual behaviour: there is nothing to compare with."
+  },
+  "alwaysAdd": {
+    "ru": "Причиной может быть стресс, неловкость или сама тема, а не сокрытие. Сила гипотезы — это не вероятность и не вердикт о человеке.",
+    "en": "The cause may be stress, awkwardness or the topic itself, not concealment. Strength of a hypothesis is not a probability and not a verdict on a person."
+  },
+  "free": [
+    {
+      "id": "h-pace",
+      "tier": "free",
+      "title": {
+        "ru": "Изменился темп ответа"
+      },
+      "trigger": {
+        "ru": "На одну тему человек стал отвечать заметно медленнее или быстрее, чем обычно."
+      },
+      "questions": [
+        {
+          "type": "chronology",
+          "text": {
+            "ru": "Давайте пройдём по порядку: что было сначала, что потом?"
+          },
+          "listenFor": {
+            "ru": "Складывается ли порядок без заминок и остаются ли детали, если попросить вернуться к началу."
+          }
+        },
+        {
+          "type": "details",
+          "text": {
+            "ru": "Какая деталь там была самой заметной для вас?"
+          },
+          "listenFor": {
+            "ru": "Появляются ли новые конкретные детали или повторяется общая рамка."
+          }
+        },
+        {
+          "type": "pause",
+          "text": {
+            "ru": "(Пауза 3–4 секунды после ответа.) Хотите что-нибудь добавить?"
+          },
+          "listenFor": {
+            "ru": "Добавляет ли человек что-то по своей инициативе или напряжённо молчит."
+          }
+        }
+      ],
+      "alt": {
+        "ru": [
+          "Человек вспоминает или подбирает слова",
+          "Тема эмоционально тяжёлая",
+          "Усталость или стресс",
+          "Неловко говорить об этом при вас"
+        ]
+      }
+    }
+  ]
+}

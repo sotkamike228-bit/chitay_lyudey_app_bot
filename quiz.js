@@ -1,12 +1,14 @@
 // Квиз из 5 ситуаций и режим калибровки (тот же поток + шаг «уверенность»).
-import { h, L, t, tp, lang, data, state, render, nav, haptic, toast, topbar, tg, CFG } from './ctx.js';
+import { h, L, t, tp, lang, data, state, isAdult, render, nav, haptic, toast, topbar, tg, CFG, loadJson } from './ctx.js';
 import { read, write, patch, KEYS } from './store.js';
 import { MAX_PICK, playableCases, scoreObservations, scoreAction, missedSignals, percent, tierFor, encodeChallenge, parseChallenge, shuffle, compareChallenge } from './engine.js';
-import { LEVELS, isCorrect, addItem, stats } from './calib.js';
+import { LEVELS, isCorrect, addItem, stats, CAT_IDS, normCat, roundAllowed, roundCases, markSeen, resetHistory } from './calib.js';
+import { proLoader } from './services.js';
+import { openHypo } from './hypo-view.js';
 import { openPaywall } from './paywall.js';
 import { hasAccess } from './access.js';
 
-const Q = { mode: 'quiz', cases: [], i: 0, total: 0, results: [], picked: [], conf: null, challenge: null };
+const Q = { mode: 'quiz', cases: [], i: 0, total: 0, results: [], picked: [], conf: null, challenge: null, cat: null, okCount: 0 };
 
 const qsC = new URLSearchParams(location.search).get('c');
 const startParam = (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) || (qsC != null ? 'c' + qsC : '');
@@ -23,9 +25,27 @@ const current = () => Q.cases[Q.i];
 
 // ---------- вход ----------
 export function openQuiz() { Q.mode = 'quiz'; screenIntro(); }
-export function openCalibration() {
-  if (!hasAccess('calibration', ent(), CFG)) return openPaywall('calibration');
-  Q.mode = 'calib'; screenCalibIntro();
+// Калибровка: сначала выбор категории. Первый раунд каждой категории бесплатный, дальше нужен доступ.
+const catState = (cat) => normCat((read(KEYS.calibCat, {}) || {})[cat]);
+const saveCat = (cat, st) => write(KEYS.calibCat, { ...(read(KEYS.calibCat, {}) || {}), [cat]: st });
+async function ensureCalib() { if (!data.calib) data.calib = await loadJson('chitay_calib.json'); return data.calib; }
+
+export async function openCalibration() {
+  Q.mode = 'calib';
+  try { await ensureCalib(); } catch { render(topbar(tp.calibTitle), h('div', { class: 'card' }, t.loadError)); return; }
+  screenCategories();
+}
+
+function screenCategories() {
+  const cats = data.calib.categories.filter((c) => isAdult() || !c.adultOnly);
+  render(topbar(tp.calibTitle), h('div', { class: 'card hero' }, h('p', { class: 'hook' }, tp.calibPitch), h('p', {}, tp.calibCats)),
+    ...cats.map((c) => {
+      const st = catState(c.id), s = stats(st.h);
+      const status = st.rounds === 0 ? tp.calibFirstFree : s.ready ? tp.verdictShort[s.verdict] : tp.calibRounds(st.rounds);
+      return h('button', { class: 'tile row-tile', type: 'button', onclick: () => { Q.cat = c.id; screenCalibIntro(); } },
+        h('span', { class: 'tile-title' }, L(c.title)), h('span', { class: 'tile-sub' }, L(c.sub)),
+        h('span', { class: 'badge ' + (st.rounds === 0 ? 'free' : 'pro') }, status));
+    }));
 }
 
 function screenIntro() {
@@ -33,43 +53,65 @@ function screenIntro() {
   const nodes = [topbar(t.appName), h('div', { class: 'card hero' }, h('p', { class: 'hook' }, t.tagline), h('p', {}, t.introLead))];
   if (Q.challenge != null) nodes.push(h('div', { class: 'banner' }, t.challenge(Q.challenge)));
   if (typeof best === 'number') nodes.push(h('p', { class: 'muted sub' }, t.best(best)));
+  if (state.age === 'teen') nodes.push(h('p', { class: 'muted sub' }, t.teenNote));
   nodes.push(h('button', { class: 'btn', onclick: begin }, t.start));
   render(...nodes);
 }
 
 function screenCalibIntro() {
-  const hist = read(KEYS.calib, []);
-  const st = stats(hist);
-  const nodes = [topbar(tp.calibTitle), h('div', { class: 'card hero' }, h('p', { class: 'hook' }, tp.calibPitch), h('p', {}, tp.calibHow))];
-  nodes.push(calibCard(st, hist));
-  nodes.push(h('button', { class: 'btn', onclick: begin }, tp.calibStart));
-  if (hist.length) nodes.push(h('button', { class: 'btn secondary', onclick: () => { write(KEYS.calib, []); toast(tp.resetDone); screenCalibIntro(); } }, tp.reset));
+  const cat = data.calib.categories.find((c) => c.id === Q.cat);
+  const cs = catState(Q.cat), st = stats(cs.h);
+  const needPro = !roundAllowed(cs.rounds, hasAccess('calibration', ent(), CFG));
+  const nodes = [topbar(L(cat.title)), h('div', { class: 'card hero' }, h('p', { class: 'hook' }, L(cat.hook)), h('p', {}, tp.calibHow))];
+  nodes.push(calibCard(st, cs.h));
+  if (needPro) nodes.push(h('p', { class: 'banner' }, tp.calibNeedPro));
+  nodes.push(h('button', { class: 'btn', onclick: needPro ? () => openPaywall('calibration') : begin }, needPro ? tp.pay.homeLink : (cs.rounds === 0 ? tp.calibStartFree : tp.calibStart)));
+  if (cs.h.length) nodes.push(h('button', { class: 'btn secondary', onclick: () => { saveCat(Q.cat, resetHistory(cs)); toast(tp.resetDone); screenCalibIntro(); } }, tp.reset));
+  nodes.push(h('button', { class: 'btn secondary', onclick: screenCategories }, tp.calibOtherCat));
   render(...nodes);
 }
 
 export function calibCard(st, hist) {
   if (!st.ready) return h('div', { class: 'card' }, h('p', { class: 'muted' }, tp.calibProgress(st.n, st.need)));
   return h('div', { class: 'card calib' },
+    st.preliminary ? h('span', { class: 'badge soon' }, tp.calibPrelim) : '',
     h('p', { class: 'hook' }, tp.verdicts[st.verdict]),
+    st.preliminary ? h('p', { class: 'sub muted' }, tp.calibPrelimNote) : '',
     h('p', { class: 'sub muted' }, tp.calibStats(Math.round(st.accuracy * 100), Math.round(st.meanP * 100), st.n)),
     h('h3', {}, tp.byLevel),
     ...st.byLevel.map((l) => h('div', { class: 'row lvl' }, h('span', {}, tp.levels[l.id]),
       h('span', { class: 'muted' }, l.n ? `${Math.round(l.accuracy * 100)}% (${l.n})` : '—'))));
 }
 
-function begin() {
-  if (state.age18 === null) return screenAge18();
-  startRound();
-}
-function screenAge18() {
-  render(topbar(''), h('div', { class: 'card' }, h('h2', {}, t.age18Q),
-    h('button', { class: 'btn', onclick: () => { state.age18 = true; patch(KEYS.core, { age18: true }); startRound(); } }, t.age18Yes),
-    h('button', { class: 'btn secondary', onclick: () => { state.age18 = false; patch(KEYS.core, { age18: false }); startRound(); } }, t.age18No)));
-}
+function begin() { if (Q.mode === 'calib') beginCalib(); else startRound(); }
 
 function startRound() {
-  Q.cases = playableCases(data.quiz, state.age18 === true);
-  Q.i = 0; Q.total = 0; Q.results = []; Q.picked = []; Q.conf = null;
+  Q.cases = playableCases(data.quiz, isAdult());
+  Q.i = 0; Q.total = 0; Q.results = []; Q.picked = []; Q.conf = null; Q.okCount = 0;
+  screenObserve();
+}
+
+/** Раунд калибровки: бесплатный (из открытого файла) или платный (с сервера). */
+async function beginCalib() {
+  const cs = catState(Q.cat), free = data.calib.free[Q.cat] || [];
+  let paid = [];
+  if (cs.rounds > 0) {
+    if (!hasAccess('calibration', ent(), CFG)) return openPaywall('calibration');
+    render(topbar(tp.calibTitle), h('p', { class: 'muted' }, tp.load.loading));
+    try { paid = (await proLoader.load('calibration'))[Q.cat] || []; }
+    catch (e) {
+      const code = (e && e.code) || 'network';
+      if (code === 'locked') return openPaywall('calibration');
+      if (code !== 'previewMissing') {
+        render(topbar(tp.calibTitle), h('div', { class: 'card' }, h('p', {}, tp.load[code] || tp.load.network), h('button', { class: 'btn', onclick: beginCalib }, tp.load.retry)));
+        return;
+      }
+      toast(tp.load.previewMissing);   // демо без платного файла: играем бесплатные кейсы, экран не пустой
+    }
+  }
+  const cases = roundCases(cs.rounds, free, paid, cs.seen).filter((c) => isAdult() || !c.adultOnly);
+  saveCat(Q.cat, { ...cs, seen: markSeen(cs.seen, cases) });
+  Q.cases = cases; Q.i = 0; Q.total = 0; Q.results = []; Q.picked = []; Q.conf = null; Q.okCount = 0;
   screenObserve();
 }
 
@@ -112,8 +154,10 @@ function screenConfidence(actionId) {
   render(topbar(''), progress(), h('h2', {}, tp.calibAsk),
     ...LEVELS.map((l) => h('button', { class: 'opt', type: 'button', onclick: () => {
       Q.conf = l.id;
-      const c = current();
-      write(KEYS.calib, addItem(read(KEYS.calib, []), l.id, isCorrect(c, Q.picked)));
+      const c = current(), ok = isCorrect(c, Q.picked);
+      const cs = catState(Q.cat);
+      saveCat(Q.cat, { ...cs, h: addItem(cs.h, l.id, ok) });
+      if (ok) Q.okCount++;
       screenDebrief(actionId);
     } }, tp.levels[l.id])));
 }
@@ -135,7 +179,7 @@ function screenDebrief(actionId) {
     h('div', { class: 'card' }, h('h3', {}, t.observed), ...obsRows),
     h('div', { class: 'card' }, h('h3', {}, t.actionResult), h('p', {}, L(a.text)), h('p', { class: 'sub muted' }, L(a.why))),
     h('div', { class: 'card' }, L(c.debrief),
-      h('h3', {}, t.altTitle), h('ul', {}, ...(c.altExplanations[lang] || c.altExplanations.en).map((x) => h('li', {}, x))),
+      h('h3', {}, t.altTitle), h('ul', {}, ...(c.altExplanations[lang] || c.altExplanations.en || c.altExplanations.ru).map((x) => h('li', {}, x))),
       h('h3', {}, t.checkTitle), h('p', {}, '«' + L(c.checkQuestion) + '»'),
       h('p', { class: 'sub muted' }, L(c.reliabilityNote))),
     h('p', { class: 'muted sub' }, t.points(pts)),
@@ -159,7 +203,30 @@ async function doShare(text, pct) {
   try { await navigator.clipboard.writeText(`${text} ${url}`); toast(t.copied); } catch { toast(url); }
 }
 
+function screenCalibResult() {
+  const n = Q.cases.length, cs = catState(Q.cat);
+  saveCat(Q.cat, { ...cs, rounds: cs.rounds + 1 });          // раунд засчитан только после последнего ответа
+  const cat = data.calib.categories.find((c) => c.id === Q.cat);
+  const st = stats(catState(Q.cat).h);
+  const needPro = !roundAllowed(cs.rounds + 1, hasAccess('calibration', ent(), CFG));
+  const blind = Q.results.flatMap((r) => r.missed).slice(0, 2);
+  const nodes = [topbar(L(cat.title)),
+    h('div', { class: 'card hero' }, h('h2', {}, tp.calibRoundDone), h('p', { class: 'hook' }, tp.calibRoundScore(Q.okCount, n)), h('p', {}, tp.calibNote)),
+    calibCard(st, catState(Q.cat).h),
+    h('div', { class: 'card' }, h('h3', {}, t.blind), blind.length ? h('ul', {}, ...blind.map((x) => h('li', {}, x))) : h('p', {}, t.blindNone))];
+  if (needPro) {
+    nodes.push(h('div', { class: 'card pro-card' }, h('span', { class: 'badge pro' }, tp.badges.pro), h('p', {}, tp.calibNextPro),
+      h('button', { class: 'btn', onclick: () => openPaywall('calibration') }, tp.pay.homeLink)));
+  } else {
+    nodes.push(h('button', { class: 'btn', onclick: beginCalib }, tp.calibNextRound));
+  }
+  nodes.push(h('button', { class: 'btn secondary', onclick: () => nav.go(openHypo) }, tp.hypo.title));
+  nodes.push(h('button', { class: 'btn secondary', onclick: screenCategories }, tp.calibOtherCat));
+  render(...nodes);
+}
+
 function screenResult() {
+  if (Q.mode === 'calib') return screenCalibResult();
   const n = Q.cases.length;
   const pct = percent(Q.total, n, data.quiz);
   const tier = tierFor(data.quiz, pct);
@@ -176,7 +243,6 @@ function screenResult() {
       h('p', {}, L(tier.line)),
       h('p', { class: 'foot-note' }, L(data.quiz.statusCardFooter)))];
   if (cmp) nodes.push(h('div', { class: 'banner' }, t[cmp](Q.challenge)));
-  if (Q.mode === 'calib') nodes.push(calibCard(stats(read(KEYS.calib, [])), read(KEYS.calib, [])));
   nodes.push(h('div', { class: 'card' }, h('h3', {}, t.blind),
     blind.length ? h('ul', {}, ...blind.map((x) => h('li', {}, x))) : h('p', {}, t.blindNone)));
   nodes.push(h('button', { class: 'btn', onclick: () => doShare(t.shareText(L(tier.title), pct), pct) }, t.share));

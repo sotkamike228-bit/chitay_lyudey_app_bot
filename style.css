@@ -146,3 +146,12 @@ a.tel{color:var(--accent);font-weight:700}
 .plan-price{font-size:28px;font-weight:800;margin:4px 0;color:var(--gold-text)}
 .plan.owned{opacity:.75}
 .pay-status{min-height:24px;font-weight:600}
+/* карточки приёмов давления: скрипты на трёх уровнях и мини-тренажёр */
+.script{border-left:4px solid var(--line);padding:6px 0 6px 12px;margin:8px 0}
+.script .lvl{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+.script.soft{border-left-color:var(--good)}.script.firm{border-left-color:var(--warn)}.script.exit{border-left-color:var(--bad)}
+.script ul{margin:4px 0 0;padding-left:18px}
+.mini-ok{color:var(--good)}.mini-bad{color:var(--warn)}
+.opt:disabled{opacity:.7;cursor:default}.opt[aria-pressed="true"]:disabled{opacity:1}
+/* сила гипотезы */
+.status.strength-none .tier{color:var(--muted)}.status.strength-weak .tier{color:var(--warn)}.status.strength-strong .tier{color:var(--accent)}

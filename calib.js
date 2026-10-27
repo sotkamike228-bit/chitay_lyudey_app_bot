@@ -1,10 +1,12 @@
 // Калибровка уверенности: чистая логика (тестируется в Node).
+import { shuffle } from './engine.js';
 export const LEVELS = [
   { id: 1, p: 0.55 },
   { id: 2, p: 0.75 },
   { id: 3, p: 0.95 },
 ];
-export const MIN_ITEMS = 10;
+export const MIN_ITEMS = 4;          // первый срез уже после первого раунда
+export const PRELIM_BELOW = 10;      // до 10 ответов срез помечается как предварительный
 export const HISTORY_CAP = 200;
 
 /** Верно = выбрано хотя бы одно верное наблюдение и не выбрано ни одного поспешного вывода. */
@@ -39,5 +41,30 @@ export function stats(history, minItems = MIN_ITEMS) {
     const items = history.filter((x) => x.l === l.id);
     return { id: l.id, p: l.p, n: items.length, accuracy: items.length ? r4(items.reduce((a, x) => a + x.ok, 0) / items.length) : null };
   });
-  return { ready: true, n, accuracy: r4(accuracy), meanP: r4(meanP), gap, brier, verdict, byLevel };
+  return { ready: true, preliminary: n < PRELIM_BELOW, n, accuracy: r4(accuracy), meanP: r4(meanP), gap, brier, verdict, byLevel };
 }
+
+// ---------- категории: у каждой свой цикл, история, вердикт ----------
+export const CAT_IDS = ['negotiation', 'dating', 'toxic'];
+export const ROUND_SIZE = 4;
+export const SEEN_CAP = 100;
+
+export function emptyCat() { return { h: [], rounds: 0, seen: [] }; }
+export function normCat(o) {
+  const e = emptyCat();
+  return o && typeof o === 'object' ? { h: Array.isArray(o.h) ? o.h : e.h, rounds: Number(o.rounds) > 0 ? Number(o.rounds) : 0, seen: Array.isArray(o.seen) ? o.seen : e.seen } : e;
+}
+/** Первый раунд категории бесплатный; дальше нужен доступ. */
+export function roundAllowed(rounds, hasPro) { return rounds === 0 || !!hasPro; }
+
+/** Кейсы раунда. Раунд 0: бесплатные кейсы категории. Дальше: общий пул, ещё не виденные кейсы идут первыми. */
+export function roundCases(rounds, free, paid = [], seen = [], n = ROUND_SIZE, rnd = Math.random) {
+  if (rounds === 0) return shuffle(free, rnd).slice(0, n);
+  const all = [...free, ...paid];
+  const fresh = all.filter((c) => !seen.includes(c.id));
+  const old = all.filter((c) => seen.includes(c.id));
+  return [...shuffle(fresh, rnd), ...shuffle(old, rnd)].slice(0, n);
+}
+export function markSeen(seen, cases) { return [...new Set([...seen, ...cases.map((c) => c.id)])].slice(-SEEN_CAP); }
+/** Сброс истории не возвращает бесплатный раунд: rounds и seen остаются. */
+export function resetHistory(cat) { return { ...normCat(cat), h: [] }; }

@@ -2,7 +2,7 @@
 import { T } from './ui-text.js';
 import { TP } from './ui-pro-text.js';
 import { CONFIG } from './config.js';
-import { read, KEYS } from './store.js';
+import { read, patch, KEYS } from './store.js';
 
 export const tg = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData !== undefined ? window.Telegram.WebApp : null;
 const tgLang = tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code;
@@ -14,8 +14,14 @@ export const CFG = { ...CONFIG, proPreview: !!CONFIG.proPreview && !CONFIG.apiBa
 export const root = document.getElementById('app');
 export const L = (o) => (o && (o[lang] || o.en || o.ru)) || '';
 export const LA = (o) => (o && (o[lang] || o.en || o.ru)) || [];
-export const data = { quiz: null, pro: null };
-export const state = { age16: !!read(KEYS.core, {}).age16, age18: typeof read(KEYS.core, {}).age18 === 'boolean' ? read(KEYS.core, {}).age18 : null };
+export const data = { quiz: null, pro: null, calib: null, hypo: null };
+// Возраст спрашиваем один раз: 'adult' (18+), 'teen' (16–17), 'under16' (доступ закрыт) или null (ещё не отвечал).
+// Старые отметки (age18 true/false) переносятся; кто отвечал только «16+», увидит единый экран один раз.
+const stored = read(KEYS.core, {});
+export const state = { age: stored.age || (stored.age18 === true ? 'adult' : stored.age18 === false ? 'teen' : null) };
+export const isAdult = () => state.age === 'adult';
+export const ageOk = () => state.age === 'adult' || state.age === 'teen';
+export function setAge(v) { state.age = v; patch(KEYS.core, { age: v }); }
 
 export function h(tag, attrs = {}, ...kids) {
   const el = document.createElement(tag);

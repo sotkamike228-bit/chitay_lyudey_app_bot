@@ -1,6 +1,6 @@
 // Локальное хранилище с запасным вариантом в памяти (localStorage может быть недоступен).
 const mem = new Map();
-export const KEYS = { core: 'chitay.quiz.v1', calib: 'chitay.calib.v1', atlas: 'chitay.atlas.v1', ent: 'chitay.ent.v1' };
+export const KEYS = { core: 'chitay.quiz.v1', calib: 'chitay.calib.v1', atlas: 'chitay.atlas.v1', ent: 'chitay.ent.v1', calibCat: 'chitay.calibcat.v1' };
 
 export function read(key, fallback) {
   try {

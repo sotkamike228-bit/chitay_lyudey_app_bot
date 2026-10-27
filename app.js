@@ -1,4 +1,4 @@
-import { h, html, L, t, tp, tg, data, state, render, nav, loadJson, CFG, closeSheet } from './ctx.js';
+import { h, html, L, t, tp, tg, data, state, render, nav, loadJson, CFG, closeSheet, ageOk, setAge, topbar } from './ctx.js';
 import { read, patch, KEYS } from './store.js';
 import { hasAccess } from './access.js';
 import { openQuiz, openCalibration } from './quiz.js';
@@ -10,9 +10,18 @@ import { refreshEntitlements } from './services.js';
 
 // ---------- возраст ----------
 function screenAge() {
-  render(h('h1', {}, t.appName), h('p', { class: 'muted' }, t.subtitle),
-    h('div', { class: 'card' }, h('h2', {}, t.ageTitle), h('p', { class: 'sub muted' }, t.age16Note),
-      h('button', { class: 'btn', onclick: () => { state.age16 = true; patch(KEYS.core, { age16: true }); nav.reset(); } }, t.age16)));
+  if (state.age === 'under16') return screenUnder16();
+  const pick = (v) => { setAge(v); nav.reset(); };
+  render(nav.depth() > 1 ? topbar('') : '', h('h1', {}, t.appName), h('p', { class: 'muted' }, t.subtitle),
+    h('div', { class: 'card' }, h('h2', {}, t.ageTitle), h('p', { class: 'sub muted' }, t.ageNote),
+      h('button', { class: 'btn', onclick: () => pick('adult') }, t.ageAdult),
+      h('button', { class: 'btn secondary', onclick: () => pick('teen') }, t.ageTeen),
+      h('button', { class: 'link', type: 'button', onclick: () => { setAge('under16'); screenUnder16(); } }, t.ageUnder)));
+}
+function screenUnder16() {
+  render(h('h1', {}, t.appName), h('div', { class: 'card' }, h('h2', {}, t.ageBlockTitle), h('p', {}, t.ageBlockText),
+    h('button', { class: 'btn secondary', onclick: () => openHelp() }, t.help),
+    h('button', { class: 'link', type: 'button', onclick: () => { setAge(null); screenAge(); } }, t.ageRetry)));
 }
 
 // ---------- главная ----------
@@ -48,6 +57,7 @@ function screenHome() {
       typeof best === 'number' ? h('span', { class: 'muted' }, t.best(best)) : ''),
   ];
   nodes.push(h('button', { class: 'btn secondary', type: 'button', onclick: () => openPaywall() }, tp.pay.homeLink));
+  nodes.push(h('button', { class: 'link', type: 'button', onclick: () => nav.go(screenAge) }, t.ageCurrent[state.age]));
   if (CFG.proPreview) nodes.push(h('p', { class: 'sub muted' }, tp.previewNote));
   render(...nodes);
 }
@@ -65,7 +75,7 @@ function applyTheme() {
 applyTheme();
 if (tg) { try { tg.ready(); tg.expand(); tg.onEvent && tg.onEvent('themeChanged', applyTheme); } catch { /* нет */ } }
 
-nav.setHome(() => (state.age16 ? screenHome() : screenAge()));
+nav.setHome(() => (ageOk() ? screenHome() : screenAge()));
 const withTimeout = (p, ms) => Promise.race([p, new Promise((r) => setTimeout(r, ms))]);
 loadJson('chitay_quiz.json')
   .then(async (q) => { data.quiz = q; await withTimeout(refreshEntitlements(), 2500); nav.reset(); })

@@ -1,10 +1,11 @@
 // «Шпаргалки»: свидания (18+), переговоры, защита от давления. Данные: chitay_pro.json → cheatsheets.
-import { h, L, LA, t, tp, data, state, render, nav, topbar, loadJson, CFG } from './ctx.js';
+import { h, L, LA, t, tp, data, isAdult, render, nav, topbar, loadJson, CFG } from './ctx.js';
 import { read, patch, KEYS } from './store.js';
 import { hasAccess } from './access.js';
 import { openPaywall } from './paywall.js';
 import { openCalibration } from './quiz.js';
 import { openHelp } from './help-view.js';
+import { openHypo } from './hypo-view.js';
 import { proLoader, refreshEntitlements } from './services.js';
 
 const S = tp.sheets;
@@ -42,25 +43,20 @@ async function ensure() {
 export async function openSheets() {
   let secs;
   try { secs = await ensure(); } catch { render(topbar(S.title), h('div', { class: 'card' }, t.loadError)); return; }
-  const adultOk = state.age18 === true;
   const row = (id, sub, onclick, tag) => h('button', { class: 'tile row-tile', type: 'button', onclick },
     h('span', { class: 'tile-title' }, S[id]), h('span', { class: 'tile-sub' }, sub), tag ? h('span', { class: 'badge ' + tag[0] }, tag[1]) : '');
   render(topbar(S.title), h('p', { class: 'muted sub' }, S.intro),
-    row('dating', S.datingSub, () => nav.go(openDating), ['pro', '18+']),
+    row('hypo', S.hypoSub, () => nav.go(openHypo), ['free', S.freeBadge + ' + PRO']),
+    isAdult() ? row('dating', S.datingSub, () => nav.go(openDating), ['pro', '18+']) : '',
     row('negotiation', S.negotiationSub, () => nav.go(openNegotiation), ['pro', tp.badges.pro]),
-    row('protection', S.protectionSub, () => nav.go(openProtection), ['free', S.freeBadge + ' + PRO']),
-    h('p', { class: 'sub muted' }, adultOk || state.age18 === null ? '' : S.age18Off));
+    row('protection', S.protectionSub, () => nav.go(openProtection), ['free', S.freeBadge + ' + PRO']));
 }
 
 const sec = (id) => data.pro.cheatsheets.sections.find((s) => s.id === id);
 
 function openDating() {
   const d = sec('dating');
-  if (state.age18 !== true) {
-    render(topbar(S.dating), h('div', { class: 'card' }, h('p', {}, state.age18 === false ? S.age18Off : S.age18Need),
-      state.age18 === null ? h('button', { class: 'btn', onclick: () => { state.age18 = true; patch(KEYS.core, { age18: true }); nav.replace(openDating); } }, S.age18Btn) : ''));
-    return;
-  }
+  if (!isAdult()) { render(topbar(S.dating), h('div', { class: 'card' }, h('p', {}, S.age18Off))); return; }
   if (!hasAccess('cheatsheets', ent(), CFG)) { render(topbar(S.dating), lockedNote('cheatsheets')); return; }
   withContent('dating', 'cheatsheets', S.dating, (c) => renderDating({ ...d, ...c }));
 }
@@ -91,27 +87,63 @@ function renderNegotiation(n) {
       h('button', { class: 'btn', onclick: () => nav.go(openCalibration) }, S.calibGo)));
 }
 
+const SCRIPT_LEVELS = ['soft', 'firm', 'exit'];
+function scriptsBlock(x) {
+  if (!x.scripts) return lst(x.sayThis) ? block(S.sayThis, lst(x.sayThis)) : '';
+  return h('div', { class: 'blk' }, h('h3', {}, S.scriptsTitle),
+    ...SCRIPT_LEVELS.filter((k) => x.scripts[k]).map((k) => h('div', { class: 'script ' + k }, h('span', { class: 'lvl' }, S.scriptLevels[k]), lst(x.scripts[k]))));
+}
+/** Мини-тренажёр карточки: вопрос и три варианта, после выбора показываем пояснение. */
+function miniTrainer(m) {
+  if (!m || !m.opts) return '';
+  const out = h('p', { class: 'sub', role: 'status' }, '');
+  const btns = m.opts.map((o) => {
+    const b = h('button', { class: 'opt', type: 'button' }, L(o.t));
+    b.addEventListener('click', () => {
+      btns.forEach((x) => { x.disabled = true; });
+      b.setAttribute('aria-pressed', 'true');
+      out.textContent = (o.ok ? S.miniRight : S.miniWrong) + ' ' + L(o.why);
+      out.className = 'sub ' + (o.ok ? 'mini-ok' : 'mini-bad');
+    });
+    return b;
+  });
+  return h('div', { class: 'blk mini' }, h('h3', {}, S.miniTitle), h('p', {}, L(m.q)), ...btns, out);
+}
+/** Карточка приёма давления. Старые поля (seen, whyItWorks, response, sayThis, escalate) остаются; новые необязательны. */
+function patternCard(x, open) {
+  const title = (x.tier === 'free' ? S.sample + ': ' : '') + L(x.title);
+  const node = h('details', { class: 'acc', ...(open ? { open: true } : {}) }, h('summary', {}, title),
+    h('div', { class: 'acc-body' },
+      block(S.sounds, lst(x.sounds)), block(S.purpose, para(x.purpose)),
+      block(S.seen, para(x.seen)), block(S.why, para(x.whyItWorks)), h('p', { class: 'sub muted' }, L(x.reliabilityNote)),
+      block(S.doThis, lst(x.response)), scriptsBlock(x), block(S.dont, lst(x.dont)),
+      block(S.escalate, para(x.escalate)), miniTrainer(x.mini)));
+  return node;
+}
+
 function openProtection() {
   const p = sec('protection');
   const proOk = hasAccess('protection', ent(), CFG);
+  const demo = p.demoPattern;                         // открытый образец: экран никогда не пустой
   const part = h('div', {});
   const loadPart = async () => {
-    part.replaceChildren(h('p', { class: 'muted' }, tp.load.loading));
+    part.replaceChildren(demo ? patternCard(demo, true) : '', h('p', { class: 'muted' }, tp.load.loading));
     try {
       const c = await proLoader.load('protection');
       const full = { ...p, ...c };
-      part.replaceChildren(...full.patterns.map((x) => acc(L(x.title),
-        block(S.seen, para(x.seen)), block(S.why, para(x.whyItWorks)), h('p', { class: 'sub muted' }, L(x.reliabilityNote)),
-        block(S.doThis, lst(x.response)), block(S.sayThis, lst(x.sayThis)), block(S.escalate, para(x.escalate))),
-      ), h('h2', {}, L(full.nlpClaims.title)), h('p', { class: 'muted sub' }, L(full.nlpClaims.rule)),
-      ...full.nlpClaims.items.map((cl) => acc(L(cl.claim),
-        h('p', {}, h('span', { class: 'tag ' + (cl.status === 'notConfirmed' ? 'jump' : 'weak') }, S.nlpStatus[cl.status] || cl.status)),
-        block(S.evidence, para(cl.evidence)), block(S.doThis, para(cl.whatToDo)))));
-    } catch (e) { part.replaceChildren(loadError(e, loadPart, 'protection')); }
+      const cards = [...(demo ? [demo] : []), ...full.patterns];
+      part.replaceChildren(h('p', { class: 'muted sub' }, S.patternsHint), ...cards.map((x, i) => patternCard(x, i === 0)),
+        h('h2', {}, L(full.nlpClaims.title)), h('p', { class: 'muted sub' }, L(full.nlpClaims.rule)),
+        ...full.nlpClaims.items.map((cl) => acc(L(cl.claim),
+          h('p', {}, h('span', { class: 'tag ' + (cl.status === 'notConfirmed' ? 'jump' : 'weak') }, S.nlpStatus[cl.status] || cl.status)),
+          block(S.evidence, para(cl.evidence)), block(S.doThis, para(cl.whatToDo)))));
+    } catch (e) { part.replaceChildren(demo ? patternCard(demo, true) : '', loadError(e, loadPart, 'protection')); }
   };
   render(topbar(S.protection),
     h('div', { class: 'card' }, h('span', { class: 'badge free' }, S.freeBadge), h('h2', {}, L(p.freeCore.title)), para(p.freeCore.text),
       h('p', { class: 'sub' }, S.helpCta), h('button', { class: 'btn secondary', onclick: () => openHelp() }, S.helpBtn)),
     part);
-  if (proOk) loadPart(); else part.replaceChildren(lockedNote('protection'));
+  if (proOk) loadPart();
+  else part.replaceChildren(h('p', { class: 'muted sub' }, S.patternsHint), demo ? patternCard(demo, true) : '',
+    h('p', { class: 'banner' }, S.moreLocked(12)), lockedNote('protection'));
 }
