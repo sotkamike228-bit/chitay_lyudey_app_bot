@@ -136,8 +136,8 @@
             "en": "Gestures have clearly dropped compared with usual"
           },
           "why": {
-            "ru": "Это изменение относительно их обычного поведения, а не «жест измены». Такие изменения бывают от усталости, стресса, плохих новостей.",
-            "en": "This is a change from their own baseline, not a 'cheating gesture'. Changes like this also come from fatigue, stress or bad news."
+            "ru": "Это изменение относительно их обычного поведения, а не «тайный знак». Такие изменения бывают от усталости, стресса, плохих новостей.",
+            "en": "This is a change from their own baseline, not a 'secret tell'. Changes like this also come from fatigue, stress or bad news."
           },
           "signalId": "HAND-003"
         },
@@ -190,7 +190,7 @@
           "points": 2,
           "text": {
             "ru": "Сказать: «Ты последнее время тише. Хочешь поговорить?»",
-            "en": "Say: 'You have seemed quieter lately. Do you want to talk?'"
+            "en": "Say: 'You've seemed quieter lately. Do you want to talk?'"
           },
           "why": {
             "ru": "Открытый вопрос без обвинения проверяет догадку словами и сохраняет доверие.",
@@ -225,8 +225,8 @@
         }
       ],
       "debrief": {
-        "ru": "Вы смотрели на изменения относительно обычного поведения. Это правильный подход: один признак ничего не значит, смотрите минимум на три и всегда уточняйте словами.",
-        "en": "You looked at changes from usual behaviour. That is the right approach: one cue means nothing, look at three or more and always check in words."
+        "ru": "Здесь важно смотреть на изменения относительно обычного поведения. Один признак ничего не значит: смотрите на несколько признаков сразу и всегда уточняйте словами.",
+        "en": "What matters here is change from usual behaviour. One cue means nothing: look at several cues together and always check in words."
       },
       "altExplanations": {
         "ru": [
@@ -244,7 +244,7 @@
       },
       "checkQuestion": {
         "ru": "Ты последнее время тише. Хочешь поговорить?",
-        "en": "You have seemed quieter lately. Do you want to talk?"
+        "en": "You've seemed quieter lately. Do you want to talk?"
       },
       "signalIds": [
         "HAND-003",
@@ -347,7 +347,7 @@
           "points": 2,
           "text": {
             "ru": "«Что в этом пункте вызывает у вас сомнения? Давайте разберём»",
-            "en": "'What about this point concerns you? Let us go through it'"
+            "en": "'What about this point concerns you? Let's go through it'"
           },
           "why": {
             "ru": "Вопрос превращает догадку в информацию и не давит.",
@@ -404,8 +404,7 @@
         "en": "What about this point concerns you?"
       },
       "signalIds": [
-        "POST-002",
-        "HAND-001"
+        "POST-002"
       ],
       "reliabilityNote": {
         "ru": "Надёжность признаков: от спорной до средней.",
@@ -430,12 +429,12 @@
         "en": "Pressure from a boss"
       },
       "hook": {
-        "ru": "«Это просто совет», сказал он при всех. Но что было до и после?",
-        "en": "'It is just advice,' they said in front of everyone. But what came before and after?"
+        "ru": "«Это просто совет», — сказал он после планёрки. Но что было до этого?",
+        "en": "'It's just advice,' they said after the meeting. But what came before?"
       },
       "scene": {
         "ru": "На планёрке руководитель при всех «шутит» о вашей ошибке. Когда вы начинаете объяснять, он перебивает и повышает голос. После встречи подходит вплотную: «Это просто совет». Это уже третий раз за месяц.",
-        "en": "In a team meeting your manager 'jokes' about your mistake in front of everyone. When you start to explain, they interrupt and raise their voice. After the meeting they step close: 'It is just advice.' This is the third time this month."
+        "en": "In a team meeting your manager 'jokes' about your mistake in front of everyone. When you start to explain, they interrupt and raise their voice. After the meeting they step close: 'It's just advice.' This is the third time this month."
       },
       "observePrompt": {
         "ru": "Что здесь заметно по существу? Выберите до двух.",
@@ -450,7 +449,7 @@
             "en": "It has happened three times this month, in front of others"
           },
           "why": {
-            "ru": "Повторяемость и публичность главное отличие давления от разового резкого слова.",
+            "ru": "Повторяемость и публичность — главное отличие давления от разового резкого слова.",
             "en": "Repetition and publicity are what separate pressure from a single sharp remark."
           }
         },
@@ -462,7 +461,7 @@
             "en": "They interrupt and raise their voice"
           },
           "why": {
-            "ru": "Громкий голос и перебивания признак давления в разговоре, но по одному эпизоду характер человека не оценить.",
+            "ru": "Громкий голос и перебивания — признак давления в разговоре, но по одному эпизоду характер человека не оценить.",
             "en": "A loud voice and interruptions are a mark of pressure in a conversation, but one episode does not tell you about someone's character."
           },
           "signalId": "VOICE-002"
@@ -539,7 +538,7 @@
         }
       ],
       "debrief": {
-        "ru": "Один резкий эпизод повод уточнить. Если повторяется, фиксируйте факты и обращайтесь к HR или коллеге, которому доверяете. Если есть угрозы или насилие, это уже не тренировка наблюдательности: откройте раздел «Помощь».",
+        "ru": "Один резкий эпизод — повод уточнить. Если повторяется, фиксируйте факты и обращайтесь к HR или коллеге, которому доверяете. Если есть угрозы или насилие, это уже не тренировка наблюдательности: откройте раздел «Помощь».",
         "en": "A single sharp episode is a reason to clarify. If it repeats, record facts and talk to HR or a colleague you trust. If there are threats or violence, this is no longer an observation exercise: open the Help section."
       },
       "altExplanations": {
@@ -559,8 +558,7 @@
         "en": "It matters to me to get feedback in private. Can we agree on that?"
       },
       "signalIds": [
-        "VOICE-002",
-        "DIST-001"
+        "VOICE-002"
       ],
       "reliabilityNote": {
         "ru": "Надёжность признаков: средняя. Важнее повторяемость, чем отдельный жест.",
@@ -589,8 +587,8 @@
         "en": "They glanced at their phone. Is interest gone, or are they just nervous?"
       },
       "scene": {
-        "ru": "Кафе, первое свидание. Сначала собеседница отвечает коротко и один раз смотрит на телефон. Когда вы спрашиваете про скалолазание, она оживляется и начинает активно жестикулировать. Пока вы ждёте заказ, её руки скрещены.",
-        "en": "A café, a first date. At first your date answers briefly and glances once at their phone. When you ask about climbing, they brighten and start gesturing actively. While you wait for the order, their arms are crossed."
+        "ru": "Кафе, первое свидание. Сначала собеседница отвечает коротко и один раз смотрит на телефон. Когда вы спрашиваете про скалолазание, она оживляется и начинает активно жестикулировать. Вы шутите про свой первый подъём, и она смеётся вместе с вами.",
+        "en": "A café, a first date. At first your date answers briefly and glances once at their phone. When you ask about climbing, they brighten and start gesturing actively. You joke about your first climb, and they laugh along with you."
       },
       "observePrompt": {
         "ru": "Что здесь заметно по существу? Выберите до двух.",
@@ -614,6 +612,19 @@
           "id": "b",
           "kind": "signal",
           "text": {
+            "ru": "Она смеётся вместе с вами над шуткой",
+            "en": "They laugh along with you at the joke"
+          },
+          "why": {
+            "ru": "Совместный смех обычно говорит о контакте и расположении, но смеются и из вежливости. Смотрите, смеётся ли человек и в других моментах.",
+            "en": "Shared laughter usually points to rapport, but people also laugh out of politeness. See whether it happens at other moments too."
+          },
+          "signalId": "VOC-013"
+        },
+        {
+          "id": "c",
+          "kind": "weak",
+          "text": {
             "ru": "Она один раз взглянула на телефон",
             "en": "They glanced at their phone once"
           },
@@ -624,23 +635,10 @@
           "signalId": "EYE-006"
         },
         {
-          "id": "c",
-          "kind": "weak",
-          "text": {
-            "ru": "У неё скрещены руки, пока ждёте заказ",
-            "en": "Their arms are crossed while you wait"
-          },
-          "why": {
-            "ru": "Спорный сигнал: прохлада в кафе, привычка, удобство.",
-            "en": "A disputed cue: a cool café, habit, comfort."
-          },
-          "signalId": "HAND-001"
-        },
-        {
           "id": "d",
           "kind": "jump",
           "text": {
-            "ru": "Я ей не интересен",
+            "ru": "Интереса ко мне нет",
             "en": "They are not interested in me"
           },
           "why": {
@@ -673,10 +671,10 @@
           "points": 1,
           "text": {
             "ru": "Больше рассказать о себе",
-            "en": "Tell more about yourself"
+            "en": "Talk more about yourself"
           },
           "why": {
-            "ru": "Не плохо, но вы не используете подсказку о её интересах.",
+            "ru": "Неплохо, но вы не используете подсказку о её интересах.",
             "en": "Not bad, but you are not using the hint about their interests."
           }
         },
@@ -695,7 +693,7 @@
         }
       ],
       "debrief": {
-        "ru": "Интерес и согласие разные вещи. Согласие даётся словами, добровольно и может быть отозвано в любой момент. Услышали «нет», «не сейчас» или тишину, остановитесь.",
+        "ru": "Интерес и согласие — разные вещи. Согласие даётся словами, добровольно и может быть отозвано в любой момент. Услышали «нет», «не сейчас» или тишину, остановитесь.",
         "en": "Interest and consent are different things. Consent is given in words, freely, and can be withdrawn at any moment. If you hear 'no', 'not now' or silence, stop."
       },
       "altExplanations": {
@@ -714,16 +712,16 @@
       },
       "checkQuestion": {
         "ru": "Как тебе здесь, комфортно?",
-        "en": "How are you finding it here, comfortable?"
+        "en": "Are you comfortable here?"
       },
       "signalIds": [
         "HAND-002",
-        "EYE-006",
-        "HAND-001"
+        "VOC-013",
+        "EYE-006"
       ],
       "reliabilityNote": {
-        "ru": "Надёжность признаков: от спорной до средней. Интерес не согласие.",
-        "en": "Reliability of cues: from disputed to medium. Interest is not consent."
+        "ru": "Надёжность признаков: средняя. Интерес — это не согласие.",
+        "en": "Reliability of cues: medium. Interest is not consent."
       },
       "safetyFlag": "relationships",
       "shareHook": {
@@ -764,7 +762,7 @@
             "en": "They hurry you: 'only today'"
           },
           "why": {
-            "ru": "Искусственная срочность типичный приём давления: решение без времени на проверку выгодно только ему.",
+            "ru": "Искусственная срочность — типичный приём давления: решение без времени на проверку выгодно только ему.",
             "en": "Artificial urgency is a typical pressure tactic: a decision without time to check benefits only the person pushing."
           }
         },
@@ -776,7 +774,7 @@
             "en": "They dodge the question about documents"
           },
           "why": {
-            "ru": "Уход от конкретики на проверяемый вопрос повод остановиться и проверить, как бы приятно ни звучало.",
+            "ru": "Уход от конкретики на проверяемый вопрос — повод остановиться и проверить, как бы приятно ни звучало.",
             "en": "Dodging a checkable question is a reason to stop and verify, however pleasant it sounds."
           }
         },
@@ -829,12 +827,12 @@
           "grade": "ok",
           "points": 1,
           "text": {
-            "ru": "Вложить небольшую сумму «на пробу»",
-            "en": "Invest a small amount 'as a test'"
+            "ru": "Поискать сведения о проекте и человеке в открытых реестрах и отзывах",
+            "en": "Look up the project and the person in public registers and reviews"
           },
           "why": {
-            "ru": "Это всё равно риск потери денег, а проверки документов не заменяет.",
-            "en": "It is still a risk of losing money and does not replace checking documents."
+            "ru": "Проверка по независимым источникам разумна, но решение нельзя принимать под давлением срока и до ответа на вопрос о документах.",
+            "en": "Checking independent sources is sensible, but do not decide under a deadline or before your question about documents is answered."
           }
         },
         {
@@ -871,9 +869,7 @@
         "ru": "Пришлите документы, я отвечу завтра.",
         "en": "Send me the documents and I will reply tomorrow."
       },
-      "signalIds": [
-        "FACE-001"
-      ],
+      "signalIds": [],
       "reliabilityNote": {
         "ru": "Мимика ненадёжна. Надёжнее проверять предложение: срочность и уход от деталей.",
         "en": "Facial cues are unreliable. It is more reliable to verify the offer: urgency and vagueness."

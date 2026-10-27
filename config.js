@@ -2,7 +2,10 @@
 export const CONFIG = {
   // Прямая ссылка на Mini App, например: 'https://t.me/<username_бота>/<short_name>'.
   // Пока пусто, «Поделиться» отправляет ссылку на страницу Pages (она открывается и в браузере).
-  miniAppLink:"https://t.me/chitay_lyudey_app_bot/app",
+  miniAppLink: 'https://t.me/chitay_lyudey_app_bot/app',
   // Адрес страницы политики конфиденциальности (после публикации). Пока пусто: ссылка скрыта.
   privacyUrl: '',
+  // Бета-режим: PRO-разделы (Анатомия, Калибровка) открыты для тестирования. Оплаты пока нет.
+  // ПЕРЕД включением оплаты поставить false.
+  proPreview: true,
 };
