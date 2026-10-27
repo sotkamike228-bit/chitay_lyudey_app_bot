@@ -4,7 +4,7 @@ import { read, write, KEYS } from './store.js';
 import { hotspotUnlocked, hasAccess } from './access.js';
 import { figureSvg, overlaySvg } from './figures.js';
 import { shuffle } from './engine.js';
-import { openPaywall } from './paywall.js';
+import { openPaywall, lockCard } from './paywall.js';
 import { proLoader, refreshEntitlements } from './services.js';
 
 const A = { sec: 0, sel: null, layer: 'seen', content: null, err: null };
@@ -25,7 +25,7 @@ function layerNode(o, cls) {
   if (Array.isArray(v)) return h('ul', { class: cls || '' }, ...v.map((x) => h('li', {}, x)));
   return h('p', {}, v || '');
 }
-const secBlock = (n, title, node) => (node ? h('div', { class: 'sec' }, h('h3', {}, h('span', { class: 'n', 'aria-hidden': 'true' }, String(n)), title), node) : '');
+const secBlock = (n, title, node, cls = '') => (node ? h('div', { class: ('sec ' + cls).trim() }, h('h3', {}, h('span', { class: 'n', 'aria-hidden': 'true' }, String(n)), title), node) : '');
 
 export function totalZones(pro) { return pro.anatomy.sections.reduce((n, s) => n + s.hotspots.length, 0); }
 
@@ -135,8 +135,8 @@ function renderSheet(id) {
     const L_ = hs.layers;
     body.append(secBlock(1, tp.sec.seen, layerNode(L_.seen)), secBlock(2, tp.sec.physiology, layerNode(L_.physiology)),
       secBlock(3, tp.sec.caveat, layerNode(L_.notProven)),
-      secBlock(4, tp.sec.check, layerNode(L_.check, 'qs')),
-      secBlock(5, tp.sec.fix, h('div', { class: 'fixation' }, layerNode(L_.fixation))),
+      secBlock(4, tp.sec.check, layerNode(L_.check, 'qs'), 'tool'),
+      secBlock(5, tp.sec.fix, layerNode(L_.fixation), 'fix'),
       h('details', { class: 'src' }, h('summary', {}, tp.sec.limits), layerNode(L_.alt)));
     if (hs.research) body.append(h('details', { class: 'src' }, h('summary', {}, tp.source), h('p', { class: 'sub muted' }, L(hs.research))));
     body.append(trainerBlock(full));
@@ -151,6 +151,7 @@ function renderSheet(id) {
 function pendingState(id) {
   const e = A.err;
   if (!e) return [h('p', { class: 'muted' }, tp.load.loading)];
+  if (e === 'previewMissing') return [lockCard('anatomy')];
   if (e === 'locked') return [h('p', { class: 'hook' }, tp.locked), h('p', {}, tp.load.locked),
     h('button', { class: 'btn', type: 'button', onclick: () => { A.sel = null; openPaywall('anatomy'); } }, tp.paywallTitle)];
   const out = [h('p', {}, tp.load[e] || tp.load.network)];

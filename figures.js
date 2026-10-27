@@ -64,7 +64,7 @@ export function figureSvg(view, label) {
   const [inner, accent] = VIEWS[view] || VIEWS.body;
   return `<svg class="fig" viewBox="0 0 100 100" role="img" aria-label="${label}" focusable="false">
     <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${inner}</g>
-    <g class="accent" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">${accent}</g></svg>`;
+    <g class="accent" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${accent}</g></svg>`;
 }
 
 /** Подсветка зоны и линия-выноска от метки к зоне (в тех же координатах). */

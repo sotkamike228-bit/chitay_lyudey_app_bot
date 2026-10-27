@@ -5,7 +5,7 @@ import { MAX_PICK, playableCases, scoreObservations, scoreAction, missedSignals,
 import { LEVELS, isCorrect, addItem, stats, CAT_IDS, normCat, roundAllowed, roundCases, markSeen, resetHistory } from './calib.js';
 import { proLoader } from './services.js';
 import { openHypo } from './hypo-view.js';
-import { openPaywall } from './paywall.js';
+import { openPaywall, lockCard } from './paywall.js';
 import { hasAccess } from './access.js';
 
 const Q = { mode: 'quiz', cases: [], i: 0, total: 0, results: [], picked: [], conf: null, challenge: null, cat: null, okCount: 0 };
@@ -106,9 +106,13 @@ async function beginCalib() {
         render(topbar(tp.calibTitle), h('div', { class: 'card' }, h('p', {}, tp.load[code] || tp.load.network), h('button', { class: 'btn', onclick: beginCalib }, tp.load.retry)));
         return;
       }
-      toast(tp.load.previewMissing);   // демо без платного файла: играем бесплатные кейсы, экран не пустой
+      if (!Q.freeOk) {   // демо без платного файла: карточка пейволла и выбор — играть бесплатные кейсы
+        render(topbar(tp.calibTitle), lockCard('calibration', h('button', { class: 'btn secondary', type: 'button', onclick: () => { Q.freeOk = true; beginCalib(); } }, tp.lockCard.free)));
+        return;
+      }
     }
   }
+  Q.freeOk = false;
   const cases = roundCases(cs.rounds, free, paid, cs.seen).filter((c) => isAdult() || !c.adultOnly);
   saveCat(Q.cat, { ...cs, seen: markSeen(cs.seen, cases) });
   Q.cases = cases; Q.i = 0; Q.total = 0; Q.results = []; Q.picked = []; Q.conf = null; Q.okCount = 0;

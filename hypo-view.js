@@ -2,7 +2,7 @@
 import { h, L, LA, t, tp, data, render, nav, topbar, loadJson, CFG } from './ctx.js';
 import { read, KEYS } from './store.js';
 import { hasAccess } from './access.js';
-import { openPaywall } from './paywall.js';
+import { openPaywall, lockCard } from './paywall.js';
 import { proLoader } from './services.js';
 import { evaluate, FAMILIES } from './hypo.js';
 
@@ -23,7 +23,7 @@ export async function openHypo() {
   let themes = [...data.hypo.free], note = null;
   if (hasAccess('cheatsheets', ent(), CFG)) {
     try { themes = [...themes, ...(await proLoader.load('hypothesis')).themes]; }
-    catch (e) { note = tp.load[(e && e.code) || 'network'] || tp.load.network; }
+    catch (e) { const c = (e && e.code) || 'network'; note = c === 'previewMissing' ? 'preview' : (tp.load[c] || tp.load.network); }
   } else note = 'locked';
   screenThemes(themes, note);
 }
@@ -36,7 +36,8 @@ function screenThemes(themes, note) {
       h('span', { class: 'badge ' + (th.tier === 'free' ? 'free' : 'pro') }, th.tier === 'free' ? tp.badges.free : tp.badges.pro))),
     note === 'locked' ? h('div', { class: 'card pro-card' }, h('span', { class: 'badge pro' }, tp.badges.pro), h('p', {}, H().moreLocked),
       h('button', { class: 'btn', onclick: () => openPaywall('cheatsheets') }, tp.pay.homeLink)) : '',
-    note && note !== 'locked' ? h('p', { class: 'muted sub' }, note) : '');
+    note === 'preview' ? lockCard('cheatsheets') : '',
+    note && note !== 'locked' && note !== 'preview' ? h('p', { class: 'muted sub' }, note) : '');
 }
 
 function screenTrigger(th, themes, note) {

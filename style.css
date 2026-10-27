@@ -170,3 +170,32 @@ a.tel{color:var(--accent);font-weight:700}
 .lang-toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none;margin-top:4px}
 .lang-btn{min-width:48px;min-height:44px;padding:0 12px;border:0;background:transparent;color:var(--muted);font:700 13px inherit;font-family:inherit;letter-spacing:.04em;cursor:pointer}
 .lang-btn[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+
+/* ===== визуальная доработка: читаемость, акценты, схема на тёмной подложке ===== */
+:root{--muted:#B9C1D3;--tool-bg:#1B2340;--tool-line:#7C9CFF;--fix-bg:#1F2A22;--stage-bg:#161922;--fig-line:#D5DBEA;--neon:#C79BFF;--neon-glow:#B28DFFcc}
+:root[data-theme="light"]{--muted:#3F495C;--tool-bg:#F0F4FF;--tool-line:#2F5BE0;--fix-bg:#EAF6EF;--stage-bg:#1E222D;--fig-line:#E4E9F5;--neon:#C79BFF;--neon-glow:#B28DFFcc}
+html,body{font-size:16px}
+.sub{font-size:15px}.tile-sub{font-size:14.5px}.layer,.card,.acc-body,.opt,.row,.qs li{font-size:16px}
+.chip{font-size:15px}.chips.small .chip{font-size:14px}.disc{font-size:12.5px}.link{font-size:14px}.atlas,.relbar .lbl{font-size:14px}
+.card p,.sheet p,.layer{line-height:1.5}
+h1{font-weight:800}h2{font-weight:700}h3{font-weight:700}.hook,.tile-title,.topbar-title,.acc summary{font-weight:700}
+.status .tier,.plan-price{font-weight:800}.strength-none .tier,.strength-weak .tier,.strength-strong .tier,.tier{font-weight:800}
+.sec h3{font-size:14px;font-weight:700;color:var(--text)}
+.lock-card{border-color:color-mix(in srgb,var(--gold) 55%,var(--line));background:linear-gradient(160deg,color-mix(in srgb,var(--gold) 12%,var(--surface)),var(--surface))}
+.lock-title{font-size:19px;font-weight:800;margin:0 0 6px}.lock-text{font-size:16px;margin:0 0 8px}
+/* инструмент проверки и фиксация */
+.sec.tool{background:var(--tool-bg);border-left:4px solid var(--tool-line);border-radius:12px;padding:12px 14px 10px}
+.sec.tool .qs li{background:color-mix(in srgb,var(--tool-line) 10%,transparent);border-color:color-mix(in srgb,var(--tool-line) 35%,var(--line));font-weight:600}
+.sec.fix{background:var(--fix-bg);border-left:4px solid var(--good);border-radius:12px;padding:12px 14px}
+.sec.fix .layer{font-weight:650}
+.sec.tool .n{background:var(--tool-line)}.sec.fix .n{background:var(--good);color:#0B0D12}
+/* схема на тёмной подложке, неоновые зоны */
+.stage{background:var(--stage-bg);border:1px solid #2A3145;border-radius:22px;color:var(--fig-line);box-shadow:inset 0 0 0 1px #ffffff08}
+.fig .accent{stroke:var(--neon);stroke-width:1.8;opacity:1;filter:drop-shadow(0 0 2px var(--neon-glow))}
+.overlay-svg .zone{fill:color-mix(in srgb,var(--neon) 16%,transparent);stroke:var(--neon);stroke-width:1.6;stroke-dasharray:3 2}
+.overlay-svg .zone.on{fill:color-mix(in srgb,var(--neon) 38%,transparent);stroke-width:2.6;stroke-dasharray:none;filter:drop-shadow(0 0 2px var(--neon-glow))}
+.overlay-svg .leader{stroke:var(--neon);stroke-width:.9;opacity:.7}.overlay-svg .leader.on{opacity:1}
+.pin{background:#262B3A;border-color:var(--neon);color:#fff;box-shadow:0 0 8px color-mix(in srgb,var(--neon) 55%,transparent)}
+.pin.seen{background:color-mix(in srgb,var(--good) 35%,#262B3A);border-color:var(--good)}
+.pin.myth{border-color:var(--warn)}
+.pin.on{background:var(--neon);color:#10121A;box-shadow:0 0 0 4px color-mix(in srgb,var(--neon) 35%,transparent),0 0 14px var(--neon-glow)}

@@ -23,6 +23,7 @@ export const TP = {
     lockedText: 'Откройте PRO, чтобы увидеть все слои этой зоны. Одна зона («Отведение взгляда») бесплатна как образец.',
     open: 'Подробнее', close: 'Закрыть',
     paywallTitle: 'Это раздел PRO',
+    lockCard: { title: '🔒 Доступно в полной версии', btn: 'Разблокировать PRO', free: 'Продолжить с бесплатными кейсами' },
     paywallText: 'Оплата появится на следующем этапе. Пока этот раздел недоступен в обычной версии.',
     paywallIncludes: 'Что входит в PRO',
     includes: ['Анатомия невербалики: все зоны', 'Шпаргалки: свидания, переговоры, защита от давления', 'Калибровка уверенности'],
@@ -93,7 +94,7 @@ export const TP = {
       network: 'Не удалось загрузить. Проверьте сеть и повторите. Деньги не списываются.',
       auth: 'Сессия устарела. Закройте и снова откройте приложение из Telegram.',
       unavailable: 'Раздел временно недоступен. Попробуйте позже.',
-      previewMissing: 'Предпросмотр PRO: платные тексты не подключены к этой версии. Они придут с сервера после включения оплаты.',
+      previewMissing: 'Откройте доступ ко всем сценариям калибровки, 17 зонам атласа и шпаргалкам по защите от давления.',
       locked: 'Для этого раздела нужен доступ PRO.',
     },
     hypo: {
@@ -131,6 +132,7 @@ export const TP = {
     lockedText: 'Unlock PRO to see all layers of this zone. One zone ("Looking away") is free as a sample.',
     open: 'Details', close: 'Close',
     paywallTitle: 'This is a PRO section',
+    lockCard: { title: '🔒 Available in the full version', btn: 'Unlock PRO', free: 'Continue with the free cases' },
     paywallText: 'Payment arrives in the next stage. For now this section is not available in the regular version.',
     paywallIncludes: 'What PRO includes',
     includes: ['Anatomy of nonverbal cues: all zones', 'Cheat sheets: dating, negotiation, protection from pressure', 'Confidence calibration'],
@@ -201,7 +203,7 @@ export const TP = {
       network: 'Could not load. Check your connection and retry. Nothing is charged.',
       auth: 'The session has expired. Close and reopen the app from Telegram.',
       unavailable: 'This section is temporarily unavailable. Try again later.',
-      previewMissing: 'PRO preview: the paid texts are not included in this version. They will come from the server once payments are on.',
+      previewMissing: 'Unlock all calibration scenarios, the 17 atlas zones and the cheat sheets on protection from pressure.',
       locked: 'This section needs PRO access.',
     },
     hypo: {

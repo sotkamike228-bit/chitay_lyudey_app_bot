@@ -2,7 +2,7 @@
 import { h, L, LA, t, tp, data, isAdult, render, nav, topbar, loadJson, CFG } from './ctx.js';
 import { read, patch, KEYS } from './store.js';
 import { hasAccess } from './access.js';
-import { openPaywall } from './paywall.js';
+import { openPaywall, lockCard } from './paywall.js';
 import { openCalibration } from './quiz.js';
 import { openHelp } from './help-view.js';
 import { openHypo } from './hypo-view.js';
@@ -23,6 +23,7 @@ function lockedNote(feature) {
 function loadError(e, retry, feature) {
   const code = (e && e.code) || 'network';
   if (code === 'locked') { refreshEntitlements(); return lockedNote(feature); }
+  if (code === 'previewMissing') return lockCard(feature);
   return h('div', { class: 'card' }, h('p', {}, tp.load[code] || tp.load.network),
     code === 'network' || code === 'unavailable' ? h('button', { class: 'btn', onclick: retry }, tp.load.retry) : '');
 }

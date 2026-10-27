@@ -4,6 +4,14 @@ import { ownedProducts } from './access.js';
 import { PRODUCTS, perMonth } from './pricing.js';
 import { billing, proLoader } from './services.js';
 
+/** Карточка «Доступно в полной версии»: вместо технических заглушек. extra — дополнительные кнопки. */
+export function lockCard(feature, ...extra) {
+  return h('div', { class: 'card lock-card' },
+    h('p', { class: 'lock-title' }, tp.lockCard.title),
+    h('p', { class: 'lock-text' }, tp.load.previewMissing),
+    h('button', { class: 'btn', type: 'button', onclick: () => openPaywall(feature) }, tp.lockCard.btn), ...extra);
+}
+
 /** Экран тарифов. Пока сервера нет (apiBase пуст), тап по тарифу ничего не списывает. */
 export function openPaywall() {
   nav.go(screen);
