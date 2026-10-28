@@ -4,7 +4,7 @@ export const PRODUCT_FEATURES = {
   pack_anatomy: ['anatomy'],
   pack_cheatsheets: ['cheatsheets', 'calibration', 'protection'],
   pro_monthly: ['*'],
-  pro_yearly: ['*'],
+  pro_lifetime: ['*'],
 };
 export const FREE_FEATURES = ['quiz', 'help', 'protectionCore', 'atlas'];
 

@@ -1,5 +1,5 @@
 // «Шпаргалки»: свидания (18+), переговоры, защита от давления. Данные: chitay_pro.json → cheatsheets.
-import { h, L, LA, t, tp, data, isAdult, render, nav, topbar, loadJson, CFG } from './ctx.js';
+import { h, html, L, LA, t, tp, data, isAdult, render, nav, topbar, loadJson, CFG } from './ctx.js';
 import { read, patch, KEYS } from './store.js';
 import { hasAccess } from './access.js';
 import { openPaywall, lockCard } from './paywall.js';
@@ -38,6 +38,15 @@ async function withContent(section, feature, title, build) {
 }
 
 const acc = (title, ...kids) => h('details', { class: 'acc' }, h('summary', {}, title), h('div', { class: 'acc-body' }, ...kids));
+const accOpen = (title, ...kids) => h('details', { class: 'acc', open: true }, h('summary', {}, title), h('div', { class: 'acc-body' }, ...kids));
+/** Стильная карточка замка под открытым образцом. */
+function unlockCard(feature) {
+  return h('div', { class: 'card lock-card pro-lock' }, h('span', { class: 'badge pro' }, tp.badges.pro), h('p', { class: 'lock-title' }, S.sheetLock.title), h('p', {}, S.sheetLock.text),
+    h('button', { class: 'btn cta-gb', type: 'button', onclick: () => openPaywall(feature) }, S.sheetLock.btn));
+}
+const negCard = (c, open) => (open ? accOpen : acc)(L(c.title),
+  block(S.seen, lst(c.seen)), block(S.meaning, para(c.meaning)), block(S.alt, lst(c.alt)), block(S.doThis, lst(c.doThis || c.steps)),
+  block(S.never, lst(c.neverSay)), block(S.say, lst(c.saySomething)));
 
 async function ensure() {
   if (!data.pro) data.pro = await loadJson('chitay_pro.json');
@@ -68,7 +77,10 @@ const sec = (id) => data.pro.cheatsheets.sections.find((s) => s.id === id);
 function openDating() {
   const d = sec('dating');
   if (!isAdult()) { render(topbar(S.dating), h('div', { class: 'card' }, h('p', {}, S.age18Off))); return; }
-  if (!hasAccess('cheatsheets', ent(), CFG)) { render(topbar(S.dating), lockedNote('cheatsheets')); return; }
+  if (!hasAccess('cheatsheets', ent(), CFG)) {
+    const q = d.demoQuestion;
+    render(topbar(S.dating), h('p', { class: 'muted sub' }, S.demoNote), q ? accOpen(L(q.text), block(S.when, para(q.when)), block(S.listen, para(q.listenFor))) : '', unlockCard('cheatsheets')); return;
+  }
   withContent('dating', 'cheatsheets', S.dating, (c) => renderDating({ ...d, ...c }));
 }
 
@@ -80,20 +92,20 @@ function renderDating(d) {
       h('div', { class: 'cols' }, col(S.moreInterest, iv.moreOftenWithInterest), col(S.moreDistance, iv.moreOftenWithDistance)),
       h('p', { class: 'sub muted' }, S.reliability[iv.reliability] || ''), h('p', { class: 'banner' }, L(iv.alwaysAdd))),
     h('h2', {}, L(d.checkQuestions.title)),
-    ...d.checkQuestions.items.map((q) => acc(L(q.text), block(S.when, para(q.when)), block(S.listen, para(q.listenFor)))));
+    ...[...(d.demoQuestion ? [d.demoQuestion] : []), ...d.checkQuestions.items].map((q) => acc(L(q.text), block(S.when, para(q.when)), block(S.listen, para(q.listenFor)))));
 }
 
 function openNegotiation() {
   const n = sec('negotiation');
-  if (!hasAccess('cheatsheets', ent(), CFG)) { render(topbar(S.negotiation), lockedNote('cheatsheets')); return; }
+  if (!hasAccess('cheatsheets', ent(), CFG)) {
+    render(topbar(S.negotiation), h('div', { class: 'card banner' }, L(n.guardrail)), h('p', { class: 'muted sub' }, S.demoNote), n.demoCard ? negCard(n.demoCard, true) : '', unlockCard('cheatsheets')); return;
+  }
   withContent('negotiation', 'cheatsheets', S.negotiation, (c) => renderNegotiation({ ...n, ...c }));
 }
 
 function renderNegotiation(n) {
   render(topbar(S.negotiation), h('div', { class: 'card banner' }, L(n.guardrail)),
-    ...n.cards.map((c) => acc(L(c.title),
-      block(S.seen, lst(c.seen)), block(S.meaning, para(c.meaning)), block(S.alt, lst(c.alt)), block(S.doThis, lst(c.doThis || c.steps)),
-      block(S.never, lst(c.neverSay)), block(S.say, lst(c.saySomething)))),
+    ...[...(n.demoCard ? [n.demoCard] : []), ...n.cards].map((c, i) => negCard(c, i === 0)),
     h('div', { class: 'card' }, h('p', { class: 'hook' }, S.calibCta), h('p', {}, tp.calibPitch),
       h('button', { class: 'btn', onclick: () => nav.go(openCalibration) }, S.calibGo)));
 }

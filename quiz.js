@@ -1,11 +1,13 @@
 // Тест из 5 ситуаций и режим калибровки (тот же поток + шаг «уверенность»).
-import { h, L, t, tp, lang, data, state, isAdult, render, nav, haptic, toast, topbar, tg, CFG, loadJson } from './ctx.js';
+import { h, html, L, t, tp, lang, data, state, isAdult, render, nav, haptic, toast, topbar, tg, CFG, loadJson } from './ctx.js';
 import { read, write, patch, KEYS } from './store.js';
 import { MAX_PICK, playableCases, scoreObservations, scoreAction, missedSignals, percent, tierFor, encodeChallenge, parseChallenge, shuffle, compareChallenge } from './engine.js';
 import { LEVELS, isCorrect, addItem, stats, CAT_IDS, normCat, roundAllowed, roundCases, markSeen, resetHistory } from './calib.js';
 import { proLoader } from './services.js';
 import { openHypo } from './hypo-view.js';
 import { openAnatomy } from './anatomy.js';
+import { ICONS } from './icons.js';
+const trackIcon = (c) => (c.track === 'business' ? 'biz' : c.track === 'relationships' ? 'rel' : 'shield');
 import { openPaywall, lockCard } from './paywall.js';
 import { hasAccess } from './access.js';
 
@@ -138,8 +140,8 @@ function screenObserve() {
     return b;
   });
   render(topbar(''), progress(), h('p', { class: 'muted sub' }, t.caseOf(Q.i + 1, Q.cases.length)),
-    h('h1', {}, L(c.title)), h('p', { class: 'hook' }, L(c.hook)),
-    h('div', { class: 'card' }, L(c.scene)),
+    h('div', { class: 'case-head' }, html('span', { class: 'case-ico' }, ICONS[trackIcon(c)]), h('h1', {}, L(c.title))), h('p', { class: 'hook' }, L(c.hook)),
+    h('div', { class: 'card scene-card' }, L(c.scene)),
     h('h3', {}, L(c.observePrompt) || t.pick), ...list, next);
 }
 

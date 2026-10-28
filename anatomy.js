@@ -155,7 +155,7 @@ function renderSheet(id) {
     html('span', { class: 'hub-ico' }, ICONS[HUB_ICON[A.sec] || 'scan']),
     h('div', { class: 'sheet-title' }, h('h2', {}, L(hs.label)),
       h('div', { class: 'head-meta' }, relBar(hs.reliability)),
-      hs0.gist ? h('p', { class: 'gist' }, L(hs0.gist)) : '', hs0.twist ? h('p', { class: 'gist twistp' }, h('b', { class: 'twist' }, tp.twistLabel + ' '), L(hs0.twist)) : ''),
+      hs0.gist ? h('p', { class: 'gist' }, L(hs0.gist)) : '', !unlocked ? h('p', { class: 'lock-teaser' }, tp.lockModal.teaser) : '', hs0.twist ? h('p', { class: 'gist twistp' }, h('b', { class: 'twist' }, tp.twistLabel + ' '), L(hs0.twist)) : ''),
     h('button', { class: 'x', type: 'button', 'aria-label': tp.close, onclick: () => { A.sel = null; A.full = false; screen(); } }, '×'));
   const body = h('div', { class: 'sheet-body' });
   if (!unlocked) {
@@ -182,6 +182,14 @@ function renderSheet(id) {
     onclick: () => { A.full = !A.full; sheet.classList.toggle('full', A.full); document.body.classList.toggle('sheet-full', A.full); grip.setAttribute('aria-expanded', String(A.full)); grip.querySelector('span').textContent = A.full ? tp.sheetLess : tp.sheetHint; } },
     h('span', {}, A.full ? tp.sheetLess : tp.sheetHint));
   const sheet = h('div', { class: 'sheet' + (A.full ? ' full' : ''), role: 'dialog', 'aria-modal': 'false', 'aria-label': L(hs.label) }, h('div', { class: 'sheet-handle', 'aria-hidden': 'true', onclick: () => grip.click() }), head, grip, body);
+  const hint = h('button', { class: 'scroll-hint hide', type: 'button', onclick: () => {
+    const target = sheet.querySelector('.hookpro');
+    if (target) sheet.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' }); else sheet.scrollTo({ top: sheet.scrollHeight, behavior: 'smooth' });
+  } }, h('span', { class: 'arr', 'aria-hidden': 'true' }, '↓'), tp.lockModal.scrollHint);
+  const upd = () => { const more = sheet.scrollHeight - sheet.scrollTop - sheet.clientHeight > 48; hint.classList.toggle('hide', !(A.full && more)); };
+  sheet.addEventListener('scroll', upd, { passive: true });
+  grip.addEventListener('click', () => setTimeout(upd, 340));
+  sheet.append(hint); setTimeout(upd, 350); setTimeout(upd, 900);
   let y0 = null;
   const setFull = (v) => { if (A.full !== v) grip.click(); };
   sheet.addEventListener('touchstart', (e) => { y0 = e.touches[0].clientY; }, { passive: true });

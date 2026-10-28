@@ -26,22 +26,27 @@ function screen() {
 
   const plan = (p) => {
     const L = P.plans[p.id]; const has = owned.includes(p.id);
-    const btn = h('button', { class: 'btn' + (p.id === 'pack_cheatsheets' ? '' : ' secondary'), type: 'button', disabled: has,
+    const btn = h('button', { class: 'btn' + (p.id === 'pro_lifetime' ? ' cta-gb' : ' secondary'), type: 'button', disabled: has,
       onclick: async () => {
         if (busy) return; busy = true; btns.forEach((b) => { b.disabled = true; });
         const r = await billing.checkout(p.id, (st) => say(st === 'stub' ? P.stubTap(L.name) : P.states[st]));
         if (r.state === 'done') {
           write(KEYS.ent, { products: r.ent.products || [], exp: r.ent.exp || {} }); proLoader.clear(); toast(P.states.done); screen(); return;
         }
-        busy = false; btns.forEach((b, i) => { b.disabled = owned.includes(PRODUCTS[i].id); });
+        busy = false; btns.forEach((b, i) => { b.disabled = owned.includes(ORDERED[i].id); });
       } }, has ? P.ownedBadge : L.btn);
     btns.push(btn);
-    return h('div', { class: 'card plan' + (has ? ' owned' : '') },
+    const flag = p.id === 'pro_lifetime';
+    const mo = PRODUCTS.find((x) => x.days === 30);
+    return h('div', { class: 'card plan' + (has ? ' owned' : '') + (flag ? ' plan-flagship' : '') },
+      flag ? h('div', { class: 'plan-ribbon' }, P.bestBadge) : '',
       h('div', { class: 'plan-head' }, h('h3', {}, L.name), p.days === null ? h('span', { class: 'badge pro sm' }, P.onceBadge) : ''),
+      flag && mo ? h('p', { class: 'plan-save' }, P.payback(Math.ceil(p.stars / mo.stars))) : '',
       h('p', { class: 'plan-price' }, `${p.stars} ⭐`), h('p', { class: 'sub muted' }, L.note(perMonth(p))), h('p', { class: 'sub' }, L.what), btn);
   };
   const btns = [];
-  const plans = PRODUCTS.map(plan);
+  const ORDERED = [...PRODUCTS].sort((a, b) => (b.id === 'pro_lifetime') - (a.id === 'pro_lifetime'));
+  const plans = ORDERED.map(plan);
 
   render(topbar(P.homeLink),
     h('h1', {}, P.title), h('p', { class: 'muted' }, P.sub),

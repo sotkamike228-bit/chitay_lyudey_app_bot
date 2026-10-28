@@ -158,24 +158,26 @@
               },
               "hook": {
                 "title": {
-                  "ru": "🔒 Протокол проверки зоны: Отведение взгляда",
-                  "en": "🔒 Zone check protocol: Looking away"
+                  "ru": "🔒 Закрытый протокол верификации: Отведение взгляда",
+                  "en": "🔒 Closed verification protocol: Looking away"
                 },
                 "bullets": {
                   "ru": [
-                    "Контрольная фраза: как вернуть тему через 3 минуты и сверить реакцию с первой.",
-                    "Разбор для переговоров: утаивание условий, откаты, срыв сроков.",
-                    "Разбор для отношений: скрытая переписка, подозрение на измену, неискренность."
+                    "⚡ Контрольная фраза-триггер: точный проверочный вопрос для этой зоны.",
+                    "💼 Бизнес-сценарий: маркеры скрытых условий, завышения сметы и блефа на переговорах.",
+                    "❤️ Сценарий отношений: как проверять факты и скрытую переписку, не обвиняя и не попадая в двойные стандарты.",
+                    "🛡 Алгоритм перепроверки через 3 минуты, снижающий риск случайной ошибки."
                   ],
                   "en": [
-                    "Control phrase: how to return to the topic after 3 minutes and compare the reaction with the first.",
-                    "Negotiation breakdown: hidden terms, kickbacks, missed deadlines.",
-                    "Relationship breakdown: secret messaging, suspected cheating, insincerity."
+                    "⚡ Control-phrase trigger: the exact check question for this zone.",
+                    "💼 Business scenario: markers of hidden terms, inflated estimates and negotiation bluff.",
+                    "❤️ Relationship scenario: how to check facts and hidden messaging without accusing or using double standards.",
+                    "🛡 A 3-minute re-check algorithm that lowers the risk of a random mistake."
                   ]
                 },
                 "cta": {
-                  "ru": "Разблокировать в PRO (от 189 ⭐)",
-                  "en": "Unlock in PRO (from 189 ⭐)"
+                  "ru": "Разблокировать протоколы (PRO)",
+                  "en": "Unlock the protocols (PRO)"
                 }
               },
               "psyche": {
@@ -1228,6 +1230,22 @@
         "title": {
           "ru": "Свидания и отношения",
           "en": "Dating and relationships"
+        },
+        "demoQuestion": {
+          "id": "d1",
+          "text": {
+            "ru": "Тебе здесь комфортно или выберем другое место?",
+            "en": "Are you comfortable here, or shall we pick another place?"
+          },
+          "when": {
+            "ru": "Если заметили напряжение или частые взгляды по сторонам.",
+            "en": "If you noticed tension or frequent glances around."
+          },
+          "listenFor": {
+            "ru": "Слова о комфорте и готовность выбрать иное. Не толкуйте паузу как «да».",
+            "en": "Words about comfort and readiness for a change. Do not read a pause as 'yes'."
+          },
+          "tier": "pro"
         }
       },
       {
@@ -1242,6 +1260,59 @@
         "guardrail": {
           "ru": "Используйте знания, чтобы лучше понимать и ясно объясняться, а не чтобы давить. Не оценивайте кандидатов и сотрудников по невербалике: это ненадёжно и ведёт к дискриминации.",
           "en": "Use this to understand others and explain yourself clearly, not to pressure people. Do not judge candidates or employees from nonverbal cues: it is unreliable and leads to discrimination."
+        },
+        "demoCard": {
+          "id": "n-script",
+          "kind": "scriptDeviation",
+          "tier": "free",
+          "title": {
+            "ru": "Собеседник ушёл от привычного сценария",
+            "en": "The other side left their usual script"
+          },
+          "seen": {
+            "ru": [
+              "Фраза повторяется почти дословно, как заученная",
+              "Резкая смена темы или темпа на одном пункте",
+              "Ответ не о том, о чём вы спросили"
+            ],
+            "en": [
+              "A phrase repeats almost word for word, as if rehearsed",
+              "A sudden change of topic or pace on one point",
+              "The answer is not about what you asked"
+            ]
+          },
+          "meaning": {
+            "ru": "Это место, где человеку важно или трудно. Это не доказательство обмана.",
+            "en": "This is where something matters to them or is hard. It is not proof of deceit."
+          },
+          "alt": {
+            "ru": [
+              "Заготовленная позиция компании",
+              "Нет полномочий отвечать",
+              "Волнение"
+            ],
+            "en": [
+              "The company's prepared position",
+              "No authority to answer",
+              "Nervousness"
+            ]
+          },
+          "doThis": {
+            "ru": [
+              "Отметьте тему, а не жест",
+              "Задайте открытый вопрос: о том, что для человека здесь главное",
+              "Вернитесь к теме позже"
+            ],
+            "en": [
+              "Note the topic, not the gesture",
+              "Ask an open question: about what matters most to them here",
+              "Come back to the topic later"
+            ]
+          },
+          "signalIds": [
+            "PAUSE-001",
+            "VOC-011"
+          ]
         }
       },
       {
