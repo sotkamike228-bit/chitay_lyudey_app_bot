@@ -23,6 +23,7 @@ export const TP = {
     lockedText: 'Откройте PRO, чтобы увидеть все слои этой зоны. Одна зона («Отведение взгляда») бесплатна как образец.',
     open: 'Подробнее', close: 'Закрыть',
     paywallTitle: 'Это раздел PRO',
+    viewsLabel: 'Ракурс',
     lockCard: { title: '🔒 Доступно в полной версии', btn: 'Разблокировать PRO', free: 'Продолжить с бесплатными кейсами' },
     paywallText: 'Оплата появится на следующем этапе. Пока этот раздел недоступен в обычной версии.',
     paywallIncludes: 'Что входит в PRO',
@@ -75,11 +76,11 @@ export const TP = {
     },
     pay: {
       title: 'PRO: подробные разборы и тренировки', sub: 'Невербалика без мифов. Мы не определяем ложь и не оцениваем людей.',
-      benefits: ['Памятки: свидания 18+, переговоры, защита от давления', 'Все 17 зон анатомии: что видно, физиология, вопросы для проверки', 'Калибровка: насколько вы правы, когда уверены'],
+      benefits: ['Памятки: свидания 18+, переговоры, защита от давления', 'Все 21 зона анатомии: что видно, физиология, вопросы для проверки', 'Калибровка: насколько вы правы, когда уверены'],
       plans: {
         pack_cheatsheets: { name: 'Шпаргалки навсегда', note: () => 'Один платёж, без продления', btn: 'Открыть навсегда', what: 'Свидания 18+, переговоры, защита от давления, калибровка, проверка гипотез в 3 шага' },
-        pro_yearly: { name: 'PRO на год', note: (m) => `365 дней · ≈ ${m} ⭐ в месяц · без автопродления`, btn: 'Взять на год', what: 'Всё из шпаргалок и все 17 зон анатомии' },
-        pro_monthly: { name: 'PRO на месяц', note: () => '30 дней · без автопродления', btn: 'Взять на месяц', what: 'То же, что в годовом' },
+        pro_lifetime: { name: 'PRO Всё включено навсегда', note: () => 'Один платёж, доступ навсегда', btn: 'Открыть всё навсегда', what: 'Все 21 зона атласа и все разделы: шпаргалки, калибровка, проверка гипотез' },
+        pro_monthly: { name: 'PRO на месяц', note: () => '30 дней · без автопродления', btn: 'Взять на месяц', what: 'То же, что в полном доступе, на 30 дней' },
       },
       homeLink: 'Тарифы PRO', onceBadge: 'Разово', ownedBadge: 'Открыто',
       payNote: 'Оплата звёздами внутри Telegram. Ничего не списывается без вашего подтверждения.',
@@ -94,7 +95,7 @@ export const TP = {
       network: 'Не удалось загрузить. Проверьте сеть и повторите. Деньги не списываются.',
       auth: 'Сессия устарела. Закройте и снова откройте приложение из Telegram.',
       unavailable: 'Раздел временно недоступен. Попробуйте позже.',
-      previewMissing: 'Откройте доступ ко всем сценариям калибровки, 17 зонам атласа и шпаргалкам по защите от давления.',
+      previewMissing: 'Откройте доступ ко всем сценариям калибровки, 21 зоне атласа и шпаргалкам по защите от давления.',
       locked: 'Для этого раздела нужен доступ PRO.',
     },
     hypo: {
@@ -132,6 +133,7 @@ export const TP = {
     lockedText: 'Unlock PRO to see all layers of this zone. One zone ("Looking away") is free as a sample.',
     open: 'Details', close: 'Close',
     paywallTitle: 'This is a PRO section',
+    viewsLabel: 'View',
     lockCard: { title: '🔒 Available in the full version', btn: 'Unlock PRO', free: 'Continue with the free cases' },
     paywallText: 'Payment arrives in the next stage. For now this section is not available in the regular version.',
     paywallIncludes: 'What PRO includes',
@@ -184,11 +186,11 @@ export const TP = {
     },
     pay: {
       title: 'PRO: detailed breakdowns and training', sub: 'Body language without myths. We do not detect lies or judge people.',
-      benefits: ['Cheat sheets: dating 18+, negotiation, protection from pressure', 'All 17 anatomy zones: what you see, physiology, checking questions', 'Calibration: how right you are when you feel sure'],
+      benefits: ['Cheat sheets: dating 18+, negotiation, protection from pressure', 'All 21 anatomy zones: what you see, physiology, checking questions', 'Calibration: how right you are when you feel sure'],
       plans: {
         pack_cheatsheets: { name: 'Cheat sheets forever', note: () => 'One payment, no renewal', btn: 'Unlock forever', what: 'Dating 18+, negotiation, protection from pressure, calibration, 3-step hypothesis check' },
-        pro_yearly: { name: 'PRO for a year', note: (m) => `365 days · ≈ ${m} ⭐ a month · no auto-renewal`, btn: 'Get a year', what: 'Everything in cheat sheets and all 17 anatomy zones' },
-        pro_monthly: { name: 'PRO for a month', note: () => '30 days · no auto-renewal', btn: 'Get a month', what: 'Same as the yearly plan' },
+        pro_lifetime: { name: 'PRO All-inclusive forever', note: () => 'One payment, access forever', btn: 'Unlock everything forever', what: 'All 21 atlas zones and every section: cheat sheets, calibration, hypothesis check' },
+        pro_monthly: { name: 'PRO for a month', note: () => '30 days · no auto-renewal', btn: 'Get a month', what: 'Same as full access, for 30 days' },
       },
       homeLink: 'PRO plans', onceBadge: 'One-time', ownedBadge: 'Unlocked',
       payNote: 'Paid with Stars inside Telegram. Nothing is charged without your confirmation.',
@@ -203,7 +205,7 @@ export const TP = {
       network: 'Could not load. Check your connection and retry. Nothing is charged.',
       auth: 'The session has expired. Close and reopen the app from Telegram.',
       unavailable: 'This section is temporarily unavailable. Try again later.',
-      previewMissing: 'Unlock all calibration scenarios, the 17 atlas zones and the cheat sheets on protection from pressure.',
+      previewMissing: 'Unlock all calibration scenarios, the 21 atlas zones and the cheat sheets on protection from pressure.',
       locked: 'This section needs PRO access.',
     },
     hypo: {

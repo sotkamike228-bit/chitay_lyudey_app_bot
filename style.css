@@ -199,3 +199,42 @@ h1{font-weight:800}h2{font-weight:700}h3{font-weight:700}.hook,.tile-title,.topb
 .pin.seen{background:color-mix(in srgb,var(--good) 35%,#262B3A);border-color:var(--good)}
 .pin.myth{border-color:var(--warn)}
 .pin.on{background:var(--neon);color:#10121A;box-shadow:0 0 0 4px color-mix(in srgb,var(--neon) 35%,transparent),0 0 14px var(--neon-glow)}
+/* иллюстрация хаба как подложка: линии схемы тускнеют, метки и зоны остаются сверху */
+.hub-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.stage.has-art .fig-wrap{opacity:.18}
+
+/* ===== премиальный слой: шрифт, глубина, стекло ===== */
+html,body{font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-feature-settings:"cv11","ss01";-webkit-font-smoothing:antialiased}
+h1,h2,.topbar-title,.hook,.tile-title,.lock-title,.plan-head h3,.status .tier{letter-spacing:-.02em}
+h1{font-size:28px;line-height:1.1}h2{font-size:21px;line-height:1.2}
+.btn,.opt,.chip,.lang-btn,.pin,input,button{font-family:inherit}
+:root:not([data-theme="light"]) body{background:linear-gradient(180deg,#0f1218 0%,#161922 100%) fixed}
+:root:not([data-theme="light"]) .card,:root:not([data-theme="light"]) .tile,:root:not([data-theme="light"]) .acc,:root:not([data-theme="light"]) .opt,:root:not([data-theme="light"]) .chip{
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 8px 28px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.05)}
+:root:not([data-theme="light"]) .tile.is-pro,:root:not([data-theme="light"]) .pro-card,:root:not([data-theme="light"]) .plan,:root:not([data-theme="light"]) .lock-card{border-color:rgba(232,194,106,.45)}
+:root:not([data-theme="light"]) .sheet{background:linear-gradient(180deg,rgba(27,32,48,.96),rgba(18,21,31,.98));border-color:rgba(255,255,255,.1);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+:root:not([data-theme="light"]) .chip.on{background:var(--accent);border-color:var(--accent)}
+:root[data-theme="light"] .card,:root[data-theme="light"] .tile,:root[data-theme="light"] .acc{border:1px solid rgba(20,23,28,.08);box-shadow:0 6px 22px rgba(30,40,70,.08)}
+:root[data-theme="light"] .sheet{box-shadow:0 -10px 30px rgba(30,40,70,.18)}
+.btn{box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 35%,transparent)}.btn.secondary{box-shadow:none}
+.tile-sub,.sub,.disc{color:var(--muted)}
+/* схема 5:8 под иллюстрации хабов */
+.stage{aspect-ratio:5/8;max-width:380px;background:linear-gradient(180deg,#0f1218,#161922);border-color:rgba(255,255,255,.1)}
+.stage.has-art .fig-wrap{display:none}
+.stage.has-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,18,24,.0) 55%,rgba(15,18,24,.55));pointer-events:none}
+body.sheet-open{padding-bottom:50vh}
+body.sheet-open .stage{width:min(100%,29vh)}
+.sheet{max-height:50vh}
+.hub-art{z-index:0}.ov-wrap{z-index:2}.pin{z-index:3}.stage.has-art::after{z-index:1}
+/* зоны поверх иллюстраций: холст растянут под 5:8, линии в пикселях */
+.overlay-svg .zone,.overlay-svg .leader{vector-effect:non-scaling-stroke}
+.overlay-svg .zone{fill:color-mix(in srgb,var(--neon) 10%,transparent);stroke-width:1.6px;stroke-dasharray:5 4;filter:none}
+.overlay-svg .zone.on{fill:color-mix(in srgb,var(--neon) 26%,transparent);stroke-width:2.6px;stroke-dasharray:none;filter:drop-shadow(0 0 4px var(--neon-glow))}
+.overlay-svg .leader{stroke-width:1.2px;opacity:.55}.overlay-svg .leader.on{opacity:1;stroke-width:1.6px}
+/* ракурсы внутри хаба */
+.views{display:flex;gap:6px;margin:2px 0 8px;padding:4px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.view-btn{flex:1;min-height:44px;padding:6px 8px;border:0;border-radius:10px;background:transparent;color:var(--muted);font:600 14px/1.2 inherit;font-family:inherit;cursor:pointer}
+.view-btn.on{background:var(--accent);color:var(--on-accent);font-weight:700}
+/* размер схемы по пропорции ракурса */
+.stage{aspect-ratio:var(--asp,.625);width:min(100%,calc(62vh*var(--asp,.625)));max-width:520px}
+body.sheet-open .stage{width:min(100%,calc(46vh*var(--asp,.625)))}

@@ -56,8 +56,20 @@ const HANDS_ACCENT = `
   <path d="M22 54 Q19 58 22 62 M46 54 Q49 58 46 62"/>
   <path d="M25 52 Q34 49 43 52 M57 52 Q66 49 75 52"/>`;
 
+// Ноги и стопы (вид спереди): сидящий человек, ножки стула по краям.
+const LEGS = `
+  <path d="M6 30 L94 30"/>
+  <path d="M12 32 L12 96 M88 32 L88 96"/>
+  <path d="M30 30 L27 52 L32 80 M44 30 L42 52 L44 80"/>
+  <path d="M30 80 Q26 88 30 92 L46 92 Q48 86 44 80"/>
+  <path d="M70 30 L73 52 L68 80 M56 30 L58 52 L56 80"/>
+  <path d="M70 80 Q74 88 70 92 L54 92 Q52 86 56 80"/>`;
+const LEGS_ACCENT = `
+  <path d="M27 50 Q35 46 43 50 M57 50 Q65 46 73 50"/>
+  <path d="M32 95 L44 95 M56 95 L68 95"/>`;
+
 const VIEWS = {
-  face: [HEAD, FACE_ACCENT], mouth: [MOUTH, MOUTH_ACCENT], body: [BODY, BODY_ACCENT], hands: [HANDS, HANDS_ACCENT],
+  face: [HEAD, FACE_ACCENT], mouth: [MOUTH, MOUTH_ACCENT], body: [BODY, BODY_ACCENT], hands: [HANDS, HANDS_ACCENT], legs: [LEGS, LEGS_ACCENT],
 };
 
 export function figureSvg(view, label) {
@@ -65,6 +77,16 @@ export function figureSvg(view, label) {
   return `<svg class="fig" viewBox="0 0 100 100" role="img" aria-label="${label}" focusable="false">
     <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${inner}</g>
     <g class="accent" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${accent}</g></svg>`;
+}
+
+/** Фоновая иллюстрация хаба: assets/hub_N.webp (N — номер хаба, 1..5). Нет файла — остаётся векторная схема. */
+export const hubArtUrl = (file) => `assets/${file}`;
+export function attachHubArt(stage, file) {
+  const img = new Image();
+  img.className = 'hub-art'; img.alt = ''; img.decoding = 'async';
+  img.onload = () => { stage.classList.add('has-art'); stage.prepend(img); };
+  img.onerror = () => {};              // файла нет: молча остаёмся на SVG
+  img.src = hubArtUrl(file);
 }
 
 /** Подсветка зоны и линия-выноска от метки к зоне (в тех же координатах). */
@@ -78,5 +100,5 @@ export function overlaySvg(hotspots, activeId) {
       : `<ellipse class="zone${on}" cx="${r.cx}" cy="${r.cy}" rx="${r.rx}" ry="${r.ry}"/>`;
     return `<line class="leader${on}" x1="${p.x}" y1="${p.y}" x2="${cx}" y2="${cy}"/>${shape}`;
   }).join('');
-  return `<svg class="overlay-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">${shapes}</svg>`;
+  return `<svg class="overlay-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">${shapes}</svg>`;
 }

@@ -2,12 +2,12 @@
 import { h, html, L, LA, lang, t, tp, data, render, nav, haptic, topbar, closeSheet, loadJson, CFG, toast } from './ctx.js';
 import { read, write, KEYS } from './store.js';
 import { hotspotUnlocked, hasAccess } from './access.js';
-import { figureSvg, overlaySvg } from './figures.js';
+import { figureSvg, overlaySvg, attachHubArt } from './figures.js';
 import { shuffle } from './engine.js';
 import { openPaywall, lockCard } from './paywall.js';
 import { proLoader, refreshEntitlements } from './services.js';
 
-const A = { sec: 0, sel: null, layer: 'seen', content: null, err: null };
+const A = { sec: 0, view: 0, sel: null, layer: 'seen', content: null, err: null };
 const ent = () => read(KEYS.ent, {});
 const atlas = () => read(KEYS.atlas, { opened: [], trained: {} });
 function saveAtlas(a) { write(KEYS.atlas, a); }
@@ -69,19 +69,34 @@ async function loadFor(id) {
 function allHotspots() { return data.pro.anatomy.sections.flatMap((s) => s.hotspots); }
 const find = (id) => allHotspots().find((x) => x.id === id);
 
+const FALLBACK_VIEW = { id: 'main', aspect: 0.625 };
+/** Ракурс хаба и зоны с координатами этого ракурса (geo переопределяет region и pin). */
+function viewOf(sec, i) {
+  const views = sec.views && sec.views.length ? sec.views : [FALLBACK_VIEW];
+  const idx = Math.min(Math.max(i | 0, 0), views.length - 1);
+  const view = views[idx];
+  const hotspots = view.geo ? sec.hotspots.map((hs) => (view.geo[hs.id] ? { ...hs, region: view.geo[hs.id].region, pin: view.geo[hs.id].pin } : hs)) : sec.hotspots;
+  return { views, idx, view, hotspots };
+}
+
 function screen() {
   const an = data.pro.anatomy;
   const sec = an.sections[A.sec];
+  const { views, idx, view, hotspots } = viewOf(sec, A.view);
   const a = atlas();
   const chips = h('div', { class: 'chips', role: 'tablist' }, ...an.sections.map((s, i) =>
     h('button', { class: 'chip' + (i === A.sec ? ' on' : ''), role: 'tab', 'aria-selected': String(i === A.sec), type: 'button',
-      onclick: () => { A.sec = i; A.sel = null; screen(); } }, L(s.title))));
+      onclick: () => { A.sec = i; A.view = 0; A.sel = null; screen(); } }, L(s.title))));
+  const viewSwitch = views.length > 1 ? h('div', { class: 'views', role: 'tablist', 'aria-label': tp.viewsLabel },
+    ...views.map((v, i) => h('button', { class: 'view-btn' + (i === idx ? ' on' : ''), role: 'tab', 'aria-selected': String(i === idx), type: 'button',
+      onclick: () => { A.view = i; screen(); } }, L(v.label)))) : '';
 
   // схема: SVG фигуры + подсветка + кнопки-метки (HTML, чтобы область касания была не меньше 44 px)
-  const stage = h('div', { class: 'stage' });
-  stage.append(html('div', { class: 'fig-wrap' }, figureSvg(sec.figureView, L(sec.title))));
-  stage.append(html('div', { class: 'ov-wrap' }, overlaySvg(sec.hotspots, A.sel)));
-  sec.hotspots.forEach((hs, i) => {
+  const stage = h('div', { class: 'stage', style: `--asp:${view.aspect || 0.625}` });
+  if (view.art) attachHubArt(stage, view.art);
+  if (idx === 0) stage.append(html('div', { class: 'fig-wrap' }, figureSvg(sec.figureView, L(sec.title))));   // запасная схема, если картинки нет
+  stage.append(html('div', { class: 'ov-wrap' }, overlaySvg(hotspots, A.sel)));
+  hotspots.forEach((hs, i) => {
     const open = a.opened.includes(hs.id);
     const pin = h('button', { class: 'pin' + (hs.id === A.sel ? ' on' : '') + (open ? ' seen' : '') + (hs.myth ? ' myth' : ''), type: 'button',
       style: `left:${hs.pin.x}%;top:${hs.pin.y}%`, 'aria-label': L(hs.label), onclick: () => select(hs.id) }, String(i + 1));
@@ -96,7 +111,8 @@ function screen() {
 
   render(topbar(tp.anatomyTitle), h('p', { class: 'muted sub' }, L(an.intro)),
     h('p', { class: 'atlas' }, tp.atlas(a.opened.length, totalZones(data.pro))),
-    chips, stage, list);
+    chips, viewSwitch, stage, list);
+  const on = chips.querySelector('.on'); if (on) chips.scrollLeft = on.offsetLeft - (chips.clientWidth - on.offsetWidth) / 2;   // активный хаб по центру ленты
   if (A.sel) renderSheet(A.sel);
 }
 

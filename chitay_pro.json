@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "createdAt": "2026-10-27",
-    "status": "anatomy v2: 4 hubs, 18 zones, physiology + checks; needs expert review before release",
+    "status": "anatomy v3: 5 hubs, 21 zones, physiology + checks; needs expert review before release",
     "caption": {
       "ru": "Один сигнал — повод проверить. Повтор на той же теме плюс второй независимый признак — уже устойчивый маркер напряжения.",
       "en": "One signal is a reason to check. A repeat on the same topic plus a second independent cue is already a solid marker of tension."
@@ -85,10 +85,10 @@
             },
             "region": {
               "shape": "ellipse",
-              "cx": 40,
-              "cy": 42,
-              "rx": 8,
-              "ry": 5
+              "cx": 23,
+              "cy": 27,
+              "rx": 13,
+              "ry": 6
             },
             "reliability": "disputed",
             "myth": true,
@@ -144,8 +144,8 @@
               "en": "DePaulo et al., 2003; see research/01 (secondary summary). Verify the primary source before release."
             },
             "pin": {
-              "x": 12,
-              "y": 42
+              "x": 9,
+              "y": 40
             },
             "trainer": {
               "hypothesis": {
@@ -167,17 +167,17 @@
             },
             "region": {
               "shape": "ellipse",
-              "cx": 60,
-              "cy": 42,
-              "rx": 8,
-              "ry": 5
+              "cx": 77,
+              "cy": 27,
+              "rx": 13,
+              "ry": 6
             },
             "reliability": "disputed",
             "myth": true,
             "tier": "pro",
             "pin": {
-              "x": 88,
-              "y": 42
+              "x": 91,
+              "y": 40
             }
           },
           {
@@ -191,16 +191,16 @@
             "region": {
               "shape": "ellipse",
               "cx": 50,
-              "cy": 42,
-              "rx": 20,
-              "ry": 6
+              "cy": 22,
+              "rx": 38,
+              "ry": 3.5
             },
             "reliability": "low",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 12,
-              "y": 20
+              "x": 9,
+              "y": 12
             }
           },
           {
@@ -214,17 +214,28 @@
             "region": {
               "shape": "ellipse",
               "cx": 50,
-              "cy": 33,
-              "rx": 22,
+              "cy": 15.5,
+              "rx": 36,
               "ry": 4
             },
             "reliability": "medium",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 88,
-              "y": 20
+              "x": 91,
+              "y": 12
             }
+          }
+        ],
+        "views": [
+          {
+            "id": "main",
+            "label": {
+              "ru": "Обычный вид",
+              "en": "Standard view"
+            },
+            "art": "hub_1.webp",
+            "aspect": 0.625
           }
         ]
       },
@@ -247,16 +258,16 @@
             "region": {
               "shape": "ellipse",
               "cx": 50,
-              "cy": 50,
-              "rx": 20,
-              "ry": 6
+              "cy": 16,
+              "rx": 22,
+              "ry": 5
             },
             "reliability": "disputed",
             "myth": true,
             "tier": "pro",
             "pin": {
-              "x": 12,
-              "y": 30
+              "x": 9,
+              "y": 10
             }
           },
           {
@@ -269,7 +280,7 @@
             "region": {
               "shape": "ellipse",
               "cx": 50,
-              "cy": 50,
+              "cy": 20,
               "rx": 12,
               "ry": 3.5
             },
@@ -277,8 +288,8 @@
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 88,
-              "y": 30
+              "x": 9,
+              "y": 28
             }
           },
           {
@@ -290,17 +301,17 @@
             },
             "region": {
               "shape": "ellipse",
-              "cx": 62,
-              "cy": 50,
-              "rx": 5,
-              "ry": 4
+              "cx": 73,
+              "cy": 18,
+              "rx": 7,
+              "ry": 5
             },
             "reliability": "medium",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 88,
-              "y": 54
+              "x": 91,
+              "y": 24
             }
           },
           {
@@ -313,17 +324,17 @@
             },
             "region": {
               "shape": "ellipse",
-              "cx": 28,
-              "cy": 62,
-              "rx": 9,
-              "ry": 11
+              "cx": 26,
+              "cy": 41,
+              "rx": 10,
+              "ry": 9
             },
             "reliability": "medium",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 12,
-              "y": 66
+              "x": 9,
+              "y": 46
             }
           },
           {
@@ -336,18 +347,29 @@
             },
             "region": {
               "shape": "ellipse",
-              "cx": 50,
-              "cy": 86,
-              "rx": 9,
-              "ry": 7
+              "cx": 55,
+              "cy": 60,
+              "rx": 12,
+              "ry": 8
             },
             "reliability": "low",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 88,
-              "y": 80
+              "x": 91,
+              "y": 62
             }
+          }
+        ],
+        "views": [
+          {
+            "id": "main",
+            "label": {
+              "ru": "Обычный вид",
+              "en": "Standard view"
+            },
+            "art": "hub_2.webp",
+            "aspect": 0.625
           }
         ]
       },
@@ -371,16 +393,16 @@
             "region": {
               "shape": "ellipse",
               "cx": 50,
-              "cy": 30,
-              "rx": 24,
-              "ry": 6
+              "cy": 23,
+              "rx": 40,
+              "ry": 5
             },
             "reliability": "medium",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 88,
-              "y": 22
+              "x": 9,
+              "y": 10
             }
           },
           {
@@ -393,16 +415,16 @@
             "region": {
               "shape": "ellipse",
               "cx": 50,
-              "cy": 44,
-              "rx": 16,
-              "ry": 6
+              "cy": 42,
+              "rx": 24,
+              "ry": 9
             },
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 88,
-              "y": 44
+              "x": 91,
+              "y": 38
             }
           },
           {
@@ -415,16 +437,16 @@
             "region": {
               "shape": "ellipse",
               "cx": 50,
-              "cy": 36,
-              "rx": 15,
-              "ry": 9
+              "cy": 62,
+              "rx": 18,
+              "ry": 10
             },
             "reliability": "medium",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 12,
-              "y": 30
+              "x": 9,
+              "y": 62
             }
           },
           {
@@ -437,16 +459,16 @@
             "region": {
               "shape": "ellipse",
               "cx": 50,
-              "cy": 94,
-              "rx": 16,
-              "ry": 4
+              "cy": 82,
+              "rx": 18,
+              "ry": 8
             },
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 88,
-              "y": 88
+              "x": 91,
+              "y": 84
             }
           },
           {
@@ -457,17 +479,105 @@
               "en": "Touches face, nose, neck"
             },
             "region": {
-              "shape": "circle",
-              "cx": 59,
-              "cy": 17,
-              "r": 6
+              "shape": "ellipse",
+              "cx": 62,
+              "cy": 9,
+              "rx": 12,
+              "ry": 6
             },
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 12,
-              "y": 10
+              "x": 91,
+              "y": 12
+            }
+          }
+        ],
+        "views": [
+          {
+            "id": "main",
+            "label": {
+              "ru": "Обычный вид",
+              "en": "Standard view"
+            },
+            "art": "hub_3.webp",
+            "aspect": 0.625
+          },
+          {
+            "id": "crossed-arms",
+            "label": {
+              "ru": "Скрещённые руки",
+              "en": "Crossed arms"
+            },
+            "art": "hub_3_crossed_arms.webp",
+            "aspect": 0.698,
+            "geo": {
+              "shoulders-raise": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 50,
+                  "cy": 29,
+                  "rx": 34,
+                  "ry": 5
+                },
+                "pin": {
+                  "x": 9,
+                  "y": 18
+                }
+              },
+              "posture-arms": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 50,
+                  "cy": 60,
+                  "rx": 44,
+                  "ry": 9
+                },
+                "pin": {
+                  "x": 91,
+                  "y": 40
+                }
+              },
+              "posture-lean-back": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 50,
+                  "cy": 44,
+                  "rx": 16,
+                  "ry": 9
+                },
+                "pin": {
+                  "x": 9,
+                  "y": 44
+                }
+              },
+              "posture-exit": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 50,
+                  "cy": 82,
+                  "rx": 16,
+                  "ry": 9
+                },
+                "pin": {
+                  "x": 91,
+                  "y": 84
+                }
+              },
+              "adaptors-face": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 50,
+                  "cy": 8,
+                  "rx": 12,
+                  "ry": 7
+                },
+                "pin": {
+                  "x": 91,
+                  "y": 10
+                }
+              }
             }
           }
         ]
@@ -489,17 +599,18 @@
               "en": "Fiddles with objects"
             },
             "region": {
-              "shape": "circle",
-              "cx": 34,
-              "cy": 61,
-              "r": 6
+              "shape": "ellipse",
+              "cx": 65,
+              "cy": 40,
+              "rx": 22,
+              "ry": 9
             },
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 10,
-              "y": 66
+              "x": 91,
+              "y": 24
             }
           },
           {
@@ -510,17 +621,18 @@
               "en": "Gestures suddenly dropped"
             },
             "region": {
-              "shape": "circle",
-              "cx": 66,
-              "cy": 61,
-              "r": 6
+              "shape": "ellipse",
+              "cx": 58,
+              "cy": 62,
+              "rx": 24,
+              "ry": 12
             },
             "reliability": "medium",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 90,
-              "y": 66
+              "x": 91,
+              "y": 62
             }
           },
           {
@@ -533,17 +645,318 @@
             },
             "region": {
               "shape": "ellipse",
-              "cx": 50,
-              "cy": 84,
+              "cx": 32,
+              "cy": 14,
               "rx": 22,
-              "ry": 7
+              "ry": 9
             },
             "reliability": "disputed",
             "myth": false,
             "tier": "pro",
             "pin": {
-              "x": 50,
-              "y": 95
+              "x": 9,
+              "y": 16
+            }
+          }
+        ],
+        "views": [
+          {
+            "id": "main",
+            "label": {
+              "ru": "Обычный вид",
+              "en": "Standard view"
+            },
+            "art": "hub_4.webp",
+            "aspect": 0.625
+          },
+          {
+            "id": "clasped",
+            "label": {
+              "ru": "Пальцы в замок",
+              "en": "Clasped fingers"
+            },
+            "art": "hub_4_clasped.webp",
+            "aspect": 1.369,
+            "geo": {
+              "adaptors-fiddle": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 50,
+                  "cy": 33,
+                  "rx": 10,
+                  "ry": 7
+                },
+                "pin": {
+                  "x": 91,
+                  "y": 20
+                }
+              },
+              "adaptors-still": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 50,
+                  "cy": 50,
+                  "rx": 30,
+                  "ry": 13
+                },
+                "pin": {
+                  "x": 9,
+                  "y": 48
+                }
+              },
+              "hands-hidden": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 50,
+                  "cy": 86,
+                  "rx": 36,
+                  "ry": 8
+                },
+                "pin": {
+                  "x": 91,
+                  "y": 86
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "legs",
+        "title": {
+          "ru": "Ноги и стопы",
+          "en": "Legs and feet"
+        },
+        "figureView": "legs",
+        "freeHotspots": [],
+        "hotspots": [
+          {
+            "id": "legs-toes",
+            "signalId": null,
+            "needsSource": true,
+            "label": {
+              "ru": "Направление носков",
+              "en": "Direction of the toes"
+            },
+            "region": {
+              "shape": "ellipse",
+              "cx": 35,
+              "cy": 92,
+              "rx": 28,
+              "ry": 6
+            },
+            "reliability": "disputed",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 91,
+              "y": 90
+            }
+          },
+          {
+            "id": "legs-cross",
+            "signalId": null,
+            "needsSource": true,
+            "label": {
+              "ru": "Скрещивание ног и лодыжек",
+              "en": "Crossed legs or ankles"
+            },
+            "region": {
+              "shape": "ellipse",
+              "cx": 49,
+              "cy": 65,
+              "rx": 26,
+              "ry": 6
+            },
+            "reliability": "disputed",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 91,
+              "y": 44
+            }
+          },
+          {
+            "id": "legs-shake",
+            "signalId": null,
+            "needsSource": true,
+            "label": {
+              "ru": "Тряска ногой и постукивание",
+              "en": "Leg bouncing and tapping"
+            },
+            "region": {
+              "shape": "ellipse",
+              "cx": 30,
+              "cy": 8,
+              "rx": 28,
+              "ry": 6
+            },
+            "reliability": "medium",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 91,
+              "y": 14
+            }
+          },
+          {
+            "id": "legs-hook",
+            "signalId": null,
+            "needsSource": true,
+            "label": {
+              "ru": "Зацеп стопами за ножки стула",
+              "en": "Feet hooked around chair legs"
+            },
+            "region": {
+              "shape": "ellipse",
+              "cx": 78,
+              "cy": 64,
+              "rx": 11,
+              "ry": 8
+            },
+            "reliability": "low",
+            "myth": false,
+            "tier": "pro",
+            "pin": {
+              "x": 91,
+              "y": 64
+            }
+          }
+        ],
+        "views": [
+          {
+            "id": "main",
+            "label": {
+              "ru": "Обычный вид",
+              "en": "Standard view"
+            },
+            "art": "hub_5.webp",
+            "aspect": 0.625
+          },
+          {
+            "id": "crossed-knees",
+            "label": {
+              "ru": "Скрещены в коленях",
+              "en": "Crossed at the knees"
+            },
+            "art": "hub_5_crossed_knees.webp",
+            "aspect": 0.548,
+            "geo": {
+              "legs-toes": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 20,
+                  "cy": 93,
+                  "rx": 16,
+                  "ry": 5
+                },
+                "pin": {
+                  "x": 9,
+                  "y": 82
+                }
+              },
+              "legs-cross": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 36,
+                  "cy": 16,
+                  "rx": 22,
+                  "ry": 14
+                },
+                "pin": {
+                  "x": 9,
+                  "y": 12
+                }
+              },
+              "legs-shake": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 43,
+                  "cy": 27,
+                  "rx": 13,
+                  "ry": 8
+                },
+                "pin": {
+                  "x": 91,
+                  "y": 22
+                }
+              },
+              "legs-hook": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 63,
+                  "cy": 76,
+                  "rx": 16,
+                  "ry": 8
+                },
+                "pin": {
+                  "x": 91,
+                  "y": 62
+                }
+              }
+            }
+          },
+          {
+            "id": "crossed-ankles",
+            "label": {
+              "ru": "Скрещены в лодыжках",
+              "en": "Crossed at the ankles"
+            },
+            "art": "hub_5_crossed_ankles.webp",
+            "aspect": 0.548,
+            "geo": {
+              "legs-toes": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 25,
+                  "cy": 91,
+                  "rx": 18,
+                  "ry": 6
+                },
+                "pin": {
+                  "x": 9,
+                  "y": 86
+                }
+              },
+              "legs-cross": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 54,
+                  "cy": 72,
+                  "rx": 17,
+                  "ry": 8
+                },
+                "pin": {
+                  "x": 9,
+                  "y": 62
+                }
+              },
+              "legs-shake": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 33,
+                  "cy": 20,
+                  "rx": 26,
+                  "ry": 9
+                },
+                "pin": {
+                  "x": 91,
+                  "y": 16
+                }
+              },
+              "legs-hook": {
+                "region": {
+                  "shape": "ellipse",
+                  "cx": 78,
+                  "cy": 73,
+                  "rx": 14,
+                  "ry": 7
+                },
+                "pin": {
+                  "x": 91,
+                  "y": 56
+                }
+              }
             }
           }
         ]
@@ -659,7 +1072,7 @@
             "ru": "Когда выбор выглядит бинарным, мы реагируем быстро и не ищем компромисс."
           },
           "reliabilityNote": {
-            "ru": "Образец карточки. Надёжность признаков: средняя, один эпизод — повод проверить, повтор — уже маркер."
+            "ru": "Образец карточки. Надёжность признаков: средняя, один эпизод ничего не доказывает."
           },
           "response": {
             "ru": [
