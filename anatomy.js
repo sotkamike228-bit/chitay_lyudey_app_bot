@@ -12,11 +12,12 @@ const ent = () => read(KEYS.ent, {});
 const atlas = () => read(KEYS.atlas, { opened: [], trained: {} });
 function saveAtlas(a) { write(KEYS.atlas, a); }
 
-const REL_N = { high: 3, medium: 2, disputed: 1, low: 1 };
+const LEVEL = { high: 3, medium: 2, disputed: 1, low: 1 };
+/** «Индекс верификации»: цветной бейдж с текстовым статусом рядом, без процентов. */
 function relBar(rel) {
-  const r = REL_N[rel] != null ? rel : 'disputed';
-  return h('div', { class: 'relbar ' + r }, h('span', { class: 'seg3', 'aria-hidden': 'true' }, ...[0, 1, 2].map((i) => h('i', { class: i < REL_N[r] ? 'on' : '' }))),
-    h('span', { class: 'lbl' }, tp.rel[r]));
+  const r = LEVEL[rel] != null ? rel : 'disputed';
+  return h('div', { class: 'vindex lv' + LEVEL[r] },
+    h('span', { class: 'vdot', 'aria-hidden': 'true' }), h('span', { class: 'vcap' }, tp.vindex), h('strong', { class: 'vlbl' }, tp.rel[r]));
 }
 /** Слой зоны: строка, список или список вопросов (check). */
 function layerNode(o, cls) {
@@ -124,8 +125,8 @@ function select(id) {
     if (fullOf(hs)) markOpened(id); else needLoad = true;
   }
   screen();
-  const st = document.querySelector('.stage');
-  if (st) st.scrollIntoView({ block: 'start' });
+  const toStage = () => { const st = document.querySelector('.stage'); if (st) st.scrollIntoView({ block: 'start' }); };
+  toStage(); requestAnimationFrame(() => requestAnimationFrame(toStage));
   if (needLoad) loadFor(id);
 }
 
@@ -159,9 +160,13 @@ function renderSheet(id) {
     body.append(h('p', { class: 'sub muted' }, L(data.pro.meta.caption)));
   }
   const grip = h('button', { class: 'sheet-grip', type: 'button', 'aria-expanded': String(A.full),
-    onclick: () => { A.full = !A.full; sheet.classList.toggle('full', A.full); document.body.classList.toggle('sheet-full', A.full); grip.setAttribute('aria-expanded', String(A.full)); grip.querySelector('span').textContent = A.full ? tp.sheetLess : tp.sheetMore; } },
-    h('i', { 'aria-hidden': 'true' }), h('span', {}, A.full ? tp.sheetLess : tp.sheetMore));
+    onclick: () => { A.full = !A.full; sheet.classList.toggle('full', A.full); document.body.classList.toggle('sheet-full', A.full); grip.setAttribute('aria-expanded', String(A.full)); grip.querySelector('span').textContent = A.full ? tp.sheetLess : tp.sheetHint; } },
+    h('i', { 'aria-hidden': 'true' }), h('span', {}, A.full ? tp.sheetLess : tp.sheetHint));
   const sheet = h('div', { class: 'sheet' + (A.full ? ' full' : ''), role: 'dialog', 'aria-modal': 'false', 'aria-label': L(hs.label) }, grip, head, body);
+  let y0 = null;
+  const setFull = (v) => { if (A.full !== v) grip.click(); };
+  sheet.addEventListener('touchstart', (e) => { y0 = e.touches[0].clientY; }, { passive: true });
+  sheet.addEventListener('touchend', (e) => { if (y0 == null) return; const dy = e.changedTouches[0].clientY - y0; y0 = null; if (dy < -40) setFull(true); else if (dy > 40 && !body.scrollTop) setFull(false); }, { passive: true });
   document.body.append(h('div', { class: 'sheet-host' }, sheet));
   document.body.classList.add('sheet-open');
   document.body.classList.toggle('sheet-full', A.full);

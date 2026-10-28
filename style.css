@@ -266,3 +266,19 @@ body.sheet-open .stage{width:min(100%,calc(50vh*var(--asp,.625)))}
 .steps li::before{content:counter(st);position:absolute;left:0;top:8px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--neon);color:#10121A;font:800 13px/1 inherit}
 .sec.calib{background:color-mix(in srgb,var(--neon) 9%,transparent);border-left:4px solid var(--neon);border-radius:12px;padding:12px 14px 6px}
 .sec.calib .n{background:var(--neon);color:#10121A}
+
+/* ===== свёрнутая шторка: заголовок + индекс + подсказка (≤20% экрана) ===== */
+.sheet{max-height:20vh;overflow:hidden;padding-top:2px}
+.sheet .sheet-body{display:none}
+.sheet.full{max-height:72vh;overflow:auto}
+.sheet.full .sheet-body{display:block}
+body.sheet-open{padding-bottom:20vh}
+body.sheet-open.sheet-full{padding-bottom:72vh}
+body.sheet-open .stage{width:min(100%,calc(62vh*var(--asp,.625)))}
+.sheet-grip{min-height:24px}
+.sheet h2{font-size:17px;margin:0}
+.vindex{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;margin:4px 0}
+.vindex .vdot{width:14px;height:14px;border-radius:50%;flex:none;box-shadow:0 0 0 3px rgba(255,255,255,.08)}
+.vindex.lv1 .vdot{background:#2fbf71}.vindex.lv2 .vdot{background:#f2c230}.vindex.lv3 .vdot{background:#ee4b4b}
+.vindex .vcap{font-size:12px;color:var(--muted)}.vindex .vlbl{font-size:14px}
+.vindex.lv1 .vlbl{color:#2fbf71}.vindex.lv2 .vlbl{color:#f2c230}.vindex.lv3 .vlbl{color:#ee4b4b}
