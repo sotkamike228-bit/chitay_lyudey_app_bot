@@ -282,3 +282,22 @@ body.sheet-open .stage{width:min(100%,calc(62vh*var(--asp,.625)))}
 .vindex.lv1 .vdot{background:#2fbf71}.vindex.lv2 .vdot{background:#f2c230}.vindex.lv3 .vdot{background:#ee4b4b}
 .vindex .vcap{font-size:12px;color:var(--muted)}.vindex .vlbl{font-size:14px}
 .vindex.lv1 .vlbl{color:#2fbf71}.vindex.lv2 .vlbl{color:#f2c230}.vindex.lv3 .vlbl{color:#ee4b4b}
+
+/* ===== Шкала конгруэнтности: тёмная плашка + светлый текст; компактная шторка с сутью и кнопкой ===== */
+.vindex{display:inline-flex;max-width:100%;padding:5px 10px;border-radius:10px;background:#161a24;border:1px solid rgba(255,255,255,.1);gap:2px 8px}
+.vindex .vcap{color:#a9b1c6}
+.vindex.lv1 .vlbl,.vindex.lv2 .vlbl,.vindex.lv3 .vlbl{color:#f1f4fb;font-weight:650;font-size:13px}
+.sheet{max-height:20vh;padding:8px 14px 8px}
+.sheet h2{font-size:18px;line-height:1.2;margin:0}
+.sheet .head-meta{margin:3px 0 2px}
+.gist{margin:2px 0 0;font-size:13.5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sheet.full .gist{-webkit-line-clamp:unset}
+.sheet-grip{width:100%;min-height:30px;margin:4px 0 0;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--text);font:650 14px inherit;font-family:inherit;cursor:pointer}
+.hookpro{margin:10px 0;padding:10px 12px;border-radius:12px;border:1px dashed var(--line)}
+.hookpro p{margin:0 0 8px;font-weight:650}
+.sheet:not(.full) .vindex .vcap{display:none}
+.sheet:not(.full) .vindex{padding:4px 9px}
+.vindex.lv1 .vlbl,.vindex.lv2 .vlbl,.vindex.lv3 .vlbl{font-size:12.5px;line-height:1.25}
+.sheet-head .x{align-self:flex-start}
+@media (max-height:700px){.gist{-webkit-line-clamp:1}.sheet h2{font-size:16.5px}}
+.tier-practitioner .tier{color:var(--good)}.tier-observer .tier{color:var(--accent)}.tier-vulnerable .tier{color:var(--warn)}

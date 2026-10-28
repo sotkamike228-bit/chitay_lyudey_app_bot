@@ -233,7 +233,8 @@ function screenResult() {
   if (Q.mode === 'calib') return screenCalibResult();
   const n = Q.cases.length;
   const pct = percent(Q.total, n, data.quiz);
-  const tier = tierFor(data.quiz, pct);
+  const good = Q.results.filter((r) => r.pts >= (data.quiz.goodCasePoints || 3)).length;
+  const tier = [...data.quiz.gradeTiers].sort((a, b) => b.minGood - a.minGood).find((g) => good >= g.minGood);
   const max = n * data.quiz.scoring.maxPerCase;
   const prev = read(KEYS.core, {}).best;
   if (typeof prev !== 'number' || pct > prev) patch(KEYS.core, { best: pct });
@@ -243,12 +244,14 @@ function screenResult() {
     h('div', { class: 'status tier-' + tier.id },
       h('div', { class: 'label' }, t.resultTitle),
       h('div', { class: 'tier' }, L(tier.title)),
-      h('div', { class: 'pct' }, t.scoreLine(pct, Q.total, max)),
+      h('div', { class: 'pct' }, t.goodLine(good, n)),
       h('p', {}, L(tier.line)),
       h('p', { class: 'foot-note' }, L(data.quiz.statusCardFooter)))];
   if (cmp) nodes.push(h('div', { class: 'banner' }, t[cmp](Q.challenge)));
   nodes.push(h('div', { class: 'card' }, h('h3', {}, t.blind),
     blind.length ? h('ul', {}, ...blind.map((x) => h('li', {}, x))) : h('p', {}, t.blindNone)));
+  nodes.push(h('div', { class: 'card pro-card' }, h('p', {}, t.nextStep), h('button', { class: 'btn', onclick: () => nav.go(openCalibration) }, tp.calibTitle),
+    h('button', { class: 'btn secondary', onclick: () => openPaywall('anatomy') }, tp.paywallTitle)));
   nodes.push(h('button', { class: 'btn', onclick: () => doShare(t.shareText(L(tier.title), pct), pct) }, t.share));
   nodes.push(h('button', { class: 'btn secondary', onclick: () => doShare(t.challengeText(L(tier.title), pct), pct) }, t.challengeBtn));
   nodes.push(h('button', { class: 'btn secondary', onclick: startRound }, t.again));

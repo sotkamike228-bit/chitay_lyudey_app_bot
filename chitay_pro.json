@@ -151,6 +151,14 @@
                   "Return sharply to the control question. Bring back the same question in the same words, without a pause or softening: 'Clarify: was that before or after signing?'",
                   "Fix the repeat of the reaction. If the gaze leaves the same way, it is a solid marker of hidden tension on this topic. Lock it in by checking the facts."
                 ]
+              },
+              "scene": {
+                "ru": "На переговорах: вы спросили про скидку и условия, партнёр смотрит в стол. В отношениях: «Где ты был вечером?», и взгляд уходит в сторону. Сравните с тем, как он смотрит на нейтральные вопросы.",
+                "en": "In a negotiation: you ask about the discount and the terms, and the partner looks at the table. In a relationship: “Where were you tonight?” and the gaze slides away. Compare with how they look at neutral questions."
+              },
+              "hook": {
+                "ru": "🔒 Протокол возврата к теме через 3 минуты (доступен в PRO)",
+                "en": "🔒 Protocol for returning to the topic after 3 minutes (available in PRO)"
               }
             },
             "research": {
@@ -170,6 +178,10 @@
                 "ru": "Он что-то скрывает.",
                 "en": "They are hiding something."
               }
+            },
+            "gist": {
+              "ru": "Взгляд уходит именно на трудном вопросе. Человеку нужно усилие, чтобы ответить.",
+              "en": "The gaze drops exactly on a hard question. The person needs effort to answer."
             }
           },
           {
@@ -192,6 +204,10 @@
             "pin": {
               "x": 91,
               "y": 40
+            },
+            "gist": {
+              "ru": "Взгляд уходит вверх и вбок, пока человек отвечает. Это может быть и вспоминание, и сочинение.",
+              "en": "The eyes go up and to the side while the person answers. It can be recall or it can be building a story."
             }
           },
           {
@@ -215,6 +231,10 @@
             "pin": {
               "x": 9,
               "y": 12
+            },
+            "gist": {
+              "ru": "Моргание резко изменилось: стало чаще или почти пропало. Так выглядит напряжение или усиленная концентрация.",
+              "en": "Blinking changed sharply: more often, or almost stopped. It looks like tension or intense concentration."
             }
           },
           {
@@ -238,6 +258,10 @@
             "pin": {
               "x": 91,
               "y": 12
+            },
+            "gist": {
+              "ru": "Брови и веки на секунду напряглись. Человек реагирует на слова, даже если лицо остаётся спокойным.",
+              "en": "Brows and lids tighten for a second. The person reacts to the words even if the face stays calm."
             }
           }
         ],
@@ -282,6 +306,10 @@
             "pin": {
               "x": 9,
               "y": 10
+            },
+            "gist": {
+              "ru": "Мимолётная эмоция на лице, которую человек тут же гасит. Её легко пропустить и легко придумать.",
+              "en": "A fleeting emotion on the face that the person clears at once. Easy to miss and easy to imagine."
             }
           },
           {
@@ -304,6 +332,10 @@
             "pin": {
               "x": 9,
               "y": 28
+            },
+            "gist": {
+              "ru": "Губы сжались в тонкую линию. Человек сдерживает слова или эмоцию.",
+              "en": "Lips press into a thin line. The person is holding back words or emotion."
             }
           },
           {
@@ -326,6 +358,10 @@
             "pin": {
               "x": 91,
               "y": 24
+            },
+            "gist": {
+              "ru": "Усмешка только с одной стороны. Чаще это скепсис или превосходство, чем радость.",
+              "en": "A smirk on one side only. More often it is scepticism or superiority than joy."
             }
           },
           {
@@ -349,6 +385,10 @@
             "pin": {
               "x": 9,
               "y": 46
+            },
+            "gist": {
+              "ru": "Челюсть напряглась, желваки заиграли. Человек сдерживает раздражение или тревогу.",
+              "en": "The jaw tenses. The person is holding back irritation or anxiety."
             }
           },
           {
@@ -372,6 +412,10 @@
             "pin": {
               "x": 91,
               "y": 62
+            },
+            "gist": {
+              "ru": "Человек сглотнул прямо перед ответом. Это тело реагирует на напряжение.",
+              "en": "The person swallows just before answering. The body reacts to tension."
             }
           }
         ],
@@ -417,6 +461,10 @@
             "pin": {
               "x": 9,
               "y": 10
+            },
+            "gist": {
+              "ru": "Плечи на секунду подскочили к ушам. Человеку неловко или он не уверен в сказанном.",
+              "en": "The shoulders jump toward the ears for a second. The person feels awkward or unsure of what was said."
             }
           },
           {
@@ -439,6 +487,10 @@
             "pin": {
               "x": 91,
               "y": 38
+            },
+            "gist": {
+              "ru": "Руки скрестили на груди. Часто это закрытость или просто удобная поза.",
+              "en": "Arms folded on the chest. Often it is guardedness, or simply a comfortable pose."
             }
           },
           {
@@ -461,6 +513,10 @@
             "pin": {
               "x": 9,
               "y": 62
+            },
+            "gist": {
+              "ru": "Человек откинулся назад, увеличивая дистанцию. Тема ему неприятна или он оценивает вас.",
+              "en": "The person leans back, widening the distance. The topic is unwelcome or they are sizing you up."
             }
           },
           {
@@ -483,6 +539,10 @@
             "pin": {
               "x": 91,
               "y": 84
+            },
+            "gist": {
+              "ru": "Ноги или корпус развернулись к выходу. Человек мысленно хочет закончить разговор.",
+              "en": "Legs or torso turn toward the exit. The person wants, in thought, to end the talk."
             }
           },
           {
@@ -505,6 +565,10 @@
             "pin": {
               "x": 91,
               "y": 12
+            },
+            "gist": {
+              "ru": "Человек трогает лицо, нос или шею. Так тело успокаивает само себя при напряжении.",
+              "en": "The person touches the face, nose or neck. The body soothes itself under tension."
             }
           }
         ],
@@ -625,6 +689,10 @@
             "pin": {
               "x": 91,
               "y": 24
+            },
+            "gist": {
+              "ru": "Человек вертит ручку, кольцо или телефон. Руки сами разряжают напряжение.",
+              "en": "The person twirls a pen, ring or phone. The hands release tension on their own."
             }
           },
           {
@@ -647,6 +715,10 @@
             "pin": {
               "x": 91,
               "y": 62
+            },
+            "gist": {
+              "ru": "Жесты внезапно почти исчезли. Человек замирает, когда тема для него острая.",
+              "en": "Gestures suddenly almost vanish. The person freezes when the topic is sharp."
             }
           },
           {
@@ -670,6 +742,10 @@
             "pin": {
               "x": 9,
               "y": 16
+            },
+            "gist": {
+              "ru": "Человек убрал ладони под стол или в карманы. Так закрываются, когда не хотят выдавать реакцию.",
+              "en": "The person hides the palms under the table or in pockets. A way of closing off when you do not want to show a reaction."
             }
           }
         ],
@@ -765,6 +841,10 @@
             "pin": {
               "x": 91,
               "y": 90
+            },
+            "gist": {
+              "ru": "Носки ног развернулись к выходу или в сторону. Ноги часто выдают, куда человеку хочется идти.",
+              "en": "The toes turn toward the exit or aside. Feet often show where a person would like to go."
             }
           },
           {
@@ -788,6 +868,10 @@
             "pin": {
               "x": 91,
               "y": 44
+            },
+            "gist": {
+              "ru": "Ноги или лодыжки скрещены. Бывает удобством, бывает защитой, смотрите на момент смены.",
+              "en": "Legs or ankles crossed. Can be comfort or defence; watch the moment of the change."
             }
           },
           {
@@ -811,6 +895,10 @@
             "pin": {
               "x": 91,
               "y": 14
+            },
+            "gist": {
+              "ru": "Нога дрожит или постукивает. Избыток напряжения уходит в движение.",
+              "en": "The leg shakes or taps. Surplus tension goes into movement."
             }
           },
           {
@@ -834,6 +922,10 @@
             "pin": {
               "x": 91,
               "y": 64
+            },
+            "gist": {
+              "ru": "Стопы зацепились за ножки стула. Тело как будто фиксирует себя на месте.",
+              "en": "The feet hook around the chair legs. The body seems to lock itself in place."
             }
           }
         ],

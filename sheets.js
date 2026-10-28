@@ -7,6 +7,7 @@ import { openCalibration } from './quiz.js';
 import { openHelp } from './help-view.js';
 import { openHypo } from './hypo-view.js';
 import { openProtocol } from './protocol-view.js';
+import { openExpress } from './express-view.js';
 import { proLoader, refreshEntitlements } from './services.js';
 
 const S = new Proxy({}, { get: (_, k) => tp.sheets[k] });   // живой доступ: язык может смениться на лету
@@ -48,11 +49,14 @@ export async function openSheets() {
   const row = (id, sub, onclick, tag) => h('button', { class: 'tile row-tile', type: 'button', onclick },
     h('span', { class: 'tile-title' }, S[id]), h('span', { class: 'tile-sub' }, sub), tag ? h('span', { class: 'badge ' + tag[0] }, tag[1]) : '');
   render(topbar(S.title), h('p', { class: 'muted sub' }, S.intro),
+    row('negotiation', S.negotiationSub, () => nav.go(openNegotiation), ['pro', tp.badges.pro]),
+    isAdult() ? row('dating', S.datingSub, () => nav.go(openDating), ['pro', '18+']) : '',
+    row('protection', S.protectionSub, () => nav.go(openProtection), ['free', S.freeBadge + ' + PRO']),
+    row('express', S.expressSub, () => nav.go(openExpress), ['free', S.freeBadge]),
     row('protocol', S.protocolSub, () => nav.go(openProtocol), ['free', S.freeBadge + ' + PRO']),
     row('hypo', S.hypoSub, () => nav.go(openHypo), ['free', S.freeBadge + ' + PRO']),
-    isAdult() ? row('dating', S.datingSub, () => nav.go(openDating), ['pro', '18+']) : '',
-    row('negotiation', S.negotiationSub, () => nav.go(openNegotiation), ['pro', tp.badges.pro]),
-    row('protection', S.protectionSub, () => nav.go(openProtection), ['free', S.freeBadge + ' + PRO']));
+    h('div', { class: 'card pro-card' }, h('p', {}, S.elite), h('button', { class: 'btn secondary', onclick: () => openPaywall('cheatsheets') }, tp.pay.homeLink)),
+    h('p', { class: 'muted sub' }, S.discl));
 }
 
 const sec = (id) => data.pro.cheatsheets.sections.find((s) => s.id === id);

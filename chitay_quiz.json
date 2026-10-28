@@ -880,5 +880,44 @@
         "en": "The case 'Too good to be true': what would make you stop?"
       }
     }
-  ]
+  ],
+  "gradeTiers": [
+    {
+      "id": "practitioner",
+      "minGood": 5,
+      "title": {
+        "ru": "Профайлер-практик",
+        "en": "Practising profiler"
+      },
+      "line": {
+        "ru": "Вы считываете скрытые сигналы и проверяете догадки вопросом, а не прыгаете к выводам.",
+        "en": "You read hidden signals and test guesses with a question instead of jumping to conclusions."
+      }
+    },
+    {
+      "id": "observer",
+      "minGood": 3,
+      "title": {
+        "ru": "Внимательный наблюдатель",
+        "en": "Attentive observer"
+      },
+      "line": {
+        "ru": "Замечаете зажимы, но вам не хватает алгоритма проверки. Его даёт калибровка.",
+        "en": "You notice clamps but lack a checking algorithm. Calibration gives you one."
+      }
+    },
+    {
+      "id": "vulnerable",
+      "minGood": 0,
+      "title": {
+        "ru": "Высокая уязвимость к манипуляциям",
+        "en": "High vulnerability to manipulation"
+      },
+      "line": {
+        "ru": "Вы считываете только открытый конфликт, пропуская скрытые сигналы. Начните с калибровки нормы.",
+        "en": "You read only open conflict and miss hidden signals. Start with norm calibration."
+      }
+    }
+  ],
+  "goodCasePoints": 3
 }

@@ -64,7 +64,7 @@ async function loadFor(id) {
     if (!c.hotspots || !c.hotspots[id]) throw Object.assign(new Error('missing'), { code: 'unavailable' });
     A.content = c; A.err = null; markOpened(id);
   } catch (e) { A.err = e.code || 'network'; if (A.err === 'locked') refreshEntitlements(); }
-  if (A.sel === id) screen();
+  if (A.sel === id) { screen(); toStage(); requestAnimationFrame(() => requestAnimationFrame(toStage)); }
 }
 
 function allHotspots() { return data.pro.anatomy.sections.flatMap((s) => s.hotspots); }
@@ -117,6 +117,8 @@ function screen() {
   if (A.sel) renderSheet(A.sel);
 }
 
+function toStage() { const st = document.querySelector('.stage'); if (st) st.scrollIntoView({ block: 'start' }); }
+
 function select(id) {
   A.sel = id; A.layer = 'seen'; A.err = null; haptic('light');
   const hs = find(id);
@@ -125,7 +127,6 @@ function select(id) {
     if (fullOf(hs)) markOpened(id); else needLoad = true;
   }
   screen();
-  const toStage = () => { const st = document.querySelector('.stage'); if (st) st.scrollIntoView({ block: 'start' }); };
   toStage(); requestAnimationFrame(() => requestAnimationFrame(toStage));
   if (needLoad) loadFor(id);
 }
@@ -139,7 +140,8 @@ function renderSheet(id) {
   const unlocked = hotspotUnlocked(hs0, ent(), CFG);
   const head = h('div', { class: 'sheet-head' },
     h('div', {}, h('h2', {}, L(hs.label)),
-      h('div', { class: 'head-meta' }, relBar(hs.reliability), hs.myth ? h('span', { class: 'tag jump' }, L(an.ui.mythBadge)) : '')),
+      h('div', { class: 'head-meta' }, relBar(hs.reliability), hs.myth ? h('span', { class: 'tag jump' }, L(an.ui.mythBadge)) : ''),
+      hs0.gist ? h('p', { class: 'gist' }, L(hs0.gist)) : ''),
     h('button', { class: 'x', type: 'button', 'aria-label': tp.close, onclick: () => { A.sel = null; A.full = false; screen(); } }, '×'));
   const body = h('div', { class: 'sheet-body' });
   if (!unlocked) {
@@ -149,8 +151,10 @@ function renderSheet(id) {
     body.append(...pendingState(id));
   } else {
     const L_ = hs.layers;
-    body.append(secBlock(1, tp.sec.seen, layerNode(L_.seen)), secBlock(2, tp.sec.physiology, layerNode(L_.physiology)),
+    body.append(secBlock(1, tp.sec.seen, h('div', {}, layerNode(L_.seen), layerNode(L_.physiology))),
+      L_.scene ? secBlock(2, tp.sec.scene, layerNode(L_.scene)) : '',
       secBlock(3, tp.sec.check, layerNode(L_.check, 'qs'), 'tool'),
+      L_.hook ? h('div', { class: 'hookpro' }, h('p', {}, L(L_.hook)), h('button', { class: 'btn secondary', type: 'button', onclick: () => { A.sel = null; openPaywall('anatomy'); } }, tp.paywallTitle)) : '',
       secBlock(4, tp.sec.calib, layerNode(L_.calibration, 'steps'), 'calib'),
       secBlock(5, tp.sec.fix, layerNode(L_.fixation), 'fix'),
       h('details', { class: 'src' }, h('summary', {}, tp.sec.limits), layerNode(L_.notProven), h('h3', {}, tp.layers.alt), layerNode(L_.alt),
@@ -161,8 +165,8 @@ function renderSheet(id) {
   }
   const grip = h('button', { class: 'sheet-grip', type: 'button', 'aria-expanded': String(A.full),
     onclick: () => { A.full = !A.full; sheet.classList.toggle('full', A.full); document.body.classList.toggle('sheet-full', A.full); grip.setAttribute('aria-expanded', String(A.full)); grip.querySelector('span').textContent = A.full ? tp.sheetLess : tp.sheetHint; } },
-    h('i', { 'aria-hidden': 'true' }), h('span', {}, A.full ? tp.sheetLess : tp.sheetHint));
-  const sheet = h('div', { class: 'sheet' + (A.full ? ' full' : ''), role: 'dialog', 'aria-modal': 'false', 'aria-label': L(hs.label) }, grip, head, body);
+    h('span', {}, A.full ? tp.sheetLess : tp.sheetHint));
+  const sheet = h('div', { class: 'sheet' + (A.full ? ' full' : ''), role: 'dialog', 'aria-modal': 'false', 'aria-label': L(hs.label) }, head, grip, body);
   let y0 = null;
   const setFull = (v) => { if (A.full !== v) grip.click(); };
   sheet.addEventListener('touchstart', (e) => { y0 = e.touches[0].clientY; }, { passive: true });
