@@ -126,13 +126,13 @@ function lockModal(hs) {
   const close = () => { box.classList.add('closing'); setTimeout(() => box.remove(), 180); };
   box.append(h('div', { class: 'overlay-inner modal' },
     h('div', { class: 'hookpro' }, h('p', { class: 'hp-title' }, X.title(L(hs.label))), h('ul', {}, ...X.bullets.map((x) => h('li', {}, x)))),
-    h('button', { class: 'btn cta-gi', type: 'button', onclick: () => { close(); A.sel = null; openPaywall('anatomy'); } }, X.cta),
+    h('button', { class: 'btn cta-gb', type: 'button', onclick: () => { close(); A.sel = null; openPaywall('anatomy'); } }, X.cta),
     h('button', { class: 'btn secondary', type: 'button', onclick: close }, X.close)));
   document.body.append(box);
 }
 
 function select(id) {
-  A.sel = id; A.layer = 'seen'; A.err = null; haptic('light');
+  A.sel = id; A.layer = 'seen'; A.err = null; A.full = true; haptic('light');   // шторка сразу приоткрывается на комфортную высоту
   const hs = find(id);
   let needLoad = false;
   if (hotspotUnlocked(hs, ent(), CFG)) {
@@ -159,8 +159,8 @@ function renderSheet(id) {
     h('button', { class: 'x', type: 'button', 'aria-label': tp.close, onclick: () => { A.sel = null; A.full = false; screen(); } }, '×'));
   const body = h('div', { class: 'sheet-body' });
   if (!unlocked) {
-    body.append(h('p', { class: 'hook' }, tp.locked), h('p', {}, tp.lockedText),
-      h('button', { class: 'btn', type: 'button', onclick: () => { A.sel = null; openPaywall('anatomy'); } }, tp.paywallTitle));
+    body.append(h('div', { class: 'hookpro' }, h('p', { class: 'hp-title' }, tp.lockModal.title(L(hs.label))), h('ul', {}, ...tp.lockModal.bullets.map((x) => h('li', {}, x))),
+      h('button', { class: 'btn cta-gb', type: 'button', onclick: () => { A.sel = null; openPaywall('anatomy'); } }, tp.lockModal.cta)));
   } else if (!full) {
     body.append(...pendingState(id));
   } else {
@@ -169,7 +169,7 @@ function renderSheet(id) {
       L_.psyche ? secBlock(3, tp.sec.psyche, layerNode(L_.psyche)) : '',
       L_.scene ? secBlock(4, tp.sec.scene, layerNode(L_.scene)) : '',
       secBlock(5, tp.sec.check, layerNode(L_.check, 'qs'), 'tool'),
-      L_.hook ? h('div', { class: 'hookpro' }, h('p', { class: 'hp-title' }, L(L_.hook.title)), h('ul', {}, ...LA(L_.hook.bullets).map((x) => h('li', {}, x))), h('button', { class: 'btn promo', type: 'button', onclick: () => { A.sel = null; openPaywall('anatomy'); } }, L(L_.hook.cta))) : '',
+      L_.hook ? h('div', { class: 'hookpro' }, h('p', { class: 'hp-title' }, L(L_.hook.title)), h('ul', {}, ...LA(L_.hook.bullets).map((x) => h('li', {}, x))), h('button', { class: 'btn cta-gb', type: 'button', onclick: () => { A.sel = null; openPaywall('anatomy'); } }, L(L_.hook.cta))) : '',
       secBlock(6, tp.sec.calib, layerNode(L_.calibration, 'steps'), 'calib'),
       secBlock(7, tp.sec.fix, layerNode(L_.fixation), 'fix'),
       h('details', { class: 'src' }, h('summary', {}, tp.sec.limits), layerNode(L_.notProven), h('h3', {}, tp.layers.alt), layerNode(L_.alt),
@@ -181,7 +181,7 @@ function renderSheet(id) {
   const grip = h('button', { class: 'sheet-grip', type: 'button', 'aria-expanded': String(A.full),
     onclick: () => { A.full = !A.full; sheet.classList.toggle('full', A.full); document.body.classList.toggle('sheet-full', A.full); grip.setAttribute('aria-expanded', String(A.full)); grip.querySelector('span').textContent = A.full ? tp.sheetLess : tp.sheetHint; } },
     h('span', {}, A.full ? tp.sheetLess : tp.sheetHint));
-  const sheet = h('div', { class: 'sheet' + (A.full ? ' full' : ''), role: 'dialog', 'aria-modal': 'false', 'aria-label': L(hs.label) }, head, grip, body);
+  const sheet = h('div', { class: 'sheet' + (A.full ? ' full' : ''), role: 'dialog', 'aria-modal': 'false', 'aria-label': L(hs.label) }, h('div', { class: 'sheet-handle', 'aria-hidden': 'true', onclick: () => grip.click() }), head, grip, body);
   let y0 = null;
   const setFull = (v) => { if (A.full !== v) grip.click(); };
   sheet.addEventListener('touchstart', (e) => { y0 = e.touches[0].clientY; }, { passive: true });

@@ -84,7 +84,7 @@ export const TP = {
       plans: {
         pack_cheatsheets: { name: 'Шпаргалки навсегда', note: () => 'Один платёж, без продления', btn: 'Открыть навсегда', what: 'Свидания 18+, переговоры, защита от давления, калибровка, проверка гипотез в 3 шага' },
         pro_lifetime: { name: 'PRO Всё включено навсегда', note: () => 'Один платёж, доступ навсегда', btn: 'Открыть всё навсегда', what: 'Все 21 зона атласа и все разделы: шпаргалки, калибровка, проверка гипотез' },
-        pro_monthly: { name: 'PRO на месяц', note: () => '30 дней · без автопродления', btn: 'Взять на месяц', what: 'То же, что в полном доступе, на 30 дней' },
+        pro_monthly: { name: 'PRO на 30 дней', note: () => '30 дней · без автопродления', btn: 'Взять на месяц', what: 'То же, что в полном доступе, на 30 дней' },
       },
       homeLink: 'Тарифы PRO', onceBadge: 'Разово', ownedBadge: 'Открыто',
       payNote: 'Оплата звёздами внутри Telegram. Ничего не списывается без вашего подтверждения.',
@@ -113,7 +113,8 @@ export const TP = {
       ],
       pro: 'Тонкие приёмы возврата к теме и работа с нагрузкой на память: в PRO.', note: 'Реакция показывает напряжение на теме, а не причину. Проверка фактов обязательна.', toProtocol: 'Тактический протокол верификатора',
     },
-    lockModal: { title: (z) => `🔒 Протокол прикладной верификации: ${z}`, bullets: ['Второй независимый признак: что усиливает вывод по этой зоне, а что его снимает.', 'Алгоритм контрольного вопроса: точная фраза и возврат к теме через 3 минуты.', 'Практический разбор ситуации в бизнесе (переговоры по смете и долгам) и в отношениях (проверка фактов).'], cta: 'Получить доступ к протоколам в PRO', close: 'Закрыть' },
+    mode: { title: 'Режим для проверки (временный)', note: 'Переключает приложение между тестом PRO и обычным пользователем. Страница перезагрузится.', toUser: 'Переключить: Обычный пользователь (с замками)', toTest: 'Переключить: Тест PRO (все открыто)', nowTest: 'Сейчас: Тест PRO (все открыто)', nowUser: 'Сейчас: Обычный пользователь (с замками)' },
+    lockModal: { title: (z) => `🔒 Протокол проверки зоны: ${z}`, bullets: ['Контрольная фраза: как вернуть тему через 3 минуты и сверить реакцию с первой.', 'Разбор для переговоров: утаивание условий, откаты, срыв сроков.', 'Разбор для отношений: скрытая переписка, подозрение на измену, неискренность.'], cta: 'Разблокировать в PRO (от 189 ⭐)', close: 'Закрыть' },
     protocol: { title: 'Тактический протокол верификатора', rule: 'Правило', steps: 'Как применять', caution: 'Чего не утверждать' },
     hypo: {
       title: 'Проверка в 3 шага', intro: 'Один признак — повод проверить. Зафиксируйте триггер, задайте 2–3 спокойных вопроса и посмотрите, что вернётся при повторе.',
@@ -211,7 +212,7 @@ export const TP = {
       plans: {
         pack_cheatsheets: { name: 'Cheat sheets forever', note: () => 'One payment, no renewal', btn: 'Unlock forever', what: 'Dating 18+, negotiation, protection from pressure, calibration, 3-step hypothesis check' },
         pro_lifetime: { name: 'PRO All-inclusive forever', note: () => 'One payment, access forever', btn: 'Unlock everything forever', what: 'All 21 atlas zones and every section: cheat sheets, calibration, hypothesis check' },
-        pro_monthly: { name: 'PRO for a month', note: () => '30 days · no auto-renewal', btn: 'Get a month', what: 'Same as full access, for 30 days' },
+        pro_monthly: { name: 'PRO for 30 days', note: () => '30 days · no auto-renewal', btn: 'Get a month', what: 'Same as full access, for 30 days' },
       },
       homeLink: 'PRO plans', onceBadge: 'One-time', ownedBadge: 'Unlocked',
       payNote: 'Paid with Stars inside Telegram. Nothing is charged without your confirmation.',
@@ -240,7 +241,8 @@ export const TP = {
       ],
       pro: 'Fine techniques for returning to the topic and memory-load work: in PRO.', note: 'The reaction shows tension on a topic, not its cause. Fact checking is required.', toProtocol: 'Verifier’s tactical protocol',
     },
-    lockModal: { title: (z) => `🔒 Applied verification protocol: ${z}`, bullets: ['A second independent cue: what strengthens the conclusion for this zone and what removes it.', 'Control-question algorithm: the exact phrase and a return to the topic after 3 minutes.', 'A practical breakdown for business (estimate and debt negotiations) and relationships (fact checking).'], cta: 'Get access to the protocols in PRO', close: 'Close' },
+    mode: { title: 'Check mode (temporary)', note: 'Switches the app between PRO test and a regular user. The page will reload.', toUser: 'Switch: Regular user (with locks)', toTest: 'Switch: PRO test (everything open)', nowTest: 'Now: PRO test (everything open)', nowUser: 'Now: Regular user (with locks)' },
+    lockModal: { title: (z) => `🔒 Zone check protocol: ${z}`, bullets: ['Control phrase: how to return to the topic after 3 minutes and compare the reaction with the first.', 'Negotiation breakdown: hidden terms, kickbacks, missed deadlines.', 'Relationship breakdown: secret messaging, suspected cheating, insincerity.'], cta: 'Unlock in PRO (from 189 ⭐)', close: 'Close' },
     protocol: { title: "Verifier's tactical protocol", rule: 'Rule', steps: 'How to apply', caution: 'What not to claim' },
     hypo: {
       title: '3-step check', intro: 'One cue decides nothing. Fix the trigger, ask 2–3 calm questions and see what returns on repeat.',

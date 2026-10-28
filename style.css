@@ -386,3 +386,14 @@ h1{font-size:28px}h2{font-size:21px}
 html{min-height:100%}body{min-height:100vh}
 :root[data-theme="light"] .tile .ico{color:#5b47d6}:root[data-theme="light"] .tile.is-pro .ico{color:#a8660c}:root[data-theme="light"] .tile.flagship .ico{color:#fff}
 .tile .neon-ico{stroke-width:2.4}.tile.flagship .ico{width:60px;height:60px}
+
+/* ===== шторка на смартфоне: ручка, комфортная высота 55%, плавное раскрытие ===== */
+.sheet{transition:max-height .28s cubic-bezier(.2,.8,.2,1);overscroll-behavior:contain}
+.sheet.full{max-height:55vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+body.sheet-open.sheet-full{padding-bottom:55vh}
+body.sheet-open.sheet-full .stage{width:min(100%,calc(37vh*var(--asp,.625)))}
+.sheet-handle{width:40px;height:4px;border-radius:2px;background:#8a93a8;opacity:.75;margin:2px auto 8px;cursor:pointer}
+.sheet-grip{background:linear-gradient(120deg,#8b5cf6,#4f7dff);color:#fff;border:0;font-weight:800}
+.sheet-grip:active{transform:scale(.98)}
+.btn.cta-gb{background:linear-gradient(120deg,#f4c95d,#e0a93a 35%,#4f7dff 100%);color:#10121A;font-weight:800;font-size:16px;box-shadow:0 12px 28px rgba(79,125,255,.4)}
+@media (max-height:700px){.sheet.full{max-height:55vh}body.sheet-open.sheet-full{padding-bottom:55vh}}

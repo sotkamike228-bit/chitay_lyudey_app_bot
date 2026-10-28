@@ -158,24 +158,24 @@
               },
               "hook": {
                 "title": {
-                  "ru": "🔒 Протокол проверки: Отведение взгляда",
-                  "en": "🔒 Verification protocol: Looking away"
+                  "ru": "🔒 Протокол проверки зоны: Отведение взгляда",
+                  "en": "🔒 Zone check protocol: Looking away"
                 },
                 "bullets": {
                   "ru": [
-                    "Второй независимый признак, который усиливает или снимает вывод по этой зоне.",
-                    "Алгоритм «Отвлечение + возврат»: контрольная фраза и интервал возврата к теме через 3 минуты.",
-                    "Практический разбор для бизнеса (смета, долги) и личных отношений."
+                    "Контрольная фраза: как вернуть тему через 3 минуты и сверить реакцию с первой.",
+                    "Разбор для переговоров: утаивание условий, откаты, срыв сроков.",
+                    "Разбор для отношений: скрытая переписка, подозрение на измену, неискренность."
                   ],
                   "en": [
-                    "A second independent cue that strengthens or removes the conclusion for this zone.",
-                    "The “Distraction + Return” algorithm: a control phrase and a 3-minute interval before returning to the topic.",
-                    "A practical breakdown for business (estimates, debts) and personal relationships."
+                    "Control phrase: how to return to the topic after 3 minutes and compare the reaction with the first.",
+                    "Negotiation breakdown: hidden terms, kickbacks, missed deadlines.",
+                    "Relationship breakdown: secret messaging, suspected cheating, insincerity."
                   ]
                 },
                 "cta": {
-                  "ru": "Разблокировать полный протокол в PRO",
-                  "en": "Unlock the full protocol in PRO"
+                  "ru": "Разблокировать в PRO (от 189 ⭐)",
+                  "en": "Unlock in PRO (from 189 ⭐)"
                 }
               },
               "psyche": {

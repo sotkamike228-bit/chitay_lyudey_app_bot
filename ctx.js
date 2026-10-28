@@ -17,7 +17,10 @@ export function setLang(l) {
   lang = l; write(KEYS.lang, l); document.documentElement.lang = l;
 }
 // Если сервер подключён (apiBase), бета-режим отключается: права решает сервер, а не флаг.
-export const CFG = { ...CONFIG, proPreview: !!CONFIG.proPreview && !CONFIG.apiBase };
+// Временный тумблер для тестов на телефоне: 'test' (всё открыто) или 'user' (с замками). Меняется в «Помощи».
+export const MODE_KEY = 'chitay.mode.v1';
+const modeOverride = () => { try { return localStorage.getItem(MODE_KEY); } catch { return null; } };
+export const CFG = { ...CONFIG, proPreview: modeOverride() === 'user' ? false : modeOverride() === 'test' ? true : !!CONFIG.proPreview && !CONFIG.apiBase };
 export const root = document.getElementById('app');
 export const L = (o) => (o && (o[lang] || o.en || o.ru)) || '';
 export const LA = (o) => (o && (o[lang] || o.en || o.ru)) || [];
