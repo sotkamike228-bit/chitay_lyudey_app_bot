@@ -11,7 +11,7 @@ export class ProError extends Error {
 // Зеркало app/split.py на сервере (tools/split_pro.py). Тест следит, чтобы они не разошлись.
 const HOTSPOT_PRIVATE = ['layers', 'research', 'trainer'];
 const SECTION_PRIVATE = { dating: ['interestVsDistance', 'checkQuestions'], negotiation: ['cards', 'confidenceCalibration'], protection: ['patterns', 'nlpClaims'] };
-export const SECTIONS = ['anatomy', ...Object.keys(SECTION_PRIVATE), 'calibration', 'hypothesis'];
+export const SECTIONS = ['anatomy', ...Object.keys(SECTION_PRIVATE), 'calibration', 'hypothesis', 'protocol'];
 
 /** Из полного файла получает ровно то, что отдал бы сервер для раздела. */
 export function splitFull(full, section) {
@@ -25,6 +25,7 @@ export function splitFull(full, section) {
     return { hotspots };
   }
   if (section === 'calibration' || section === 'hypothesis') { if (!full[section]) throw new ProError('unavailable'); return full[section]; }
+  if (section === 'protocol') { if (!full.protocol || !full.protocol.methods) throw new ProError('unavailable'); return { methods: full.protocol.methods }; }
   const sec = full.cheatsheets.sections.find((s) => s.id === section);
   if (!sec || !SECTION_PRIVATE[section]) throw new ProError('unavailable');
   const out = {}; for (const k of SECTION_PRIVATE[section]) if (k in sec) out[k] = sec[k];

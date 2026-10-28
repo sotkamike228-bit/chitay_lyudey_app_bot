@@ -54,8 +54,8 @@
       "en": "Anatomy of nonverbal cues"
     },
     "intro": {
-      "ru": "Нажмите на метку: что видно глазом, что происходит при напряжении, чем перепроверить. Шкала показывает, насколько надёжен признак.",
-      "en": "Tap a marker: what is visible, what happens under tension, how to double-check. The scale shows how reliable the cue is."
+      "ru": "Нажмите на метку: сигнал тела, острый проверочный вопрос, калибровка и фиксация. Шкала показывает силу маркера.",
+      "en": "Tap a marker: the body signal, the sharp check question, calibration and fixation. The scale shows the strength of the marker."
     },
     "figure": {
       "style": "stylized-no-real-faces",
@@ -99,8 +99,8 @@
                 "en": "The person looks down or to the side while answering a hard question."
               },
               "notProven": {
-                "ru": "Отведённый взгляд сам по себе — слабый маркер: так выглядит и подбор слов, и стеснение. Ценность появляется, когда он совпадает с темой вопроса.",
-                "en": "Averted gaze alone is a weak marker: word-searching and shyness look the same. It gains value when it lines up with the topic of the question."
+                "ru": "Отведённый взгляд — вспомогательный маркер: так выглядит и подбор слов, и стеснение. Сила появляется, когда он совпадает с темой острого вопроса и повторяется.",
+                "en": "Averted gaze is a supporting marker: word-searching and shyness look the same. It gains force when it lines up with the topic of the sharp question and repeats."
               },
               "alt": {
                 "ru": [
@@ -118,16 +118,16 @@
               },
               "check": {
                 "ru": [
+                  "«Уточните: это было до или после подписания?»",
                   "«Мне показалось, вы задумались. Хотите вернуться к этому вопросу позже?»",
                   "«Давайте вернёмся к этому, когда вам будет удобно.»",
-                  "«Расскажите, как вы это запомнили?»",
-                  "«Уточните: это было до или после подписания?»"
+                  "«Расскажите, как вы это запомнили?»"
                 ],
                 "en": [
+                  "'Clarify: was that before or after signing?'",
                   "'You seemed to be thinking. Would you like to come back to this later?'",
                   "'Let us come back to this when it suits you.'",
-                  "'How do you remember it?'",
-                  "'Clarify: was that before or after signing?'"
+                  "'How do you remember it?'"
                 ]
               },
               "physiology": {
@@ -137,6 +137,20 @@
               "fixation": {
                 "ru": "Если взгляд уходит именно на одном вопросе и снова при его повторе — наиболее вероятно, тема требует от человека усилия. Зафиксируйте тему и вернитесь к ней через факты.",
                 "en": "If the gaze leaves on one question and again when it is repeated, the topic most likely costs the person effort. Note the topic and return to it through facts."
+              },
+              "calibration": {
+                "ru": [
+                  "Смена темы на нейтральную. Заметив сигнал «Отведение взгляда», уведите разговор на безопасную тему (погода, дорога, кофе) на 1–2 минуты.",
+                  "Отслеживание сброса зажима. Дождитесь, пока тело отпустит: взгляд снова держит контакт. Это ваша точка отсчёта.",
+                  "Резкий возврат к контрольному вопросу. Верните тот же вопрос теми же словами, без паузы и смягчения: «Уточните: это было до или после подписания?»",
+                  "Фиксация повтора реакции. Если взгляд уходит так же, это устойчивый маркер скрытого напряжения на этой теме. Закрепите проверкой фактов."
+                ],
+                "en": [
+                  "Switch to a neutral topic. Having spotted the signal 'Looking away', move the talk to a safe topic (weather, the road, coffee) for 1–2 minutes.",
+                  "Track the release of the clamp. Wait until the body lets go: the gaze holds contact again. That is your baseline.",
+                  "Return sharply to the control question. Bring back the same question in the same words, without a pause or softening: 'Clarify: was that before or after signing?'",
+                  "Fix the repeat of the reaction. If the gaze leaves the same way, it is a solid marker of hidden tension on this topic. Lock it in by checking the facts."
+                ]
               }
             },
             "research": {
@@ -966,14 +980,15 @@
       "layersToggle": [
         "seen",
         "physiology",
-        "notProven",
         "check",
+        "calibration",
         "fixation",
+        "notProven",
         "alt"
       ],
       "mythBadge": {
-        "ru": "Миф: так не читается",
-        "en": "Myth: do not read it this way"
+        "ru": "Ложный критерий",
+        "en": "False criterion"
       },
       "miniTrainerPerHotspot": true,
       "textListFallback": true
@@ -1153,7 +1168,58 @@
       "negotiation",
       "protection",
       "calibration",
-      "hypothesis"
+      "hypothesis",
+      "protocol"
+    ]
+  },
+  "protocol": {
+    "title": {
+      "ru": "Тактический протокол верификатора",
+      "en": "Verifier's tactical protocol"
+    },
+    "intro": {
+      "ru": "Пять правил оперативного профайлинга: как вести проверку по порядку, чтобы реакции можно было сравнивать, а выводы держались на связке сигналов, а не на одном жесте.",
+      "en": "Five field-profiling rules: how to run a check in order so that reactions can be compared and conclusions rest on a set of signals, not on a single gesture."
+    },
+    "guardrail": {
+      "ru": "Протокол снижает число ошибочных выводов и не заменяет проверку фактов. Не используйте его, чтобы давить на людей или оценивать кандидатов и сотрудников.",
+      "en": "The protocol cuts down on wrong conclusions and does not replace fact checking. Do not use it to pressure people or to judge candidates and employees."
+    },
+    "moreLocked": {
+      "ru": "Ещё четыре правила протокола входят в PRO: базовая линия, правило 3 секунд, тест когнитивной перегрузки, вопрос-приманка.",
+      "en": "Four more protocol rules are part of PRO: baseline, the 3-second rule, the cognitive-load test, the bait question."
+    },
+    "free": [
+      {
+        "id": "pr-cluster",
+        "tier": "free",
+        "title": {
+          "ru": "Кластерное правило (2+1)",
+          "en": "Cluster rule (2+1)"
+        },
+        "rule": {
+          "ru": "Вывод строится только на связке: два независимых сигнала плюс жест самоуспокоения, на одной теме и при повторе. Единичный жест выводом не считается.",
+          "en": "A conclusion rests only on a set: two independent signals plus a self-soothing gesture, on one topic and on repeat. A single gesture is not a conclusion."
+        },
+        "steps": {
+          "ru": [
+            "Разделите сигналы на группы: тело (зажим стоп или корпуса), речь (пауза, сглатывание), самоуспокоение (касание шеи, яремной ямки, кольца).",
+            "Отметьте, какие группы сработали на одной и той же теме.",
+            "Дождитесь повтора: верните тему после нейтральной паузы и сверьте.",
+            "При совпадении двух сигналов и самоуспокоения фиксируйте «устойчивый маркер напряжения на теме» и проверяйте факты."
+          ],
+          "en": [
+            "Split signals into groups: body (clamped feet or torso), speech (pause, swallowing), self-soothing (touching the neck, the jugular notch, a ring).",
+            "Note which groups fired on the same topic.",
+            "Wait for the repeat: bring the topic back after a neutral pause and compare.",
+            "When two signals and self-soothing coincide, log 'a solid tension marker on the topic' and check the facts."
+          ]
+        },
+        "caution": {
+          "ru": "Это маркер напряжения на теме, а не вывод о человеке. Причиной может быть сама тема, стресс или неловкость: подтверждайте фактами.",
+          "en": "This is a tension marker on a topic, not a conclusion about the person. The cause may be the topic itself, stress or awkwardness: confirm with facts."
+        }
+      }
     ]
   }
 }

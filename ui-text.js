@@ -1,6 +1,6 @@
 export const T = {
   ru: {
-    appName: 'Читай людей', subtitle: 'Невербалика без мифов',
+    appName: 'Читай людей', subtitle: 'Читайте скрытые реакции',
     tagline: 'Видишь людей насквозь? Проверь, что ты замечаешь за 30 секунд.',
     introLead: '5 коротких ситуаций. Выбираешь, что заметно, и что сделаешь. В конце получаешь свой уровень наблюдательности.',
     ageTitle: 'Подтвердите возраст',
@@ -33,7 +33,7 @@ export const T = {
     loadError: 'Не удалось загрузить кейсы. Откройте страницу ещё раз.',
   },
   en: {
-    appName: 'Read People', subtitle: 'Body language without myths',
+    appName: 'Read People', subtitle: 'Read hidden reactions',
     tagline: 'Think you can see through people? Test what you notice in 30 seconds.',
     introLead: '5 short situations. You choose what you notice and what you would do. At the end you get your observation level.',
     ageTitle: 'Confirm your age',

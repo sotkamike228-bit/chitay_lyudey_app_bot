@@ -6,6 +6,7 @@ import { openPaywall, lockCard } from './paywall.js';
 import { openCalibration } from './quiz.js';
 import { openHelp } from './help-view.js';
 import { openHypo } from './hypo-view.js';
+import { openProtocol } from './protocol-view.js';
 import { proLoader, refreshEntitlements } from './services.js';
 
 const S = new Proxy({}, { get: (_, k) => tp.sheets[k] });   // живой доступ: язык может смениться на лету
@@ -47,6 +48,7 @@ export async function openSheets() {
   const row = (id, sub, onclick, tag) => h('button', { class: 'tile row-tile', type: 'button', onclick },
     h('span', { class: 'tile-title' }, S[id]), h('span', { class: 'tile-sub' }, sub), tag ? h('span', { class: 'badge ' + tag[0] }, tag[1]) : '');
   render(topbar(S.title), h('p', { class: 'muted sub' }, S.intro),
+    row('protocol', S.protocolSub, () => nav.go(openProtocol), ['free', S.freeBadge + ' + PRO']),
     row('hypo', S.hypoSub, () => nav.go(openHypo), ['free', S.freeBadge + ' + PRO']),
     isAdult() ? row('dating', S.datingSub, () => nav.go(openDating), ['pro', '18+']) : '',
     row('negotiation', S.negotiationSub, () => nav.go(openNegotiation), ['pro', tp.badges.pro]),

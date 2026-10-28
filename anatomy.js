@@ -7,7 +7,7 @@ import { shuffle } from './engine.js';
 import { openPaywall, lockCard } from './paywall.js';
 import { proLoader, refreshEntitlements } from './services.js';
 
-const A = { sec: 0, view: 0, sel: null, layer: 'seen', content: null, err: null };
+const A = { sec: 0, view: 0, full: false, sel: null, layer: 'seen', content: null, err: null };
 const ent = () => read(KEYS.ent, {});
 const atlas = () => read(KEYS.atlas, { opened: [], trained: {} });
 function saveAtlas(a) { write(KEYS.atlas, a); }
@@ -138,9 +138,8 @@ function renderSheet(id) {
   const unlocked = hotspotUnlocked(hs0, ent(), CFG);
   const head = h('div', { class: 'sheet-head' },
     h('div', {}, h('h2', {}, L(hs.label)),
-      relBar(hs.reliability), h('p', { class: 'sub muted relnote' }, tp.relDesc[hs.reliability] || ''),
-      hs.myth ? h('span', { class: 'tag jump' }, L(an.ui.mythBadge)) : ''),
-    h('button', { class: 'x', type: 'button', 'aria-label': tp.close, onclick: () => { A.sel = null; screen(); } }, '×'));
+      h('div', { class: 'head-meta' }, relBar(hs.reliability), hs.myth ? h('span', { class: 'tag jump' }, L(an.ui.mythBadge)) : '')),
+    h('button', { class: 'x', type: 'button', 'aria-label': tp.close, onclick: () => { A.sel = null; A.full = false; screen(); } }, '×'));
   const body = h('div', { class: 'sheet-body' });
   if (!unlocked) {
     body.append(h('p', { class: 'hook' }, tp.locked), h('p', {}, tp.lockedText),
@@ -150,17 +149,22 @@ function renderSheet(id) {
   } else {
     const L_ = hs.layers;
     body.append(secBlock(1, tp.sec.seen, layerNode(L_.seen)), secBlock(2, tp.sec.physiology, layerNode(L_.physiology)),
-      secBlock(3, tp.sec.caveat, layerNode(L_.notProven)),
-      secBlock(4, tp.sec.check, layerNode(L_.check, 'qs'), 'tool'),
+      secBlock(3, tp.sec.check, layerNode(L_.check, 'qs'), 'tool'),
+      secBlock(4, tp.sec.calib, layerNode(L_.calibration, 'steps'), 'calib'),
       secBlock(5, tp.sec.fix, layerNode(L_.fixation), 'fix'),
-      h('details', { class: 'src' }, h('summary', {}, tp.sec.limits), layerNode(L_.alt)));
+      h('details', { class: 'src' }, h('summary', {}, tp.sec.limits), layerNode(L_.notProven), h('h3', {}, tp.layers.alt), layerNode(L_.alt),
+        h('p', { class: 'sub muted relnote' }, tp.relDesc[hs.reliability] || '')));
     if (hs.research) body.append(h('details', { class: 'src' }, h('summary', {}, tp.source), h('p', { class: 'sub muted' }, L(hs.research))));
     body.append(trainerBlock(full));
     body.append(h('p', { class: 'sub muted' }, L(data.pro.meta.caption)));
   }
-  const host = h('div', { class: 'sheet-host' }, h('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'false', 'aria-label': L(hs.label) }, head, body));
-  document.body.append(host);
+  const grip = h('button', { class: 'sheet-grip', type: 'button', 'aria-expanded': String(A.full),
+    onclick: () => { A.full = !A.full; sheet.classList.toggle('full', A.full); document.body.classList.toggle('sheet-full', A.full); grip.setAttribute('aria-expanded', String(A.full)); grip.querySelector('span').textContent = A.full ? tp.sheetLess : tp.sheetMore; } },
+    h('i', { 'aria-hidden': 'true' }), h('span', {}, A.full ? tp.sheetLess : tp.sheetMore));
+  const sheet = h('div', { class: 'sheet' + (A.full ? ' full' : ''), role: 'dialog', 'aria-modal': 'false', 'aria-label': L(hs.label) }, grip, head, body);
+  document.body.append(h('div', { class: 'sheet-host' }, sheet));
   document.body.classList.add('sheet-open');
+  document.body.classList.toggle('sheet-full', A.full);
 }
 
 /** Состояние платной зоны, пока слои не пришли: загрузка, ошибка или «нужен доступ». */

@@ -49,7 +49,7 @@ export function html(tag, attrs, markup) { const el = h(tag, attrs); el.innerHTM
 export function render(...nodes) { root.replaceChildren(...nodes); window.scrollTo({ top: 0 }); closeSheet(); }
 export function haptic(kind) { try { tg && tg.HapticFeedback && tg.HapticFeedback.impactOccurred(kind || 'light'); } catch { /* нет */ } }
 export function toast(msg) { const el = h('div', { class: 'toast', role: 'status' }, msg); document.body.append(el); setTimeout(() => el.remove(), 1800); }
-export function closeSheet() { document.querySelectorAll('.sheet-host').forEach((n) => n.remove()); document.body.classList.remove('sheet-open'); }
+export function closeSheet() { document.querySelectorAll('.sheet-host').forEach((n) => n.remove()); document.body.classList.remove('sheet-open', 'sheet-full'); }
 
 // ---- навигация: стек функций-экранов ----
 const stack = [];

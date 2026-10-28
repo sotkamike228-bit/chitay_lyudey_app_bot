@@ -1,6 +1,6 @@
 export const TP = {
   ru: {
-    homeSub: 'Невербалика без мифов',
+    homeSub: 'Читайте скрытые реакции',
     tiles: {
       quiz: { title: 'Квиз', sub: '5 ситуаций и ваш уровень' },
       anatomy: { title: 'Анатомия', sub: 'Сигнал, проверка, фиксация' },
@@ -13,17 +13,17 @@ export const TP = {
     anatomyTitle: 'Анатомия невербалики',
     zonesList: 'Все зоны списком',
     layers: { seen: 'Сигнал', notProven: 'Оговорка', alt: 'Что ещё это может быть', check: 'Инструмент проверки', fixation: 'Фиксация' },
-    rel: { high: 'Надёжность: высокая', medium: 'Надёжность: средняя', disputed: 'Надёжность: спорно', low: 'Надёжность: низкая' },
+    rel: { high: 'Высокая вероятность стресс-реакции', medium: 'Маркер защитной реакции', disputed: 'Индикатор контроля реакции (в связке)', low: 'Вспомогательный индикатор' },
     relIcon: { high: '●●●', medium: '●●○', disputed: '●○○', low: '○○○' },
-    relDesc: { high: 'Признак устойчиво связан с состоянием; причину подтверждает проверка вопросом.', medium: 'Признак информативен, если важно изменение от обычного поведения и есть несколько признаков сразу.', disputed: 'Исследования расходятся: используйте только как повод спросить.', low: 'Плохо виден невооружённым глазом и слабо подтверждён: только как повод спросить.' },
-    sec: { seen: 'Сигнал: что видно глазом', physiology: 'Физиология: что происходит в теле', caveat: 'Оговорка', check: 'Инструмент проверки: чем перепроверить', fix: 'Фиксация: что считать устойчивым', limits: 'Что ещё это может быть' },
+    relDesc: { high: 'Устойчивый маркер: чаще всего сопровождает напряжение на теме. Подтверждайте острым вопросом и калибровкой.', medium: 'Рабочий маркер: сильнее, когда меняется относительно обычного поведения и есть второй сигнал.', disputed: 'Маркер в связке: берите вместе с вторым сигналом и подтверждайте острым вопросом.', low: 'Вспомогательный маркер: плохо виден, используйте его как сигнал включить проверочный вопрос.' },
+    sec: { seen: 'Сигнал: что выдаёт тело', physiology: 'Физиология: что происходит в теле', caveat: 'Оговорка', check: 'Проверочная провокация: острый вопрос', calib: 'Калибровка: поймать повтор', fix: 'Фиксация: что считать устойчивым', limits: 'Сначала исключите бытовые причины' },
     source: 'Источник',
     trainBtn: 'Проверить себя', trainDone: 'Готово',
     locked: 'Эта зона входит в PRO',
     lockedText: 'Откройте PRO, чтобы увидеть все слои этой зоны. Одна зона («Отведение взгляда») бесплатна как образец.',
     open: 'Подробнее', close: 'Закрыть',
     paywallTitle: 'Это раздел PRO',
-    viewsLabel: 'Ракурс',
+    viewsLabel: 'Ракурс', sheetMore: 'Развернуть', sheetLess: 'Свернуть',
     lockCard: { title: '🔒 Доступно в полной версии', btn: 'Разблокировать PRO', free: 'Продолжить с бесплатными кейсами' },
     paywallText: 'Оплата появится на следующем этапе. Пока этот раздел недоступен в обычной версии.',
     paywallIncludes: 'Что входит в PRO',
@@ -57,6 +57,7 @@ export const TP = {
     resetDone: 'История калибровки очищена',
     soonText: 'Шпаргалки готовятся: следующий шаг после анатомии и калибровки.',
     sheets: {
+      protocol: 'Тактический протокол', protocolSub: 'Baseline, 3 секунды, нагрузка, приманка, кластер 2+1',
       hypo: 'Проверка в 3 шага', hypoSub: 'Триггер, вопросы, сила гипотезы',
       title: 'Шпаргалки', intro: 'Короткие памятки: что замечать, чего не утверждать и что спросить словами.',
       dating: 'Свидания и отношения', negotiation: 'Переговоры и продажи', protection: 'Защита от давления',
@@ -75,7 +76,7 @@ export const TP = {
       helpCta: 'Угрозы или насилие? Откройте «Помощь»', helpBtn: 'Открыть помощь', locked: 'Часть PRO', lockedText: 'Откройте PRO, чтобы видеть подробности.',
     },
     pay: {
-      title: 'PRO: подробные разборы и тренировки', sub: 'Невербалика без мифов. Мы не определяем ложь и не оцениваем людей.',
+      title: 'PRO: подробные разборы и тренировки', sub: 'Инструмент оперативного профайлинга: скрываемые реакции, нестыковки в словах, манипуляции и проверка фактов.',
       benefits: ['Памятки: свидания 18+, переговоры, защита от давления', 'Все 21 зона анатомии: что видно, физиология, вопросы для проверки', 'Калибровка: насколько вы правы, когда уверены'],
       plans: {
         pack_cheatsheets: { name: 'Шпаргалки навсегда', note: () => 'Один платёж, без продления', btn: 'Открыть навсегда', what: 'Свидания 18+, переговоры, защита от давления, калибровка, проверка гипотез в 3 шага' },
@@ -98,6 +99,7 @@ export const TP = {
       previewMissing: 'Откройте доступ ко всем сценариям калибровки, 21 зоне атласа и шпаргалкам по защите от давления.',
       locked: 'Для этого раздела нужен доступ PRO.',
     },
+    protocol: { title: 'Тактический протокол верификатора', rule: 'Правило', steps: 'Как применять', caution: 'Чего не утверждать' },
     hypo: {
       title: 'Проверка в 3 шага', intro: 'Один признак — повод проверить. Зафиксируйте триггер, задайте 2–3 спокойных вопроса и посмотрите, что вернётся при повторе.',
       step: (n) => `Шаг ${n} из 3`, pickTheme: 'Что вы заметили?', moreLocked: 'Ещё 5 тем проверки с готовыми вопросами входят в PRO.',
@@ -110,7 +112,7 @@ export const TP = {
     previewNote: 'Бета: PRO-разделы открыты для теста.',
   },
   en: {
-    homeSub: 'Body language without myths',
+    homeSub: 'Read hidden reactions',
     tiles: {
       quiz: { title: 'Quiz', sub: '5 situations and your level' },
       anatomy: { title: 'Anatomy', sub: 'Signal, check, fixation' },
@@ -123,17 +125,17 @@ export const TP = {
     anatomyTitle: 'Anatomy of nonverbal cues',
     zonesList: 'All zones as a list',
     layers: { seen: 'Signal', notProven: 'Caveat', alt: 'What else it could be', check: 'Check tool', fixation: 'Fixation' },
-    rel: { high: 'Reliability: high', medium: 'Reliability: medium', disputed: 'Reliability: disputed', low: 'Reliability: low' },
+    rel: { high: 'High likelihood of a stress reaction', medium: 'Defensive-reaction marker', disputed: 'Reaction-control indicator (in a set)', low: 'Supporting indicator' },
     relIcon: { high: '●●●', medium: '●●○', disputed: '●○○', low: '○○○' },
-    relDesc: { high: 'The cue is steadily linked to a state; a checking question confirms the cause.', medium: 'The cue is informative when you watch for change from usual behaviour and several cues at once.', disputed: 'Studies disagree: use it only as a reason to ask.', low: 'Hard to see with the naked eye and weakly supported: only a reason to ask.' },
-    sec: { seen: 'Signal: what you can see', physiology: 'Physiology: what happens in the body', caveat: 'Caveat', check: 'Check tool: how to verify', fix: 'Fixation: what counts as solid', limits: 'What else it could be' },
+    relDesc: { high: 'A stable marker: most often accompanies tension on a topic. Confirm it with a sharp question and calibration.', medium: 'A working marker: stronger when it changes from usual behaviour and a second signal is present.', disputed: 'A marker in a set: take it together with a second signal and confirm with a sharp question.', low: 'A supporting marker: hard to see, use it as a signal to run the check question.' },
+    sec: { seen: 'Signal: what the body gives away', physiology: 'Physiology: what happens in the body', caveat: 'Caveat', check: 'Check provocation: the sharp question', calib: 'Calibration: catch the repeat', fix: 'Fixation: what counts as solid', limits: 'Rule out everyday causes first' },
     source: 'Source',
     trainBtn: 'Test yourself', trainDone: 'Done',
     locked: 'This zone is part of PRO',
     lockedText: 'Unlock PRO to see all layers of this zone. One zone ("Looking away") is free as a sample.',
     open: 'Details', close: 'Close',
     paywallTitle: 'This is a PRO section',
-    viewsLabel: 'View',
+    viewsLabel: 'View', sheetMore: 'Expand', sheetLess: 'Collapse',
     lockCard: { title: '🔒 Available in the full version', btn: 'Unlock PRO', free: 'Continue with the free cases' },
     paywallText: 'Payment arrives in the next stage. For now this section is not available in the regular version.',
     paywallIncludes: 'What PRO includes',
@@ -167,6 +169,7 @@ export const TP = {
     resetDone: 'Calibration history cleared',
     soonText: 'Cheat sheets are coming: the next step after anatomy and calibration.',
     sheets: {
+      protocol: 'Tactical protocol', protocolSub: 'Baseline, 3 seconds, load, bait, cluster 2+1',
       hypo: '3-step check', hypoSub: 'Trigger, questions, strength of hypothesis',
       title: 'Cheat sheets', intro: 'Short notes: what to notice, what not to claim, and what to ask in words.',
       dating: 'Dating and relationships', negotiation: 'Negotiation and sales', protection: 'Protection from pressure',
@@ -185,7 +188,7 @@ export const TP = {
       helpCta: 'Threats or violence? Open "Help"', helpBtn: 'Open help', locked: 'Part of PRO', lockedText: 'Unlock PRO to see the details.',
     },
     pay: {
-      title: 'PRO: detailed breakdowns and training', sub: 'Body language without myths. We do not detect lies or judge people.',
+      title: 'PRO: detailed breakdowns and training', sub: 'A field profiling tool: concealed reactions, mismatches in words, manipulation and fact checks.',
       benefits: ['Cheat sheets: dating 18+, negotiation, protection from pressure', 'All 21 anatomy zones: what you see, physiology, checking questions', 'Calibration: how right you are when you feel sure'],
       plans: {
         pack_cheatsheets: { name: 'Cheat sheets forever', note: () => 'One payment, no renewal', btn: 'Unlock forever', what: 'Dating 18+, negotiation, protection from pressure, calibration, 3-step hypothesis check' },
@@ -208,6 +211,7 @@ export const TP = {
       previewMissing: 'Unlock all calibration scenarios, the 21 atlas zones and the cheat sheets on protection from pressure.',
       locked: 'This section needs PRO access.',
     },
+    protocol: { title: "Verifier's tactical protocol", rule: 'Rule', steps: 'How to apply', caution: 'What not to claim' },
     hypo: {
       title: '3-step check', intro: 'One cue decides nothing. Fix the trigger, ask 2–3 calm questions and see what returns on repeat.',
       step: (n) => `Step ${n} of 3`, pickTheme: 'What did you notice?', moreLocked: '5 more check topics with ready-made questions are part of PRO.',
