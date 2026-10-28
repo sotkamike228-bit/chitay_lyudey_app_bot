@@ -5,6 +5,7 @@ import { hotspotUnlocked, hasAccess } from './access.js';
 import { figureSvg, overlaySvg, attachHubArt } from './figures.js';
 import { shuffle } from './engine.js';
 import { openPaywall, lockCard } from './paywall.js';
+import { ICONS, HUB_ICON } from './icons.js';
 import { proLoader, refreshEntitlements } from './services.js';
 
 const A = { sec: 0, view: 0, full: false, sel: null, layer: 'seen', content: null, err: null };
@@ -99,7 +100,7 @@ function screen() {
   stage.append(html('div', { class: 'ov-wrap' }, overlaySvg(hotspots, A.sel)));
   hotspots.forEach((hs, i) => {
     const open = a.opened.includes(hs.id);
-    const pin = h('button', { class: 'pin' + (hs.id === A.sel ? ' on' : '') + (open ? ' seen' : '') + (hs.myth ? ' myth' : ''), type: 'button',
+    const pin = h('button', { class: 'pin' + (hs.id === A.sel ? ' on' : '') + (open ? ' seen' : ''), type: 'button',
       style: `left:${hs.pin.x}%;top:${hs.pin.y}%`, 'aria-label': L(hs.label), onclick: () => select(hs.id) }, String(i + 1));
     stage.append(pin);
   });
@@ -119,6 +120,17 @@ function screen() {
 
 function toStage() { const st = document.querySelector('.stage'); if (st) st.scrollIntoView({ block: 'start' }); }
 
+function lockModal(hs) {
+  const X = tp.lockModal;
+  const box = h('div', { class: 'overlay modal-wrap', role: 'dialog', 'aria-modal': 'true' });
+  const close = () => { box.classList.add('closing'); setTimeout(() => box.remove(), 180); };
+  box.append(h('div', { class: 'overlay-inner modal' },
+    h('div', { class: 'hookpro' }, h('p', { class: 'hp-title' }, X.title(L(hs.label))), h('ul', {}, ...X.bullets.map((x) => h('li', {}, x)))),
+    h('button', { class: 'btn cta-gi', type: 'button', onclick: () => { close(); A.sel = null; openPaywall('anatomy'); } }, X.cta),
+    h('button', { class: 'btn secondary', type: 'button', onclick: close }, X.close)));
+  document.body.append(box);
+}
+
 function select(id) {
   A.sel = id; A.layer = 'seen'; A.err = null; haptic('light');
   const hs = find(id);
@@ -127,6 +139,7 @@ function select(id) {
     if (fullOf(hs)) markOpened(id); else needLoad = true;
   }
   screen();
+  if (!hotspotUnlocked(hs, ent(), CFG)) lockModal(hs);
   toStage(); requestAnimationFrame(() => requestAnimationFrame(toStage));
   if (needLoad) loadFor(id);
 }
@@ -139,9 +152,10 @@ function renderSheet(id) {
   const an = data.pro.anatomy;
   const unlocked = hotspotUnlocked(hs0, ent(), CFG);
   const head = h('div', { class: 'sheet-head' },
-    h('div', {}, h('h2', {}, L(hs.label)),
-      h('div', { class: 'head-meta' }, relBar(hs.reliability), hs.myth ? h('span', { class: 'tag jump' }, L(an.ui.mythBadge)) : ''),
-      hs0.gist ? h('p', { class: 'gist' }, L(hs0.gist)) : ''),
+    html('span', { class: 'hub-ico' }, ICONS[HUB_ICON[A.sec] || 'scan']),
+    h('div', { class: 'sheet-title' }, h('h2', {}, L(hs.label)),
+      h('div', { class: 'head-meta' }, relBar(hs.reliability)),
+      hs0.gist ? h('p', { class: 'gist' }, L(hs0.gist)) : '', hs0.twist ? h('p', { class: 'gist twistp' }, h('b', { class: 'twist' }, tp.twistLabel + ' '), L(hs0.twist)) : ''),
     h('button', { class: 'x', type: 'button', 'aria-label': tp.close, onclick: () => { A.sel = null; A.full = false; screen(); } }, '×'));
   const body = h('div', { class: 'sheet-body' });
   if (!unlocked) {
@@ -151,12 +165,13 @@ function renderSheet(id) {
     body.append(...pendingState(id));
   } else {
     const L_ = hs.layers;
-    body.append(secBlock(1, tp.sec.seen, h('div', {}, layerNode(L_.seen), layerNode(L_.physiology))),
-      L_.scene ? secBlock(2, tp.sec.scene, layerNode(L_.scene)) : '',
-      secBlock(3, tp.sec.check, layerNode(L_.check, 'qs'), 'tool'),
-      L_.hook ? h('div', { class: 'hookpro' }, h('p', {}, L(L_.hook)), h('button', { class: 'btn secondary', type: 'button', onclick: () => { A.sel = null; openPaywall('anatomy'); } }, tp.paywallTitle)) : '',
-      secBlock(4, tp.sec.calib, layerNode(L_.calibration, 'steps'), 'calib'),
-      secBlock(5, tp.sec.fix, layerNode(L_.fixation), 'fix'),
+    body.append(secBlock(1, tp.sec.seen, layerNode(L_.seen)), secBlock(2, tp.sec.physiology, layerNode(L_.physiology)),
+      L_.psyche ? secBlock(3, tp.sec.psyche, layerNode(L_.psyche)) : '',
+      L_.scene ? secBlock(4, tp.sec.scene, layerNode(L_.scene)) : '',
+      secBlock(5, tp.sec.check, layerNode(L_.check, 'qs'), 'tool'),
+      L_.hook ? h('div', { class: 'hookpro' }, h('p', { class: 'hp-title' }, L(L_.hook.title)), h('ul', {}, ...LA(L_.hook.bullets).map((x) => h('li', {}, x))), h('button', { class: 'btn promo', type: 'button', onclick: () => { A.sel = null; openPaywall('anatomy'); } }, L(L_.hook.cta))) : '',
+      secBlock(6, tp.sec.calib, layerNode(L_.calibration, 'steps'), 'calib'),
+      secBlock(7, tp.sec.fix, layerNode(L_.fixation), 'fix'),
       h('details', { class: 'src' }, h('summary', {}, tp.sec.limits), layerNode(L_.notProven), h('h3', {}, tp.layers.alt), layerNode(L_.alt),
         h('p', { class: 'sub muted relnote' }, tp.relDesc[hs.reliability] || '')));
     if (hs.research) body.append(h('details', { class: 'src' }, h('summary', {}, tp.source), h('p', { class: 'sub muted' }, L(hs.research))));

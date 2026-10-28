@@ -1,10 +1,11 @@
-// Квиз из 5 ситуаций и режим калибровки (тот же поток + шаг «уверенность»).
+// Тест из 5 ситуаций и режим калибровки (тот же поток + шаг «уверенность»).
 import { h, L, t, tp, lang, data, state, isAdult, render, nav, haptic, toast, topbar, tg, CFG, loadJson } from './ctx.js';
 import { read, write, patch, KEYS } from './store.js';
 import { MAX_PICK, playableCases, scoreObservations, scoreAction, missedSignals, percent, tierFor, encodeChallenge, parseChallenge, shuffle, compareChallenge } from './engine.js';
 import { LEVELS, isCorrect, addItem, stats, CAT_IDS, normCat, roundAllowed, roundCases, markSeen, resetHistory } from './calib.js';
 import { proLoader } from './services.js';
 import { openHypo } from './hypo-view.js';
+import { openAnatomy } from './anatomy.js';
 import { openPaywall, lockCard } from './paywall.js';
 import { hasAccess } from './access.js';
 
@@ -229,31 +230,41 @@ function screenCalibResult() {
   render(...nodes);
 }
 
-function screenResult() {
+async function focusLabels() {
+  try { if (!data.pro) data.pro = await loadJson('chitay_pro.json'); } catch { return []; }
+  const zones = data.pro.anatomy.sections.flatMap((x) => x.hotspots);
+  const weak = Q.results.filter((r) => r.pts < (data.quiz.goodCasePoints || 3)).map((r) => r.id);
+  const pool = (weak.length ? Q.cases.filter((c) => weak.includes(c.id)) : Q.cases).flatMap((c) => c.focusZones || []);
+  return [...new Set(pool)].slice(0, 2).map((id) => zones.find((z) => z.id === id)).filter(Boolean).map((z) => L(z.label));
+}
+
+async function screenResult() {
   if (Q.mode === 'calib') return screenCalibResult();
   const n = Q.cases.length;
   const pct = percent(Q.total, n, data.quiz);
   const good = Q.results.filter((r) => r.pts >= (data.quiz.goodCasePoints || 3)).length;
   const tier = [...data.quiz.gradeTiers].sort((a, b) => b.minGood - a.minGood).find((g) => good >= g.minGood);
-  const max = n * data.quiz.scoring.maxPerCase;
   const prev = read(KEYS.core, {}).best;
   if (typeof prev !== 'number' || pct > prev) patch(KEYS.core, { best: pct });
   const blind = Q.results.flatMap((r) => r.missed).slice(0, 2);
   const cmp = compareChallenge(pct, Q.challenge);
-  const nodes = [topbar(''),
-    h('div', { class: 'status tier-' + tier.id },
+  const zones = await focusLabels();
+  const box = h('div', { class: 'overlay modal-wrap', role: 'dialog', 'aria-modal': 'true' });
+  const close = () => { box.classList.add('closing'); setTimeout(() => box.remove(), 180); };
+  const kids = [h('div', { class: 'status tier-' + tier.id },
       h('div', { class: 'label' }, t.resultTitle),
       h('div', { class: 'tier' }, L(tier.title)),
       h('div', { class: 'pct' }, t.goodLine(good, n)),
-      h('p', {}, L(tier.line)),
-      h('p', { class: 'foot-note' }, L(data.quiz.statusCardFooter)))];
-  if (cmp) nodes.push(h('div', { class: 'banner' }, t[cmp](Q.challenge)));
-  nodes.push(h('div', { class: 'card' }, h('h3', {}, t.blind),
+      h('p', {}, L(tier.line)))];
+  if (zones.length) kids.push(h('div', { class: 'card' }, h('h3', {}, t.insightTitle), h('p', {}, t.insight(zones.join(' · ')))));
+  if (cmp) kids.push(h('div', { class: 'banner' }, t[cmp](Q.challenge)));
+  kids.push(h('div', { class: 'card' }, h('h3', {}, t.blind),
     blind.length ? h('ul', {}, ...blind.map((x) => h('li', {}, x))) : h('p', {}, t.blindNone)));
-  nodes.push(h('div', { class: 'card pro-card' }, h('p', {}, t.nextStep), h('button', { class: 'btn', onclick: () => nav.go(openCalibration) }, tp.calibTitle),
-    h('button', { class: 'btn secondary', onclick: () => openPaywall('anatomy') }, tp.paywallTitle)));
-  nodes.push(h('button', { class: 'btn', onclick: () => doShare(t.shareText(L(tier.title), pct), pct) }, t.share));
-  nodes.push(h('button', { class: 'btn secondary', onclick: () => doShare(t.challengeText(L(tier.title), pct), pct) }, t.challengeBtn));
-  nodes.push(h('button', { class: 'btn secondary', onclick: startRound }, t.again));
-  render(...nodes);
+  kids.push(h('button', { class: 'btn cta-gi', onclick: () => { close(); nav.go(openAnatomy); } }, t.ctaAtlas));
+  kids.push(h('button', { class: 'btn secondary', onclick: () => { close(); nav.go(openCalibration); } }, tp.calibTitle));
+  kids.push(h('button', { class: 'btn secondary', onclick: () => doShare(t.shareText(L(tier.title), pct), pct) }, t.share));
+  kids.push(h('button', { class: 'btn secondary', onclick: () => { close(); startRound(); } }, t.again));
+  kids.push(h('p', { class: 'foot-note sub muted' }, L(data.quiz.statusCardFooter)));
+  box.append(h('div', { class: 'overlay-inner modal' }, ...kids));
+  document.body.append(box);
 }

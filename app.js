@@ -6,6 +6,7 @@ import { openAnatomy, totalZones } from './anatomy.js';
 import { openPaywall } from './paywall.js';
 import { openSheets } from './sheets.js';
 import { openHelp } from './help-view.js';
+import { ICONS } from './icons.js';
 import { refreshEntitlements } from './services.js';
 
 // ---------- возраст ----------
@@ -16,7 +17,8 @@ function screenAge() {
     h('div', { class: 'card' }, h('h2', {}, t.ageTitle), h('p', { class: 'sub muted' }, t.ageNote),
       h('button', { class: 'btn', onclick: () => pick('adult') }, t.ageAdult),
       h('button', { class: 'btn secondary', onclick: () => pick('teen') }, t.ageTeen),
-      h('button', { class: 'link', type: 'button', onclick: () => { setAge('under16'); screenUnder16(); } }, t.ageUnder)));
+      h('button', { class: 'link', type: 'button', onclick: () => { setAge('under16'); screenUnder16(); } }, t.ageUnder)),
+    h('p', { class: 'disc' }, t.disclaimer));
 }
 function screenUnder16() {
   render(h('h1', {}, t.appName), h('div', { class: 'card' }, h('h2', {}, t.ageBlockTitle), h('p', {}, t.ageBlockText),
@@ -25,16 +27,11 @@ function screenUnder16() {
 }
 
 // ---------- главная ----------
-const ICON = {
-  quiz: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5M12 17h.01"/></svg>',
-  anatomy: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6" r="3"/><path d="M6 21v-5a6 6 0 0 1 12 0v5M9 14l-3 3M15 14l3 3"/></svg>',
-  calib: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0M12 18l4-6"/><circle cx="12" cy="18" r="1.2"/></svg>',
-  sheets: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg>',
-};
+const ICON = { quiz: ICONS.test, anatomy: ICONS.scanFace, calib: ICONS.gauge, sheets: ICONS.sheets };
 
-function tile(key, badge, badgeKind, onclick, disabled) {
+function tile(key, badge, badgeKind, onclick, disabled, extra = '') {
   const tl = tp.tiles[key];
-  return h('button', { class: 'tile' + (disabled ? ' off' : '') + (badgeKind === 'pro' ? ' is-pro' : ''), type: 'button', disabled: !!disabled, onclick },
+  return h('button', { class: 'tile' + (extra ? ' ' + extra : '') + (disabled ? ' off' : '') + (badgeKind === 'pro' ? ' is-pro' : ''), type: 'button', disabled: !!disabled, onclick },
     html('span', { class: 'ico' }, ICON[key]),
     h('span', { class: 'tile-title' }, tl.title),
     h('span', { class: 'tile-sub' }, tl.sub),
@@ -55,25 +52,23 @@ function screenHome() {
   const nodes = [
     h('div', { class: 'home-head' }, h('div', {}, h('h1', {}, t.appName), h('p', { class: 'muted' }, tp.homeSub)), langToggle()),
     h('div', { class: 'grid' },
+      tile('anatomy', tp.badges.atlas, 'pro', () => nav.go(openAnatomy), false, 'flagship'),
+      tile('sheets', tp.badges.pro, 'pro', () => nav.go(openSheets)),
       tile('quiz', tp.badges.free, 'free', () => nav.go(openQuiz)),
-      tile('anatomy', hasAccess('anatomy', ent, CFG) && CFG.proPreview ? tp.badges.pro : tp.badges.part, 'pro', () => nav.go(openAnatomy)),
-      tile('calib', tp.badges.pro, 'pro', () => nav.go(openCalibration)),
-      tile('sheets', tp.badges.pro, 'pro', () => nav.go(openSheets))),
+      tile('calib', tp.badges.pro, 'pro', () => nav.go(openCalibration), false, 'compact')),
     h('div', { class: 'card strip' }, h('span', {}, tp.atlas(a.opened.length, total)),
       typeof best === 'number' ? h('span', { class: 'muted' }, t.best(best)) : ''),
   ];
-  nodes.push(h('button', { class: 'btn secondary', type: 'button', onclick: () => openPaywall() }, tp.pay.homeLink));
-  nodes.push(h('button', { class: 'link', type: 'button', onclick: () => nav.go(screenAge) }, t.ageCurrent[state.age]));
-  if (CFG.proPreview) nodes.push(h('p', { class: 'sub muted' }, tp.previewNote));
+  nodes.push(h('button', { class: 'btn promo', type: 'button', onclick: () => openPaywall() }, '★ ' + tp.pay.homeLink));
   render(...nodes);
 }
 
 // ---------- запуск ----------
 const disc = document.getElementById('disclaimer');
-const helpBtn = document.getElementById('helpLink'); helpBtn.addEventListener('click', () => openHelp());
+const helpBtn = document.getElementById('helpLink'); helpBtn.addEventListener('click', () => openHelp(() => nav.go(screenAge)));
 function applyStatic() {
   document.documentElement.lang = lang;
-  disc.textContent = t.disclaimer; helpBtn.textContent = t.help;
+  disc.textContent = ''; disc.hidden = true; helpBtn.textContent = t.help;
   if (CFG.privacyUrl) { const a = document.getElementById('privacyLink'); a.hidden = false; a.href = CFG.privacyUrl; a.textContent = t.privacy; }
 }
 applyStatic();

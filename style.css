@@ -301,3 +301,88 @@ body.sheet-open .stage{width:min(100%,calc(62vh*var(--asp,.625)))}
 .sheet-head .x{align-self:flex-start}
 @media (max-height:700px){.gist{-webkit-line-clamp:1}.sheet h2{font-size:16.5px}}
 .tier-practitioner .tier{color:var(--good)}.tier-observer .tier{color:var(--accent)}.tier-vulnerable .tier{color:var(--warn)}
+/* ===== шторка с интригой: суть + «важная деталь» ===== */
+.sheet{max-height:25vh}
+body.sheet-open{padding-bottom:25vh}
+.gist{-webkit-line-clamp:4;font-size:13.5px}
+.gist .twist{color:var(--neon,#8b5cf6)}
+.sheet-grip{min-height:36px;font-size:15px;background:var(--neon,#8b5cf6);color:#10121A;border:0}
+@media (max-height:700px){.sheet{max-height:30vh}body.sheet-open{padding-bottom:30vh}.gist{-webkit-line-clamp:3}}
+
+.gist{-webkit-line-clamp:2}.gist.twistp{margin-top:3px}
+@media (max-height:700px){.gist{-webkit-line-clamp:2;font-size:13px;line-height:1.3}.sheet{max-height:33vh}body.sheet-open{padding-bottom:33vh}}
+
+/* ===== шпаргалки: крупные тематические блоки ===== */
+.sgroup{margin:14px 0;padding:14px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(139,92,246,.10),rgba(20,24,36,.04))}
+.sg-head{display:flex;align-items:center;gap:12px}
+.sg-head h2{margin:0;font-size:19px}
+.sg-ico{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;font-size:26px;background:#161a24;box-shadow:0 0 0 1px rgba(255,255,255,.1)}
+.sg-chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.sg-chip{font-size:13px;padding:4px 10px;border-radius:999px;background:rgba(139,92,246,.14)}
+.sg-biz{border-color:rgba(90,140,255,.45)}.sg-rel{border-color:rgba(255,110,150,.45)}.sg-prot{border-color:rgba(60,200,140,.45)}
+.sg-ico{background:#eef0fa;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+
+/* ===================== STEP 4: Dark-Luxury / Glassmorphism ===================== */
+@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/inter-cyrillic-wght-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/inter-latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+:root{--font:"Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --glass:linear-gradient(160deg,rgba(40,46,70,.72),rgba(20,24,38,.78));--glass-line:rgba(255,255,255,.10);--shadow:0 12px 34px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06)}
+:root[data-theme="light"]{--text:#0F172A;--muted:#475569;--glass:rgba(255,255,255,.85);--glass-line:rgba(255,255,255,.9);--shadow:0 10px 30px rgba(60,70,140,.14),0 1px 0 rgba(255,255,255,.8) inset}
+html,body,button,input{font-family:var(--font)}
+html,body{background:var(--bg);background-image:radial-gradient(900px 520px at 100% -8%,rgba(124,92,255,.28),transparent 60%),radial-gradient(700px 480px at -10% 8%,rgba(60,120,255,.22),transparent 55%),linear-gradient(180deg,#10131c,#0a0c12);background-attachment:fixed}
+:root[data-theme="light"] html,:root[data-theme="light"] body{background-image:radial-gradient(900px 520px at 100% -8%,rgba(124,92,255,.22),transparent 60%),radial-gradient(700px 480px at -10% 8%,rgba(70,130,255,.18),transparent 55%),linear-gradient(180deg,#f4f5fd,#eaedf8)}
+h1,h2,h3,.tile-title,.sg-head h2{font-weight:800;letter-spacing:-.02em}
+h1{font-size:28px}h2{font-size:21px}
+.tile-title{font-size:19px;line-height:1.2}
+.card,.tile,.sgroup,.opt,.sheet,.status{border-radius:20px;border:1px solid var(--glass-line);background:var(--glass);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+:root[data-theme="light"] .card p,:root[data-theme="light"] .tile-sub,:root[data-theme="light"] .sub{color:#334155}
+.muted{color:var(--muted)}
+/* бейджи-капсулы */
+.badge{display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.06em;border:0;line-height:1;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.badge.pro{background:linear-gradient(135deg,#f6d77a,#e0a93a);color:#2a1d00}
+.badge.free{background:linear-gradient(135deg,#46d39a,#1fa97a);color:#04281c}
+.badge.soon{background:rgba(148,163,184,.25);color:var(--text)}
+/* главный экран */
+.grid{grid-template-columns:1fr;gap:12px}
+.tile{min-height:0;padding:16px 16px 14px;gap:6px}
+.tile .ico{width:34px;height:34px}
+.tile.flagship{min-height:190px;padding:20px;background:linear-gradient(150deg,rgba(124,92,255,.55),rgba(46,86,230,.38) 55%,rgba(20,24,38,.85));border-color:rgba(160,140,255,.55);box-shadow:0 16px 42px rgba(90,70,220,.38),inset 0 1px 0 rgba(255,255,255,.18)}
+.tile.flagship .tile-title{font-size:25px;color:#fff}.tile.flagship .tile-sub{color:#e6e9ff;font-size:14.5px}
+.tile.flagship .ico{width:52px;height:52px;color:#fff;filter:drop-shadow(0 0 10px rgba(180,160,255,.8))}
+.tile.compact{flex-direction:row;align-items:center;padding:10px 14px;min-height:0;gap:10px;border-radius:16px}
+.tile.compact .ico{width:24px;height:24px}.tile.compact .tile-title{font-size:15px;margin:0}.tile.compact .tile-sub{display:none}.tile.compact .badge{margin:0 0 0 auto}
+.btn.promo{background:linear-gradient(120deg,#f7d56f,#f0a93a 55%,#e0852a);color:#2a1700;font-weight:800;font-size:17px;letter-spacing:-.01em;box-shadow:0 10px 28px rgba(240,170,60,.42)}
+.strip{display:none}
+.foot{text-align:center;padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+.foot .link{color:var(--muted);font-size:13px;text-decoration:none}
+.tile.flagship{background:linear-gradient(150deg,#5b3fd6,#2a49c9 58%,#171b3a)!important}
+.tile.flagship .tile-sub{color:#eef0ff!important}
+.foot{background:transparent!important;border:0}
+.foot .disc{display:none}
+.foot p,.foot .links{text-align:center;display:flex;justify-content:center;gap:12px}
+
+/* ===== модальные окна, неоновые пиктограммы, уровни, замок-интрига ===== */
+@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+@keyframes fadeOut{to{opacity:0}}
+.overlay{background:rgba(6,8,14,.62);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);animation:fadeIn .22s ease both}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.overlay.closing{animation:fadeOut .18s ease both}
+.overlay-inner{max-width:560px;margin:0 auto;padding:20px 16px 32px;animation:modalIn .26s cubic-bezier(.2,.8,.2,1) both}
+.overlay-inner.modal{margin-top:6vh;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:var(--glass);box-shadow:var(--shadow)}
+:root[data-theme="light"] .overlay{background:rgba(30,35,70,.38)}
+@media (prefers-reduced-motion:reduce){.overlay,.overlay-inner{animation:none}}
+.neon-ico{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px rgba(150,120,255,.75))}
+.sg-ico,.hub-ico{color:#9b8cff;display:grid;place-items:center}
+.sg-ico{background:#161a24;padding:9px}
+.hub-ico{width:40px;height:40px;flex:none;padding:7px;border-radius:12px;background:#161a24;border:1px solid rgba(255,255,255,.12)}
+.sheet-head{align-items:center;gap:10px}.sheet-title{flex:1;min-width:0}
+.tile .ico{color:#9b8cff}.tile.is-pro .ico{color:#f0c260}.tile.flagship .ico{color:#fff}
+.tile .neon-ico{stroke-width:2}
+.cta-gi{background:linear-gradient(120deg,#f4cf6a,#c9a2ff 50%,#5b57ff);color:#10121A;font-weight:800;font-size:16px;box-shadow:0 12px 30px rgba(110,90,255,.45)}
+.hookpro{padding:14px;border:1px solid rgba(240,194,96,.45);background:linear-gradient(160deg,rgba(240,194,96,.10),rgba(91,87,255,.10))}
+.hookpro .hp-title{font-size:15px;font-weight:800;margin:0 0 6px}.hookpro ul{margin:0 0 6px;padding-left:18px}.hookpro li{margin:4px 0;font-size:14px}
+.status{background:linear-gradient(160deg,rgba(124,92,255,.30),rgba(20,24,38,.2))}
+.sheet .sec h3 .n{background:linear-gradient(135deg,#7c5cff,#4f7dff);color:#fff}
+html{min-height:100%}body{min-height:100vh}
+:root[data-theme="light"] .tile .ico{color:#5b47d6}:root[data-theme="light"] .tile.is-pro .ico{color:#a8660c}:root[data-theme="light"] .tile.flagship .ico{color:#fff}
+.tile .neon-ico{stroke-width:2.4}.tile.flagship .ico{width:60px;height:60px}

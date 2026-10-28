@@ -8,6 +8,7 @@ import { openHelp } from './help-view.js';
 import { openHypo } from './hypo-view.js';
 import { openProtocol } from './protocol-view.js';
 import { openExpress } from './express-view.js';
+import { ICONS } from './icons.js';
 import { proLoader, refreshEntitlements } from './services.js';
 
 const S = new Proxy({}, { get: (_, k) => tp.sheets[k] });   // живой доступ: язык может смениться на лету
@@ -48,13 +49,16 @@ export async function openSheets() {
   try { secs = await ensure(); } catch { render(topbar(S.title), h('div', { class: 'card' }, t.loadError)); return; }
   const row = (id, sub, onclick, tag) => h('button', { class: 'tile row-tile', type: 'button', onclick },
     h('span', { class: 'tile-title' }, S[id]), h('span', { class: 'tile-sub' }, sub), tag ? h('span', { class: 'badge ' + tag[0] }, tag[1]) : '');
+  const group = (key, ...rows) => { const g = S.groups[key];
+    return h('section', { class: 'sgroup sg-' + key }, h('div', { class: 'sg-head' }, html('span', { class: 'sg-ico' }, ICONS[g[0]]), h('h2', {}, g[1])),
+      h('div', { class: 'sg-chips' }, ...g[2].map((x) => h('span', { class: 'sg-chip' }, x))), ...rows); };
   render(topbar(S.title), h('p', { class: 'muted sub' }, S.intro),
-    row('negotiation', S.negotiationSub, () => nav.go(openNegotiation), ['pro', tp.badges.pro]),
-    isAdult() ? row('dating', S.datingSub, () => nav.go(openDating), ['pro', '18+']) : '',
-    row('protection', S.protectionSub, () => nav.go(openProtection), ['free', S.freeBadge + ' + PRO']),
-    row('express', S.expressSub, () => nav.go(openExpress), ['free', S.freeBadge]),
-    row('protocol', S.protocolSub, () => nav.go(openProtocol), ['free', S.freeBadge + ' + PRO']),
-    row('hypo', S.hypoSub, () => nav.go(openHypo), ['free', S.freeBadge + ' + PRO']),
+    group('biz', row('negotiation', S.negotiationSub, () => nav.go(openNegotiation), ['pro', tp.badges.pro])),
+    group('rel', isAdult() ? row('dating', S.datingSub, () => nav.go(openDating), ['pro', '18+']) : h('p', { class: 'muted sub' }, S.age18Off)),
+    group('prot', row('protection', S.protectionSub, () => nav.go(openProtection), ['free', S.freeBadge + ' + PRO'])),
+    group('tools', row('express', S.expressSub, () => nav.go(openExpress), ['free', S.freeBadge]),
+      row('protocol', S.protocolSub, () => nav.go(openProtocol), ['free', S.freeBadge + ' + PRO']),
+      row('hypo', S.hypoSub, () => nav.go(openHypo), ['free', S.freeBadge + ' + PRO'])),
     h('div', { class: 'card pro-card' }, h('p', {}, S.elite), h('button', { class: 'btn secondary', onclick: () => openPaywall('cheatsheets') }, tp.pay.homeLink)),
     h('p', { class: 'muted sub' }, S.discl));
 }

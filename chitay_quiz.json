@@ -258,7 +258,11 @@
       "shareHook": {
         "ru": "Я прошёл(а) кейс «Он стал другим». А ты заметишь, что важно?",
         "en": "I played the case 'They have changed lately'. Would you spot what matters?"
-      }
+      },
+      "focusZones": [
+        "adaptors-still",
+        "adaptors-face"
+      ]
     },
     {
       "id": "Q2",
@@ -414,7 +418,11 @@
       "shareHook": {
         "ru": "Кейс «Блеф на переговорах»: сколько сигналов заметишь ты?",
         "en": "The case 'Bluff at the table': how many cues will you notice?"
-      }
+      },
+      "focusZones": [
+        "posture-lean-back",
+        "adaptors-fiddle"
+      ]
     },
     {
       "id": "Q3",
@@ -568,7 +576,11 @@
       "shareHook": {
         "ru": "Кейс «Давление руководителя»: отличишь жёсткий стиль от давления?",
         "en": "The case 'Pressure from a boss': can you tell a harsh style from pressure?"
-      }
+      },
+      "focusZones": [
+        "jaw-clench",
+        "shoulders-raise"
+      ]
     },
     {
       "id": "Q4",
@@ -727,7 +739,11 @@
       "shareHook": {
         "ru": "Кейс «Первое свидание»: заметишь, что действительно важно?",
         "en": "The case 'The first date': will you notice what really matters?"
-      }
+      },
+      "focusZones": [
+        "legs-toes",
+        "adaptors-face"
+      ]
     },
     {
       "id": "Q5",
@@ -878,7 +894,11 @@
       "shareHook": {
         "ru": "Кейс «Слишком хорошо, чтобы быть правдой»: что тебя насторожит?",
         "en": "The case 'Too good to be true': what would make you stop?"
-      }
+      },
+      "focusZones": [
+        "lips-pressed",
+        "eyes-aversion"
+      ]
     }
   ],
   "gradeTiers": [
@@ -910,8 +930,8 @@
       "id": "vulnerable",
       "minGood": 0,
       "title": {
-        "ru": "Высокая уязвимость к манипуляциям",
-        "en": "High vulnerability to manipulation"
+        "ru": "Зона риска",
+        "en": "At-risk zone"
       },
       "line": {
         "ru": "Вы считываете только открытый конфликт, пропуская скрытые сигналы. Начните с калибровки нормы.",
