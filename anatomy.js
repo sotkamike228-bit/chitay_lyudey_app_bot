@@ -1,12 +1,12 @@
 // «Анатомия невербалики»: схема с метками, нижняя панель со слоями, мини-тренажёр зоны, прогресс «Атлас».
-import { h, html, L, LA, lang, t, tp, data, render, nav, haptic, topbar, closeSheet, loadJson, CFG, toast } from './ctx.js';
-import { read, write, KEYS } from './store.js';
-import { hotspotUnlocked, hasAccess } from './access.js';
-import { figureSvg, overlaySvg, attachHubArt } from './figures.js';
-import { shuffle } from './engine.js';
-import { openPaywall, lockCard } from './paywall.js';
-import { ICONS, HUB_ICON } from './icons.js';
-import { proLoader, refreshEntitlements } from './services.js';
+import { h, html, L, LA, lang, t, tp, data, render, nav, haptic, topbar, closeSheet, loadJson, CFG, toast } from './ctx.js?v=test2';
+import { read, write, KEYS } from './store.js?v=test2';
+import { hotspotUnlocked, hasAccess } from './access.js?v=test2';
+import { figureSvg, overlaySvg, attachHubArt } from './figures.js?v=test2';
+import { shuffle } from './engine.js?v=test2';
+import { openPaywall, lockCard } from './paywall.js?v=test2';
+import { ICONS, HUB_ICON } from './icons.js?v=test2';
+import { proLoader, refreshEntitlements } from './services.js?v=test2';
 
 const A = { sec: 0, view: 0, full: false, sel: null, layer: 'seen', content: null, err: null };
 const ent = () => read(KEYS.ent, {});

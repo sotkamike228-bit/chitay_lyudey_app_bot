@@ -1,13 +1,13 @@
-import { h, html, L, t, tp, tg, lang, setLang, data, state, render, nav, loadJson, CFG, closeSheet, ageOk, setAge, topbar } from './ctx.js';
-import { read, patch, KEYS } from './store.js';
-import { hasAccess } from './access.js';
-import { openQuiz, openCalibration } from './quiz.js';
-import { openAnatomy, totalZones } from './anatomy.js';
-import { openPaywall } from './paywall.js';
-import { openSheets } from './sheets.js';
-import { openHelp } from './help-view.js';
-import { ICONS } from './icons.js';
-import { refreshEntitlements } from './services.js';
+import { h, html, L, t, tp, tg, lang, setLang, data, state, render, nav, loadJson, CFG, closeSheet, ageOk, setAge, topbar } from './ctx.js?v=test2';
+import { read, patch, KEYS } from './store.js?v=test2';
+import { hasAccess } from './access.js?v=test2';
+import { openQuiz, openCalibration } from './quiz.js?v=test2';
+import { openAnatomy, totalZones } from './anatomy.js?v=test2';
+import { openPaywall } from './paywall.js?v=test2';
+import { openSheets } from './sheets.js?v=test2';
+import { openHelp } from './help-view.js?v=test2';
+import { ICONS } from './icons.js?v=test2';
+import { refreshEntitlements } from './services.js?v=test2';
 
 // ---------- возраст ----------
 function screenAge() {

@@ -1,15 +1,15 @@
 // «Шпаргалки»: свидания (18+), переговоры, защита от давления. Данные: chitay_pro.json → cheatsheets.
-import { h, html, L, LA, t, tp, data, isAdult, render, nav, topbar, loadJson, CFG } from './ctx.js';
-import { read, patch, KEYS } from './store.js';
-import { hasAccess } from './access.js';
-import { openPaywall, lockCard } from './paywall.js';
-import { openCalibration } from './quiz.js';
-import { openHelp } from './help-view.js';
-import { openHypo } from './hypo-view.js';
-import { openProtocol } from './protocol-view.js';
-import { openExpress } from './express-view.js';
-import { ICONS } from './icons.js';
-import { proLoader, refreshEntitlements } from './services.js';
+import { h, html, L, LA, t, tp, data, isAdult, render, nav, topbar, loadJson, CFG } from './ctx.js?v=test2';
+import { read, patch, KEYS } from './store.js?v=test2';
+import { hasAccess } from './access.js?v=test2';
+import { openPaywall, lockCard } from './paywall.js?v=test2';
+import { openCalibration } from './quiz.js?v=test2';
+import { openHelp } from './help-view.js?v=test2';
+import { openHypo } from './hypo-view.js?v=test2';
+import { openProtocol } from './protocol-view.js?v=test2';
+import { openExpress } from './express-view.js?v=test2';
+import { ICONS } from './icons.js?v=test2';
+import { proLoader, refreshEntitlements } from './services.js?v=test2';
 
 const S = new Proxy({}, { get: (_, k) => tp.sheets[k] });   // живой доступ: язык может смениться на лету
 const ent = () => read(KEYS.ent, {});

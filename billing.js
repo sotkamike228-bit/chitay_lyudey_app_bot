@@ -3,15 +3,17 @@
 //   POST {apiBase}/api/invoice  {product, initData} -> {link}
 //   POST {apiBase}/api/me       {initData}          -> {products:[...], exp:{id: unixMs}}
 // Статус из окна оплаты НЕ считается доказательством: доступ появляется только по ответу /api/me.
-import { productById } from './pricing.js';
+import { productById } from './pricing.js?v=test2';
 
 export function createBilling({ apiBase = '', tg = null, fetchFn = (typeof fetch === 'function' ? fetch : null), sleep = (ms) => new Promise((r) => setTimeout(r, ms)), pollMs = 1500, pollMax = 10 } = {}) {
   const enabled = () => !!apiBase;
   const initData = () => (tg && tg.initData) || '';
 
   async function post(path, body) {
-    const r = await fetchFn(apiBase.replace(/\/$/, '') + path, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
-    if (!r.ok) throw new Error(path + ' ' + r.status);
+    let r;
+    try { r = await fetchFn(apiBase.replace(/\/$/, '') + path, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) }); }
+    catch (e) { throw new Error(path + ' network/CORS: ' + (e && e.message)); }
+    if (!r.ok) throw new Error(path + ' HTTP ' + r.status);
     return r.json();
   }
   async function fetchEntitlements() { return post('/api/me', { initData: initData() }); }
@@ -20,10 +22,14 @@ export function createBilling({ apiBase = '', tg = null, fetchFn = (typeof fetch
   async function checkout(productId, onState = () => {}) {
     if (!productById(productId)) throw new Error('unknown product');
     if (!enabled()) { onState('stub'); return { state: 'stub' }; }
-    if (!tg || typeof tg.openInvoice !== 'function') { onState('error'); return { state: 'error' }; }
+    if (!tg || typeof tg.openInvoice !== 'function') { onState('error'); alert('DEBUG v=test2\nTelegram WebApp недоступен: ' + (!tg ? 'tg=null (открыто не внутри Telegram или скрипт не загрузился)' : 'нет openInvoice')); return { state: 'error' }; }
     let link;
-    try { onState('opening'); ({ link } = await post('/api/invoice', { product: productId, initData: initData() })); if (!link) throw new Error('no link'); }
-    catch { onState('error'); return { state: 'error' }; }
+    try { onState('opening');
+      const __id = initData(); const __url = apiBase.replace(/\/$/, '') + '/api/invoice';
+      if (!__id) { onState('error'); alert('initData отсутствует\nURL: ' + __url + '\nПриложение открыто не внутри Telegram через бота или без подписи.'); return { state: 'error' }; }
+      alert('DEBUG v=test2\ninitData длина: ' + __id.length + '\nURL: ' + __url);
+      ({ link } = await post('/api/invoice', { product: productId, initData: initData() })); if (!link) throw new Error('no link'); }
+    catch (e) { alert('Ошибка /api/invoice: ' + (e && e.message)); console.error('[billing] /api/invoice:', e && e.message, '| initData length:', initData().length); onState('error'); return { state: 'error' }; }
     const status = await new Promise((res) => { try { tg.openInvoice(link, res); } catch { res('failed'); } });
     if (status === 'cancelled') { onState('cancelled'); return { state: 'cancelled' }; }
     if (status === 'failed') { onState('failed'); return { state: 'failed' }; }

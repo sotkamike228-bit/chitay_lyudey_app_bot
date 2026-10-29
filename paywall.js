@@ -1,8 +1,8 @@
-import { h, tp, tg, CFG, render, nav, topbar, toast } from './ctx.js';
-import { read, write, KEYS } from './store.js';
-import { ownedProducts } from './access.js';
-import { PRODUCTS, perMonth } from './pricing.js';
-import { billing, proLoader } from './services.js';
+import { h, tp, tg, CFG, render, nav, topbar, toast } from './ctx.js?v=test2';
+import { read, write, KEYS } from './store.js?v=test2';
+import { ownedProducts } from './access.js?v=test2';
+import { PRODUCTS, perMonth } from './pricing.js?v=test2';
+import { billing, proLoader } from './services.js?v=test2';
 
 /** Карточка «Доступно в полной версии»: вместо технических заглушек. extra — дополнительные кнопки. */
 export function lockCard(feature, ...extra) {
@@ -29,9 +29,11 @@ function screen() {
     const btn = h('button', { class: 'btn' + (p.id === 'pro_lifetime' ? ' cta-gb' : ' secondary'), type: 'button', disabled: has,
       onclick: async () => {
         if (busy) return; busy = true; btns.forEach((b) => { b.disabled = true; });
-        const r = await billing.checkout(p.id, (st) => say(st === 'stub' ? P.stubTap(L.name) : P.states[st]));
+        let r = { state: 'error' };
+        try { r = await billing.checkout(p.id, (st) => say(st === 'stub' ? P.stubTap(L.name) : P.states[st])); }
+        catch (e) { say(P.states.error); alert('Ошибка оформления: ' + (e && e.message)); console.error('[paywall] checkout:', e && e.message); }
         if (r.state === 'done') {
-          write(KEYS.ent, { products: r.ent.products || [], exp: r.ent.exp || {} }); proLoader.clear(); toast(P.states.done); screen(); return;
+          busy = false; write(KEYS.ent, { products: r.ent.products || [], exp: r.ent.exp || {} }); proLoader.clear(); toast(P.states.done); screen(); return;
         }
         busy = false; btns.forEach((b, i) => { b.disabled = owned.includes(ORDERED[i].id); });
       } }, has ? P.ownedBadge : L.btn);

@@ -1,8 +1,8 @@
 // Общие экземпляры: оформление покупки, загрузка платного контента, обновление прав.
-import { tg, CFG } from './ctx.js';
-import { write, KEYS } from './store.js';
-import { createBilling } from './billing.js';
-import { createProLoader } from './proapi.js';
+import { tg, CFG } from './ctx.js?v=test2';
+import { write, KEYS } from './store.js?v=test2';
+import { createBilling } from './billing.js?v=test2';
+import { createProLoader } from './proapi.js?v=test2';
 
 export const billing = createBilling({ apiBase: CFG.apiBase, tg });
 export const proLoader = createProLoader({ apiBase: CFG.apiBase, tg, preview: CFG.proPreview });
