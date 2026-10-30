@@ -93,7 +93,8 @@ export const TP = {
       free: 'Экран помощи и ядро «Признаки давления» бесплатны всегда.',
       stubBanner: 'Оплата ещё не подключена. Звёзды не списываются: это пример экрана.',
       stubTap: (n) => `Вы выбрали «${n}». Оплата подключается, пока ничего не списано.`,
-      methods: { card: '💳 Оплатить картой РФ / СБП', crypto: '💎 Оплатить криптовалютой (USDT / TON)', stars: '⭐ Оплатить звёздами Telegram', check: 'Проверить оплату', or: 'Способ оплаты' },
+      methods: { card: '💳 Оплатить картой РФ / СБП', crypto: '💎 Оплатить криптовалютой', stars: '⭐ Оплатить звёздами',
+        cardPrice: (p) => `💳 Оплатить картой РФ / СБП — ${p.rub} ₽`, cryptoPrice: (p) => `💎 Оплатить криптовалютой — ${p.usdt} USDT`, starsPrice: (p) => `⭐ Оплатить звёздами — ${p.stars} ⭐`, check: 'Проверить оплату', or: 'Способ оплаты', cryptoNote: '⏳ Зачисление криптовалюты занимает от 2 до 10 минут в зависимости от нагрузки блокчейн-сети. После перевода подождите и нажмите кнопку «Проверить оплату».' },
       states: { external: 'Страница оплаты открыта. После оплаты вернитесь сюда и нажмите «Проверить оплату».', unavailable: 'Этот способ оплаты ещё подключается. Ничего не списано, выберите другой.', pending: 'Оплата пока не найдена. Если вы уже заплатили, подождите минуту и проверьте снова.', opening: 'Открываем счёт…', checking: 'Проверяем оплату…', done: 'Готово: доступ открыт', cancelled: 'Платёж отменён. Ничего не списано.', failed: 'Платёж не прошёл. Ничего не списано.', error: 'Не удалось подтвердить оплату. Если звёзды списаны, доступ появится после проверки; напишите в поддержку.' },
     },
     load: {
@@ -223,7 +224,8 @@ export const TP = {
       free: 'The help screen and the "Signs of pressure" core are always free.',
       stubBanner: 'Payment is not connected yet. No Stars are charged: this is a sample screen.',
       stubTap: (n) => `You chose "${n}". Payment is being connected; nothing was charged.`,
-      methods: { card: '💳 Pay by card (RU) / SBP', crypto: '💎 Pay with crypto (USDT / TON)', stars: '⭐ Pay with Telegram Stars', check: 'Check payment', or: 'Payment method' },
+      methods: { card: '💳 Pay by card (RU) / SBP', crypto: '💎 Pay with crypto', stars: '⭐ Pay with Stars',
+        cardPrice: (p) => `💳 Pay by card (RU) / SBP — ${p.rub} ₽`, cryptoPrice: (p) => `💎 Pay with crypto — ${p.usdt} USDT`, starsPrice: (p) => `⭐ Pay with Stars — ${p.stars} ⭐`, check: 'Check payment', or: 'Payment method', cryptoNote: '⏳ Crypto processing takes 2–10 minutes depending on network load. Please wait and click "Check payment" after transfer.' },
       states: { external: 'The payment page is open. After paying, come back and tap “Check payment”.', unavailable: 'This payment method is still being connected. Nothing was charged; pick another.', pending: 'Payment not found yet. If you already paid, wait a minute and check again.', opening: 'Opening the invoice…', checking: 'Checking the payment…', done: 'Done: access unlocked', cancelled: 'Payment cancelled. Nothing was charged.', failed: 'Payment failed. Nothing was charged.', error: 'Could not confirm the payment. If Stars were charged, access will appear after verification; contact support.' },
     },
     load: {

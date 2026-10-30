@@ -1,8 +1,8 @@
 // Общие объекты и помощники интерфейса: язык, DOM-хелпер h(), навигация, загрузка данных.
-import { T } from './ui-text.js?v=test5';
-import { TP } from './ui-pro-text.js?v=test5';
-import { CONFIG } from './config.js?v=test5';
-import { read, write, patch, KEYS } from './store.js?v=test5';
+import { T } from './ui-text.js?v=test6';
+import { TP } from './ui-pro-text.js?v=test6';
+import { CONFIG } from './config.js?v=test6';
+import { read, write, patch, KEYS } from './store.js?v=test6';
 
 export const tg = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData !== undefined ? window.Telegram.WebApp : null;
 const tgLang = tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code;

@@ -3,7 +3,7 @@
 //   POST {apiBase}/api/invoice  {product, initData} -> {link}
 //   POST {apiBase}/api/me       {initData}          -> {products:[...], exp:{id: unixMs}}
 // Статус из окна оплаты НЕ считается доказательством: доступ появляется только по ответу /api/me.
-import { productById } from './pricing.js?v=test5';
+import { productById } from './pricing.js?v=test6';
 
 export function createBilling({ apiBase = '', tg = null, fetchFn = (typeof fetch === 'function' ? fetch : null), sleep = (ms) => new Promise((r) => setTimeout(r, ms)), pollMs = 1500, pollMax = 10 } = {}) {
   const enabled = () => !!apiBase;
@@ -22,12 +22,11 @@ export function createBilling({ apiBase = '', tg = null, fetchFn = (typeof fetch
   async function checkout(productId, onState = () => {}) {
     if (!productById(productId)) throw new Error('unknown product');
     if (!enabled()) { onState('stub'); return { state: 'stub' }; }
-    if (!tg || typeof tg.openInvoice !== 'function') { onState('error'); alert('DEBUG v=test5\nTelegram WebApp недоступен: ' + (!tg ? 'tg=null (открыто не внутри Telegram или скрипт не загрузился)' : 'нет openInvoice')); return { state: 'error' }; }
+    if (!tg || typeof tg.openInvoice !== 'function') { onState('error'); alert('DEBUG v=test6\nTelegram WebApp недоступен: ' + (!tg ? 'tg=null (открыто не внутри Telegram или скрипт не загрузился)' : 'нет openInvoice')); return { state: 'error' }; }
     let link;
     try { onState('opening');
       const __id = initData(); const __url = apiBase.replace(/\/$/, '') + '/api/invoice';
       if (!__id) { onState('error'); alert('initData отсутствует\nURL: ' + __url + '\nПриложение открыто не внутри Telegram через бота или без подписи.'); return { state: 'error' }; }
-      alert('DEBUG v=test5\ninitData длина: ' + __id.length + '\nURL: ' + __url);
       ({ link } = await post('/api/invoice', { product: productId, initData: initData() })); if (!link) throw new Error('no link'); }
     catch (e) { alert('Ошибка /api/invoice: ' + (e && e.message)); console.error('[billing] /api/invoice:', e && e.message, '| initData length:', initData().length); onState('error'); return { state: 'error' }; }
     const status = await new Promise((res) => { try { tg.openInvoice(link, res); } catch { res('failed'); } });
@@ -53,10 +52,8 @@ export function createBilling({ apiBase = '', tg = null, fetchFn = (typeof fetch
     let link;
     try {
       onState('opening');
-      const userId = tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id;
-      if (!userId) throw new Error('Telegram user id is unavailable');
-      ({ pay_url: link } = await post('/api/pay-link', { plan_id: productId, method, user_id: userId }));
-    if (!link || !/^https:\/\//.test(link)) throw new Error('no link');
+      ({ pay_url: link } = await post('/api/pay-link', { plan_id: productId, method, initData: initData() }));
+      if (!link || !/^https:\/\//.test(link)) throw new Error('no link');
     } catch (e) { console.error('[billing] /api/pay-link:', e && e.message); onState('unavailable'); return { state: 'unavailable' }; }
     try {
       if (/^https:\/\/t\.me\//.test(link) && tg && typeof tg.openTelegramLink === 'function') {

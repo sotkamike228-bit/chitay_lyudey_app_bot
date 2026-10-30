@@ -1,8 +1,8 @@
-import { h, tp, tg, CFG, render, nav, topbar, toast } from './ctx.js?v=test5';
-import { read, write, KEYS } from './store.js?v=test5';
-import { ownedProducts } from './access.js?v=test5';
-import { PRODUCTS, perMonth } from './pricing.js?v=test5';
-import { billing, proLoader } from './services.js?v=test5';
+import { h, tp, tg, CFG, render, nav, topbar, toast } from './ctx.js?v=test6';
+import { read, write, KEYS } from './store.js?v=test6';
+import { ownedProducts } from './access.js?v=test6';
+import { PRODUCTS, perMonth, priceMain, priceAlt } from './pricing.js?v=test6';
+import { billing, proLoader } from './services.js?v=test6';
 
 /** Карточка «Доступно в полной версии»: вместо технических заглушек. extra — дополнительные кнопки. */
 export function lockCard(feature, ...extra) {
@@ -50,16 +50,17 @@ function screen() {
     const mk = (cls, label, fn) => { const b = h('button', { class: 'btn pay-btn ' + cls, type: 'button', disabled: has, onclick: run(fn) }, label); btns.push(b); return b; };
     const payBtns = has ? h('button', { class: 'btn secondary', type: 'button', disabled: true }, P.ownedBadge)
       : h('div', { class: 'pay-btns', role: 'group', 'aria-label': P.methods.or },
-        mk('pay-card', P.methods.card, (cb) => billing.checkoutExternal(p.id, 'card', cb)),
-        mk('pay-crypto', P.methods.crypto, (cb) => billing.checkoutExternal(p.id, 'crypto', cb)),
-        mk('pay-stars', P.methods.stars, (cb) => billing.checkout(p.id, cb)));
+        mk('pay-card', P.methods.cardPrice(p), (cb) => billing.checkoutExternal(p.id, 'card', cb)),
+        mk('pay-crypto', P.methods.cryptoPrice(p), (cb) => billing.checkoutExternal(p.id, 'crypto', cb)),
+        h('p', { class: 'pay-hint' }, P.methods.cryptoNote),
+        mk('pay-stars', P.methods.starsPrice(p), (cb) => billing.checkout(p.id, cb)));
     const flag = p.id === 'pro_lifetime';
     const mo = PRODUCTS.find((x) => x.days === 30);
     return h('div', { class: 'card plan' + (has ? ' owned' : '') + (flag ? ' plan-flagship' : '') },
       flag ? h('div', { class: 'plan-ribbon' }, P.bestBadge) : '',
       h('div', { class: 'plan-head' }, h('h3', {}, L.name)),
       flag && mo ? h('p', { class: 'plan-save' }, P.payback(Math.ceil(p.stars / mo.stars))) : '',
-      h('p', { class: 'plan-price' }, `${p.stars} ⭐`), h('p', { class: 'sub muted' }, L.note(perMonth(p))), h('p', { class: 'sub' }, L.what), payBtns);
+      h('p', { class: 'plan-price' }, h('span', { class: 'pp-main' }, priceMain(p)), ' ', h('span', { class: 'pp-alt' }, priceAlt(p))), h('p', { class: 'sub muted' }, L.note(perMonth(p))), h('p', { class: 'sub' }, L.what), payBtns);
   };
   const btns = [];
   const ORDERED = [...PRODUCTS].sort((a, b) => (b.id === 'pro_lifetime') - (a.id === 'pro_lifetime'));

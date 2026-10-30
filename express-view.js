@@ -1,8 +1,8 @@
 // «Экспресс-калибровка за 2 минуты»: пять шагов; первые два открыты полностью, тонкие приёмы возврата к теме в PRO.
-import { h, html, tp, render, nav, topbar } from './ctx.js?v=test5';
-import { ICONS } from './icons.js?v=test5';
-import { openPaywall } from './paywall.js?v=test5';
-import { openProtocol } from './protocol-view.js?v=test5';
+import { h, html, tp, render, nav, topbar } from './ctx.js?v=test6';
+import { ICONS } from './icons.js?v=test6';
+import { openPaywall } from './paywall.js?v=test6';
+import { openProtocol } from './protocol-view.js?v=test6';
 
 export function openExpress() {
   const X = tp.express;

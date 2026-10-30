@@ -1,13 +1,13 @@
-import { h, html, L, t, tp, tg, lang, setLang, data, state, render, nav, loadJson, CFG, closeSheet, topbar } from './ctx.js?v=test5';
-import { read, patch, KEYS } from './store.js?v=test5';
-import { hasAccess } from './access.js?v=test5';
-import { openQuiz, openCalibration } from './quiz.js?v=test5';
-import { openAnatomy, totalZones } from './anatomy.js?v=test5';
-import { openPaywall } from './paywall.js?v=test5';
-import { openSheets } from './sheets.js?v=test5';
-import { openHelp } from './help-view.js?v=test5';
-import { ICONS } from './icons.js?v=test5';
-import { refreshEntitlements } from './services.js?v=test5';
+import { h, html, L, t, tp, tg, lang, setLang, data, state, render, nav, loadJson, CFG, closeSheet, topbar } from './ctx.js?v=test6';
+import { read, patch, KEYS } from './store.js?v=test6';
+import { hasAccess } from './access.js?v=test6';
+import { openQuiz, openCalibration } from './quiz.js?v=test6';
+import { openAnatomy, totalZones } from './anatomy.js?v=test6';
+import { openPaywall } from './paywall.js?v=test6';
+import { openSheets } from './sheets.js?v=test6';
+import { openHelp } from './help-view.js?v=test6';
+import { ICONS } from './icons.js?v=test6';
+import { refreshEntitlements } from './services.js?v=test6';
 
 // ---------- поддержка ----------
 function openSupport() {
