@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Читай людей",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Читай людей",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "description": "Тренажёр невербалики и профайлинга",
+  "id": "/"
+}
