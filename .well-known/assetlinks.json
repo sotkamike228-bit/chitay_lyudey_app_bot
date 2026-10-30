@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.sotkamike228_bit.twa",
+        "sha256_cert_fingerprints": ["A3:EA:CD:CB:33:31:E8:9E:87:56:A6:BA:87:19:63:61:12:52:50:25:19:1A:03:79:29:45:11:54:8F:1A:F1:7D"]
+      }
+    }]
