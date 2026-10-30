@@ -1,15 +1,15 @@
 // «Шпаргалки»: свидания, переговоры, защита от давления. Данные: chitay_pro.json → cheatsheets.
-import { h, html, L, LA, t, tp, data, render, nav, topbar, loadJson, CFG } from './ctx.js?v=test3';
-import { read, patch, KEYS } from './store.js?v=test3';
-import { hasAccess } from './access.js?v=test3';
-import { openPaywall, lockCard } from './paywall.js?v=test3';
-import { openCalibration } from './quiz.js?v=test3';
-import { openHelp } from './help-view.js?v=test3';
-import { openHypo } from './hypo-view.js?v=test3';
-import { openProtocol } from './protocol-view.js?v=test3';
-import { openExpress } from './express-view.js?v=test3';
-import { ICONS } from './icons.js?v=test3';
-import { proLoader, refreshEntitlements } from './services.js?v=test3';
+import { h, html, L, LA, t, tp, data, render, nav, topbar, loadJson, CFG } from './ctx.js?v=test4';
+import { read, patch, KEYS } from './store.js?v=test4';
+import { hasAccess } from './access.js?v=test4';
+import { openPaywall, lockCard } from './paywall.js?v=test4';
+import { openCalibration } from './quiz.js?v=test4';
+import { openHelp } from './help-view.js?v=test4';
+import { openHypo } from './hypo-view.js?v=test4';
+import { openProtocol } from './protocol-view.js?v=test4';
+import { openExpress } from './express-view.js?v=test4';
+import { ICONS } from './icons.js?v=test4';
+import { proLoader, refreshEntitlements } from './services.js?v=test4';
 
 const S = new Proxy({}, { get: (_, k) => tp.sheets[k] });   // живой доступ: язык может смениться на лету
 const ent = () => read(KEYS.ent, {});
@@ -56,14 +56,14 @@ async function ensure() {
 export async function openSheets() {
   let secs;
   try { secs = await ensure(); } catch { render(topbar(S.title), h('div', { class: 'card' }, t.loadError)); return; }
-  const row = (id, sub, onclick, tag) => h('button', { class: 'tile row-tile', type: 'button', onclick },
-    h('span', { class: 'tile-title' }, S[id]), h('span', { class: 'tile-sub' }, sub), tag ? h('span', { class: 'badge ' + tag[0] }, tag[1]) : '');
+  const row = (id, sub, onclick, tag, title) => h('button', { class: 'tile row-tile', type: 'button', onclick },
+    h('span', { class: 'tile-title' }, title || S[id]), h('span', { class: 'tile-sub' }, sub), tag ? h('span', { class: 'badge ' + tag[0] }, tag[1]) : '');
   const group = (key, ...rows) => { const g = S.groups[key];
     return h('section', { class: 'sgroup sg-' + key }, h('div', { class: 'sg-head' }, html('span', { class: 'sg-ico' }, ICONS[g[0]]), h('h2', {}, g[1])),
       h('div', { class: 'sg-chips' }, ...g[2].map((x) => h('span', { class: 'sg-chip' }, x))), ...rows); };
   render(topbar(S.title), h('p', { class: 'muted sub' }, S.intro),
     group('biz', row('negotiation', S.negotiationSub, () => nav.go(openNegotiation), ['pro', tp.badges.pro])),
-    group('rel', row('dating', S.datingSub, () => nav.go(openDating), ['pro'])),
+    group('rel', row('dating', S.datingSub, () => nav.go(openDating), ['pro', tp.badges.pro], S.datingRow)),
     group('prot', row('protection', S.protectionSub, () => nav.go(openProtection), ['free', S.freeBadge + ' + PRO'])),
     group('tools', row('express', S.expressSub, () => nav.go(openExpress), ['free', S.freeBadge]),
       row('protocol', S.protocolSub, () => nav.go(openProtocol), ['free', S.freeBadge + ' + PRO']),

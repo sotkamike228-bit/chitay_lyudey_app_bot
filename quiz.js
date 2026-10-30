@@ -1,15 +1,15 @@
 // Тест из 5 ситуаций и режим калибровки (тот же поток + шаг «уверенность»).
-import { h, html, L, t, tp, lang, data, state, isAdult, render, nav, haptic, toast, topbar, tg, CFG, loadJson } from './ctx.js?v=test3';
-import { read, write, patch, KEYS } from './store.js?v=test3';
-import { MAX_PICK, playableCases, scoreObservations, scoreAction, missedSignals, percent, tierFor, encodeChallenge, parseChallenge, shuffle, compareChallenge } from './engine.js?v=test3';
-import { LEVELS, isCorrect, addItem, stats, CAT_IDS, normCat, roundAllowed, roundCases, markSeen, resetHistory } from './calib.js?v=test3';
-import { proLoader } from './services.js?v=test3';
-import { openHypo } from './hypo-view.js?v=test3';
-import { openAnatomy } from './anatomy.js?v=test3';
-import { ICONS } from './icons.js?v=test3';
+import { h, html, L, t, tp, lang, data, state, isAdult, render, nav, haptic, toast, topbar, tg, CFG, loadJson } from './ctx.js?v=test4';
+import { read, write, patch, KEYS } from './store.js?v=test4';
+import { MAX_PICK, playableCases, scoreObservations, scoreAction, missedSignals, percent, tierFor, encodeChallenge, parseChallenge, shuffle, compareChallenge } from './engine.js?v=test4';
+import { LEVELS, isCorrect, addItem, stats, CAT_IDS, normCat, roundAllowed, roundCases, markSeen, resetHistory } from './calib.js?v=test4';
+import { proLoader } from './services.js?v=test4';
+import { openHypo } from './hypo-view.js?v=test4';
+import { openAnatomy } from './anatomy.js?v=test4';
+import { ICONS } from './icons.js?v=test4';
 const trackIcon = (c) => (c.track === 'business' ? 'biz' : c.track === 'relationships' ? 'rel' : 'shield');
-import { openPaywall, lockCard } from './paywall.js?v=test3';
-import { hasAccess } from './access.js?v=test3';
+import { openPaywall, lockCard } from './paywall.js?v=test4';
+import { hasAccess } from './access.js?v=test4';
 
 const Q = { mode: 'quiz', cases: [], i: 0, total: 0, results: [], picked: [], conf: null, challenge: null, cat: null, okCount: 0 };
 
@@ -44,10 +44,14 @@ function screenCategories() {
   render(topbar(tp.calibTitle), h('div', { class: 'card hero' }, h('p', { class: 'hook' }, tp.calibPitch), h('p', {}, tp.calibCats)),
     ...cats.map((c) => {
       const st = catState(c.id), s = stats(st.h);
+      // не пройден ни один раунд: «Первый раунд бесплатно»; пройден и есть итог: статус и кнопка разбора; иначе счётчик раундов
       const status = st.rounds === 0 ? tp.calibFirstFree : s.ready ? tp.verdictShort[s.verdict] : tp.calibRounds(st.rounds);
-      return h('button', { class: 'tile row-tile', type: 'button', onclick: () => { Q.cat = c.id; screenCalibIntro(); } },
+      const tile = h('button', { class: 'tile row-tile', type: 'button', onclick: () => { Q.cat = c.id; screenCalibIntro(); } },
         h('span', { class: 'tile-title' }, L(c.title)), h('span', { class: 'tile-sub' }, L(c.sub)),
         h('span', { class: 'badge ' + (st.rounds === 0 ? 'free' : 'pro') }, status));
+      const detail = st.rounds > 0 && s.ready && !hasAccess('calibration', ent(), CFG)
+        ? h('button', { class: 'btn secondary detail-pro', type: 'button', onclick: () => openPaywall('calibration') }, tp.calibDetailPro) : '';
+      return h('div', { class: 'cal-item' }, tile, detail);
     }));
 }
 
@@ -67,6 +71,7 @@ function screenCalibIntro() {
   const needPro = !roundAllowed(cs.rounds, hasAccess('calibration', ent(), CFG));
   const nodes = [topbar(L(cat.title)), h('div', { class: 'card hero' }, h('p', { class: 'hook' }, L(cat.hook)), h('p', {}, tp.calibHow))];
   nodes.push(calibCard(st, cs.h));
+  if (st.ready && !hasAccess('calibration', ent(), CFG)) nodes.push(h('button', { class: 'btn cta-gb detail-pro', type: 'button', onclick: () => openPaywall('calibration') }, tp.calibDetailPro));
   if (needPro) nodes.push(h('p', { class: 'banner' }, tp.calibNeedPro));
   nodes.push(h('button', { class: 'btn', onclick: needPro ? () => openPaywall('calibration') : begin }, needPro ? tp.pay.homeLink : (cs.rounds === 0 ? tp.calibStartFree : tp.calibStart)));
   if (cs.h.length) nodes.push(h('button', { class: 'btn secondary', onclick: () => { saveCat(Q.cat, resetHistory(cs)); toast(tp.resetDone); screenCalibIntro(); } }, tp.reset));

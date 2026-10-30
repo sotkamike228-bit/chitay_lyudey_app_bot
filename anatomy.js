@@ -1,12 +1,12 @@
 // «Анатомия невербалики»: схема с метками, нижняя панель со слоями, мини-тренажёр зоны, прогресс «Атлас».
-import { h, html, L, LA, lang, t, tp, data, render, nav, haptic, topbar, closeSheet, loadJson, CFG, toast } from './ctx.js?v=test3';
-import { read, write, KEYS } from './store.js?v=test3';
-import { hotspotUnlocked, hasAccess } from './access.js?v=test3';
-import { figureSvg, overlaySvg, attachHubArt } from './figures.js?v=test3';
-import { shuffle } from './engine.js?v=test3';
-import { openPaywall, lockCard } from './paywall.js?v=test3';
-import { ICONS, HUB_ICON } from './icons.js?v=test3';
-import { proLoader, refreshEntitlements } from './services.js?v=test3';
+import { h, html, L, LA, lang, t, tp, data, render, nav, haptic, topbar, closeSheet, loadJson, CFG, toast } from './ctx.js?v=test4';
+import { read, write, KEYS } from './store.js?v=test4';
+import { hotspotUnlocked, hasAccess } from './access.js?v=test4';
+import { figureSvg, overlaySvg, attachHubArt, preloadArts } from './figures.js?v=test4';
+import { shuffle } from './engine.js?v=test4';
+import { openPaywall, lockCard } from './paywall.js?v=test4';
+import { ICONS, HUB_ICON } from './icons.js?v=test4';
+import { proLoader, refreshEntitlements } from './services.js?v=test4';
 
 const A = { sec: 0, view: 0, full: false, sel: null, layer: 'seen', content: null, err: null };
 const ent = () => read(KEYS.ent, {});
@@ -37,6 +37,8 @@ export async function openAnatomy() {
     catch { render(topbar(tp.anatomyTitle), h('div', { class: 'card' }, t.loadError)); return; }
   }
   A.sel = null; A.layer = 'seen'; A.err = null;
+  render(topbar(tp.anatomyTitle), h('p', { class: 'muted' }, tp.load.loading));
+  await preloadArts(data.pro.anatomy.sections.flatMap((s) => (s.views || []).map((v) => v.art).filter(Boolean)));
   screen();
   prefetch();
 }

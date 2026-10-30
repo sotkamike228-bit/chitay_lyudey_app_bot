@@ -80,13 +80,31 @@ export function figureSvg(view, label) {
 }
 
 /** Фоновая иллюстрация хаба: assets/hub_N.webp (N — номер хаба, 1..5). Нет файла — остаётся векторная схема. */
-export const hubArtUrl = (file) => `assets/${file}?v=test3`;
+export const hubArtUrl = (file) => `assets/${file}?v=test4`;
+const artReady = new Set();
+/** Предзагрузка всех картинок атласа до показа экрана: потом они берутся из кэша мгновенно. */
+export function preloadArts(files, timeoutMs = 4000) {
+  const one = (file) => new Promise((res) => {
+    const url = hubArtUrl(file);
+    if (artReady.has(url)) return res();
+    const im = new Image();
+    im.onload = () => { artReady.add(url); res(); };
+    im.onerror = () => res();
+    im.src = url;
+  });
+  return Promise.race([Promise.all([...new Set(files)].map(one)), new Promise((r) => setTimeout(r, timeoutMs))]);
+}
+/** Картинка вставляется синхронно, если уже загружена. Иначе схема (метки и зоны) скрыта до загрузки, чтобы не было «точки, потом тело». */
 export function attachHubArt(stage, file) {
   const img = new Image();
-  img.className = 'hub-art'; img.alt = ''; img.decoding = 'async';
-  img.onload = () => { stage.classList.add('has-art'); stage.prepend(img); };
-  img.onerror = () => { stage.classList.add('no-art'); };   // файла нет: показываем только метки
-  img.src = hubArtUrl(file);
+  img.className = 'hub-art'; img.alt = ''; img.decoding = 'sync';
+  const url = hubArtUrl(file);
+  const show = () => { artReady.add(url); stage.classList.add('has-art'); stage.classList.remove('art-loading'); stage.prepend(img); };
+  img.src = url;
+  if (img.complete && img.naturalWidth) { show(); return; }
+  stage.classList.add('art-loading');
+  img.onload = show;
+  img.onerror = () => { stage.classList.remove('art-loading'); stage.classList.add('no-art'); };
 }
 
 /** Подсветка зоны и линия-выноска от метки к зоне (в тех же координатах). */
