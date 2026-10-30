@@ -1,9 +1,9 @@
 // «Тактический протокол верификатора»: одно правило бесплатно (кластер 2+1), четыре в PRO.
-import { h, L, LA, tp, data, render, nav, topbar, loadJson, CFG } from './ctx.js?v=test2';
-import { read, KEYS } from './store.js?v=test2';
-import { hasAccess } from './access.js?v=test2';
-import { openPaywall, lockCard } from './paywall.js?v=test2';
-import { proLoader } from './services.js?v=test2';
+import { h, L, LA, tp, data, render, nav, topbar, loadJson, CFG } from './ctx.js?v=test3';
+import { read, KEYS } from './store.js?v=test3';
+import { hasAccess } from './access.js?v=test3';
+import { openPaywall, lockCard } from './paywall.js?v=test3';
+import { proLoader } from './services.js?v=test3';
 
 const ent = () => read(KEYS.ent, {});
 const P = () => tp.protocol;

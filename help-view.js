@@ -1,5 +1,5 @@
-import { h, t, lang, render, closeSheet, CFG, MODE_KEY, tp } from './ctx.js?v=test2';
-import { HELP } from './help.js?v=test2';
+import { h, t, lang, render, closeSheet, CFG, MODE_KEY, tp } from './ctx.js?v=test3';
+import { HELP } from './help.js?v=test3';
 
 function devBlock() {
   const set = (mode) => { if ((mode === 'test') === !!CFG.proPreview) return; try { localStorage.setItem(MODE_KEY, mode); } catch { /* нет хранилища */ } location.reload(); };

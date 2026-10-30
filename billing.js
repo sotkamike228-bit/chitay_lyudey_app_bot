@@ -3,7 +3,7 @@
 //   POST {apiBase}/api/invoice  {product, initData} -> {link}
 //   POST {apiBase}/api/me       {initData}          -> {products:[...], exp:{id: unixMs}}
 // Статус из окна оплаты НЕ считается доказательством: доступ появляется только по ответу /api/me.
-import { productById } from './pricing.js?v=test2';
+import { productById } from './pricing.js?v=test3';
 
 export function createBilling({ apiBase = '', tg = null, fetchFn = (typeof fetch === 'function' ? fetch : null), sleep = (ms) => new Promise((r) => setTimeout(r, ms)), pollMs = 1500, pollMax = 10 } = {}) {
   const enabled = () => !!apiBase;
@@ -22,12 +22,12 @@ export function createBilling({ apiBase = '', tg = null, fetchFn = (typeof fetch
   async function checkout(productId, onState = () => {}) {
     if (!productById(productId)) throw new Error('unknown product');
     if (!enabled()) { onState('stub'); return { state: 'stub' }; }
-    if (!tg || typeof tg.openInvoice !== 'function') { onState('error'); alert('DEBUG v=test2\nTelegram WebApp недоступен: ' + (!tg ? 'tg=null (открыто не внутри Telegram или скрипт не загрузился)' : 'нет openInvoice')); return { state: 'error' }; }
+    if (!tg || typeof tg.openInvoice !== 'function') { onState('error'); alert('DEBUG v=test3\nTelegram WebApp недоступен: ' + (!tg ? 'tg=null (открыто не внутри Telegram или скрипт не загрузился)' : 'нет openInvoice')); return { state: 'error' }; }
     let link;
     try { onState('opening');
       const __id = initData(); const __url = apiBase.replace(/\/$/, '') + '/api/invoice';
       if (!__id) { onState('error'); alert('initData отсутствует\nURL: ' + __url + '\nПриложение открыто не внутри Telegram через бота или без подписи.'); return { state: 'error' }; }
-      alert('DEBUG v=test2\ninitData длина: ' + __id.length + '\nURL: ' + __url);
+      alert('DEBUG v=test3\ninitData длина: ' + __id.length + '\nURL: ' + __url);
       ({ link } = await post('/api/invoice', { product: productId, initData: initData() })); if (!link) throw new Error('no link'); }
     catch (e) { alert('Ошибка /api/invoice: ' + (e && e.message)); console.error('[billing] /api/invoice:', e && e.message, '| initData length:', initData().length); onState('error'); return { state: 'error' }; }
     const status = await new Promise((res) => { try { tg.openInvoice(link, res); } catch { res('failed'); } });

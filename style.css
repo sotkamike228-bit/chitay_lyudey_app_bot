@@ -436,3 +436,34 @@ body.sheet-open.sheet-full .stage{width:min(100%,calc(37vh*var(--asp,.625)))}
 .dev-opt[aria-checked="true"]{border-color:#f0c260;box-shadow:0 0 0 1px #f0c260}
 .dev-opt[aria-checked="true"] .dev-dot{border-color:#f0c260;background:radial-gradient(circle,#f0c260 45%,transparent 50%)}
 .pro-lock{border:1px solid rgba(240,194,96,.5);background:linear-gradient(160deg,rgba(240,194,96,.12),rgba(91,87,255,.12))}
+
+/* ===== v=test3: карусель категорий ===== */
+.chips-carousel{display:flex;align-items:center;gap:6px;margin:4px 0}
+.chips-carousel .chips{flex:1;min-width:0;margin:0;scroll-behavior:smooth;overscroll-behavior-x:contain}
+.chips-arrow{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--glass-line,var(--line));background:var(--surface);color:var(--text);font:600 22px/1 inherit;font-family:inherit;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0 0 3px}
+.chips-arrow:hover:not(:disabled){border-color:#00F0FF;color:#00F0FF}
+.chips-arrow:disabled{opacity:.3;cursor:default}
+.chips-carousel.no-overflow .chips-arrow{display:none}
+@media (hover:none) and (pointer:coarse){.chips-arrow{display:none}}
+
+/* ===== v=test3: «Все зоны списком» ===== */
+.zones[open]{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-right:4px}
+.zones summary{position:sticky;top:0;background:var(--bg,#0B0D12);z-index:1}
+.sheet-host{transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+body.zones-open .sheet-host{transform:translateY(110%);pointer-events:none}
+body.zones-open.sheet-open,body.zones-open.sheet-open.sheet-full{padding-bottom:16px!important}
+body.zones-open.sheet-open .stage{width:min(100%,calc(46vh*var(--asp,.625)))!important}
+
+/* ===== v=test3: активная зона — циан #00F0FF, белый центр, пульсирующее свечение ===== */
+.pin.on{background:radial-gradient(circle,#fff 0 30%,#00F0FF 32% 100%);border-color:#00F0FF;border-width:3px;color:#04252B;font-weight:800;
+  box-shadow:0 0 16px rgba(0,240,255,.8);animation:pinGlow 1.4s ease-in-out infinite;z-index:4}
+.overlay-svg .zone.on{stroke:#00F0FF;stroke-width:3px;stroke-dasharray:none;fill:rgba(0,240,255,.26);
+  filter:drop-shadow(0 0 6px rgba(0,240,255,.9)) drop-shadow(0 0 14px rgba(0,240,255,.6));animation:zoneGlow 1.4s ease-in-out infinite}
+.overlay-svg .leader.on{stroke:#00F0FF;stroke-width:2.4px;opacity:1;filter:drop-shadow(0 0 5px rgba(0,240,255,.9))}
+@keyframes pinGlow{0%,100%{box-shadow:0 0 10px rgba(0,240,255,.6)}50%{box-shadow:0 0 16px rgba(0,240,255,.8),0 0 28px rgba(0,240,255,.55)}}
+@keyframes zoneGlow{0%,100%{opacity:.8}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.pin.on,.overlay-svg .zone.on{animation:none}}
+
+/* ===== v=test3: маркер 16+ и кнопка разработчику ===== */
+.age-badge{display:inline-block;vertical-align:middle;margin-left:6px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);font:700 12px/1.4 inherit;font-family:inherit;color:var(--muted);letter-spacing:.02em}
+.dev-link{margin-top:10px}

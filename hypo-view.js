@@ -1,10 +1,10 @@
 // «Проверка в 3 шага»: триггер → проверочные вопросы → повторная реакция → сила гипотезы.
-import { h, L, LA, t, tp, data, render, nav, topbar, loadJson, CFG } from './ctx.js?v=test2';
-import { read, KEYS } from './store.js?v=test2';
-import { hasAccess } from './access.js?v=test2';
-import { openPaywall, lockCard } from './paywall.js?v=test2';
-import { proLoader } from './services.js?v=test2';
-import { evaluate, FAMILIES } from './hypo.js?v=test2';
+import { h, L, LA, t, tp, data, render, nav, topbar, loadJson, CFG } from './ctx.js?v=test3';
+import { read, KEYS } from './store.js?v=test3';
+import { hasAccess } from './access.js?v=test3';
+import { openPaywall, lockCard } from './paywall.js?v=test3';
+import { proLoader } from './services.js?v=test3';
+import { evaluate, FAMILIES } from './hypo.js?v=test3';
 
 const HY = { theme: null, baseline: null, asked: new Set(), recurred: new Set() };
 const ent = () => read(KEYS.ent, {});

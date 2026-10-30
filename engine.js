@@ -1,7 +1,7 @@
 // Чистая логика квиза без DOM: тестируется в Node (tests/engine.test.mjs).
 export const MAX_PICK = 2;
 
-/** Кейсы, доступные пользователю: без подтверждения 18+ скрыты кейсы с треком «Отношения». */
+/** Кейсы, доступные пользователю: при adult18=false скрыты кейсы с треком «Отношения» (в приложении ценз единый 16+, всегда true). */
 export function playableCases(quiz, adult18) {
   return quiz.cases.filter((c) => adult18 || !c.adultOnly).sort((a, b) => a.order - b.order);
 }

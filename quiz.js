@@ -1,15 +1,15 @@
 // Тест из 5 ситуаций и режим калибровки (тот же поток + шаг «уверенность»).
-import { h, html, L, t, tp, lang, data, state, isAdult, render, nav, haptic, toast, topbar, tg, CFG, loadJson } from './ctx.js?v=test2';
-import { read, write, patch, KEYS } from './store.js?v=test2';
-import { MAX_PICK, playableCases, scoreObservations, scoreAction, missedSignals, percent, tierFor, encodeChallenge, parseChallenge, shuffle, compareChallenge } from './engine.js?v=test2';
-import { LEVELS, isCorrect, addItem, stats, CAT_IDS, normCat, roundAllowed, roundCases, markSeen, resetHistory } from './calib.js?v=test2';
-import { proLoader } from './services.js?v=test2';
-import { openHypo } from './hypo-view.js?v=test2';
-import { openAnatomy } from './anatomy.js?v=test2';
-import { ICONS } from './icons.js?v=test2';
+import { h, html, L, t, tp, lang, data, state, isAdult, render, nav, haptic, toast, topbar, tg, CFG, loadJson } from './ctx.js?v=test3';
+import { read, write, patch, KEYS } from './store.js?v=test3';
+import { MAX_PICK, playableCases, scoreObservations, scoreAction, missedSignals, percent, tierFor, encodeChallenge, parseChallenge, shuffle, compareChallenge } from './engine.js?v=test3';
+import { LEVELS, isCorrect, addItem, stats, CAT_IDS, normCat, roundAllowed, roundCases, markSeen, resetHistory } from './calib.js?v=test3';
+import { proLoader } from './services.js?v=test3';
+import { openHypo } from './hypo-view.js?v=test3';
+import { openAnatomy } from './anatomy.js?v=test3';
+import { ICONS } from './icons.js?v=test3';
 const trackIcon = (c) => (c.track === 'business' ? 'biz' : c.track === 'relationships' ? 'rel' : 'shield');
-import { openPaywall, lockCard } from './paywall.js?v=test2';
-import { hasAccess } from './access.js?v=test2';
+import { openPaywall, lockCard } from './paywall.js?v=test3';
+import { hasAccess } from './access.js?v=test3';
 
 const Q = { mode: 'quiz', cases: [], i: 0, total: 0, results: [], picked: [], conf: null, challenge: null, cat: null, okCount: 0 };
 

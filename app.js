@@ -1,29 +1,22 @@
-import { h, html, L, t, tp, tg, lang, setLang, data, state, render, nav, loadJson, CFG, closeSheet, ageOk, setAge, topbar } from './ctx.js?v=test2';
-import { read, patch, KEYS } from './store.js?v=test2';
-import { hasAccess } from './access.js?v=test2';
-import { openQuiz, openCalibration } from './quiz.js?v=test2';
-import { openAnatomy, totalZones } from './anatomy.js?v=test2';
-import { openPaywall } from './paywall.js?v=test2';
-import { openSheets } from './sheets.js?v=test2';
-import { openHelp } from './help-view.js?v=test2';
-import { ICONS } from './icons.js?v=test2';
-import { refreshEntitlements } from './services.js?v=test2';
+import { h, html, L, t, tp, tg, lang, setLang, data, state, render, nav, loadJson, CFG, closeSheet, topbar } from './ctx.js?v=test3';
+import { read, patch, KEYS } from './store.js?v=test3';
+import { hasAccess } from './access.js?v=test3';
+import { openQuiz, openCalibration } from './quiz.js?v=test3';
+import { openAnatomy, totalZones } from './anatomy.js?v=test3';
+import { openPaywall } from './paywall.js?v=test3';
+import { openSheets } from './sheets.js?v=test3';
+import { openHelp } from './help-view.js?v=test3';
+import { ICONS } from './icons.js?v=test3';
+import { refreshEntitlements } from './services.js?v=test3';
 
-// ---------- возраст ----------
-function screenAge() {
-  if (state.age === 'under16') return screenUnder16();
-  const pick = (v) => { setAge(v); nav.reset(); };
-  render(nav.depth() > 1 ? topbar('') : '', h('h1', {}, t.appName), h('p', { class: 'muted' }, t.subtitle),
-    h('div', { class: 'card' }, h('h2', {}, t.ageTitle), h('p', { class: 'sub muted' }, t.ageNote),
-      h('button', { class: 'btn', onclick: () => pick('adult') }, t.ageAdult),
-      h('button', { class: 'btn secondary', onclick: () => pick('teen') }, t.ageTeen),
-      h('button', { class: 'link', type: 'button', onclick: () => { setAge('under16'); screenUnder16(); } }, t.ageUnder)),
-    h('p', { class: 'disc' }, t.disclaimer));
-}
-function screenUnder16() {
-  render(h('h1', {}, t.appName), h('div', { class: 'card' }, h('h2', {}, t.ageBlockTitle), h('p', {}, t.ageBlockText),
-    h('button', { class: 'btn secondary', onclick: () => openHelp() }, t.help),
-    h('button', { class: 'link', type: 'button', onclick: () => { setAge(null); screenAge(); } }, t.ageRetry)));
+// ---------- поддержка ----------
+function openSupport() {
+  const url = CFG.supportUrl;
+  if (!url) return;
+  try {
+    if (tg && /^https:\/\/t\.me\//.test(url) && typeof tg.openTelegramLink === 'function') tg.openTelegramLink(url);
+    else window.open(url, '_blank', 'noopener');
+  } catch (e) { console.error('[support]', e && e.message); }
 }
 
 // ---------- главная ----------
@@ -50,7 +43,7 @@ function screenHome() {
   const best = read(KEYS.core, {}).best;
   const total = data.pro ? totalZones(data.pro) : 11;
   const nodes = [
-    h('div', { class: 'home-head' }, h('div', {}, h('h1', {}, t.appName), h('p', { class: 'muted' }, tp.homeSub)), langToggle()),
+    h('div', { class: 'home-head' }, h('div', {}, h('h1', {}, t.appName, ' ', h('span', { class: 'age-badge', title: tp.ageBadge }, tp.ageBadge)), h('p', { class: 'muted' }, tp.homeSub)), langToggle()),
     h('div', { class: 'grid' },
       tile('anatomy', tp.badges.atlas, 'pro', () => nav.go(openAnatomy), false, 'flagship'),
       tile('sheets', tp.badges.pro, 'pro', () => nav.go(openSheets)),
@@ -60,12 +53,13 @@ function screenHome() {
       typeof best === 'number' ? h('span', { class: 'muted' }, t.best(best)) : ''),
   ];
   nodes.push(h('button', { class: 'btn promo', type: 'button', onclick: () => openPaywall() }, '★ ' + tp.pay.homeLink));
+  nodes.push(h('button', { class: 'btn secondary dev-link', type: 'button', onclick: openSupport }, tp.contactDev));
   render(...nodes);
 }
 
 // ---------- запуск ----------
 const disc = document.getElementById('disclaimer');
-const helpBtn = document.getElementById('helpLink'); helpBtn.addEventListener('click', () => openHelp(() => nav.go(screenAge)));
+const helpBtn = document.getElementById('helpLink'); helpBtn.addEventListener('click', () => openHelp());
 function applyStatic() {
   document.documentElement.lang = lang;
   disc.textContent = ''; disc.hidden = true; helpBtn.textContent = t.help;
@@ -81,7 +75,7 @@ function applyTheme() {
 applyTheme();
 if (tg) { try { tg.ready(); tg.expand(); tg.onEvent && tg.onEvent('themeChanged', applyTheme); } catch { /* нет */ } }
 
-nav.setHome(() => (ageOk() ? screenHome() : screenAge()));
+nav.setHome(() => screenHome());
 const withTimeout = (p, ms) => Promise.race([p, new Promise((r) => setTimeout(r, ms))]);
 loadJson('chitay_quiz.json')
   .then(async (q) => { data.quiz = q; await withTimeout(refreshEntitlements(), 2500); nav.reset(); })

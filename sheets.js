@@ -1,15 +1,15 @@
-// «Шпаргалки»: свидания (18+), переговоры, защита от давления. Данные: chitay_pro.json → cheatsheets.
-import { h, html, L, LA, t, tp, data, isAdult, render, nav, topbar, loadJson, CFG } from './ctx.js?v=test2';
-import { read, patch, KEYS } from './store.js?v=test2';
-import { hasAccess } from './access.js?v=test2';
-import { openPaywall, lockCard } from './paywall.js?v=test2';
-import { openCalibration } from './quiz.js?v=test2';
-import { openHelp } from './help-view.js?v=test2';
-import { openHypo } from './hypo-view.js?v=test2';
-import { openProtocol } from './protocol-view.js?v=test2';
-import { openExpress } from './express-view.js?v=test2';
-import { ICONS } from './icons.js?v=test2';
-import { proLoader, refreshEntitlements } from './services.js?v=test2';
+// «Шпаргалки»: свидания, переговоры, защита от давления. Данные: chitay_pro.json → cheatsheets.
+import { h, html, L, LA, t, tp, data, render, nav, topbar, loadJson, CFG } from './ctx.js?v=test3';
+import { read, patch, KEYS } from './store.js?v=test3';
+import { hasAccess } from './access.js?v=test3';
+import { openPaywall, lockCard } from './paywall.js?v=test3';
+import { openCalibration } from './quiz.js?v=test3';
+import { openHelp } from './help-view.js?v=test3';
+import { openHypo } from './hypo-view.js?v=test3';
+import { openProtocol } from './protocol-view.js?v=test3';
+import { openExpress } from './express-view.js?v=test3';
+import { ICONS } from './icons.js?v=test3';
+import { proLoader, refreshEntitlements } from './services.js?v=test3';
 
 const S = new Proxy({}, { get: (_, k) => tp.sheets[k] });   // живой доступ: язык может смениться на лету
 const ent = () => read(KEYS.ent, {});
@@ -63,7 +63,7 @@ export async function openSheets() {
       h('div', { class: 'sg-chips' }, ...g[2].map((x) => h('span', { class: 'sg-chip' }, x))), ...rows); };
   render(topbar(S.title), h('p', { class: 'muted sub' }, S.intro),
     group('biz', row('negotiation', S.negotiationSub, () => nav.go(openNegotiation), ['pro', tp.badges.pro])),
-    group('rel', isAdult() ? row('dating', S.datingSub, () => nav.go(openDating), ['pro', '18+']) : h('p', { class: 'muted sub' }, S.age18Off)),
+    group('rel', row('dating', S.datingSub, () => nav.go(openDating), ['pro'])),
     group('prot', row('protection', S.protectionSub, () => nav.go(openProtection), ['free', S.freeBadge + ' + PRO'])),
     group('tools', row('express', S.expressSub, () => nav.go(openExpress), ['free', S.freeBadge]),
       row('protocol', S.protocolSub, () => nav.go(openProtocol), ['free', S.freeBadge + ' + PRO']),
@@ -76,7 +76,6 @@ const sec = (id) => data.pro.cheatsheets.sections.find((s) => s.id === id);
 
 function openDating() {
   const d = sec('dating');
-  if (!isAdult()) { render(topbar(S.dating), h('div', { class: 'card' }, h('p', {}, S.age18Off))); return; }
   if (!hasAccess('cheatsheets', ent(), CFG)) {
     const q = d.demoQuestion;
     render(topbar(S.dating), h('p', { class: 'muted sub' }, S.demoNote), q ? accOpen(L(q.text), block(S.when, para(q.when)), block(S.listen, para(q.listenFor))) : '', unlockCard('cheatsheets')); return;

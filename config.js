@@ -11,4 +11,6 @@ export const CONFIG = {
   apiBase: 'https://api.chitaypro.ru',
   // Срок возврата в днях (2 = 48 часов), показывается на экране тарифов. Сервер (REFUND_HOURS) должен выполнять то же обещание.
   refundDays: 2,
+  // Ссылка для кнопки «Написать разработчику» (Telegram-чат или канал поддержки). ВПИШИТЕ свою: пока стоит ссылка на бота.
+  supportUrl: 'https://t.me/chitay_lyudey_app_bot',
 };

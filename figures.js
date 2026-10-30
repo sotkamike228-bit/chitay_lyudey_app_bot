@@ -80,12 +80,12 @@ export function figureSvg(view, label) {
 }
 
 /** Фоновая иллюстрация хаба: assets/hub_N.webp (N — номер хаба, 1..5). Нет файла — остаётся векторная схема. */
-export const hubArtUrl = (file) => `assets/${file}`;
+export const hubArtUrl = (file) => `assets/${file}?v=test3`;
 export function attachHubArt(stage, file) {
   const img = new Image();
   img.className = 'hub-art'; img.alt = ''; img.decoding = 'async';
   img.onload = () => { stage.classList.add('has-art'); stage.prepend(img); };
-  img.onerror = () => {};              // файла нет: молча остаёмся на SVG
+  img.onerror = () => { stage.classList.add('no-art'); };   // файла нет: показываем только метки
   img.src = hubArtUrl(file);
 }
 

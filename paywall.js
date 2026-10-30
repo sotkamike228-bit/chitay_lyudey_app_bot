@@ -1,8 +1,8 @@
-import { h, tp, tg, CFG, render, nav, topbar, toast } from './ctx.js?v=test2';
-import { read, write, KEYS } from './store.js?v=test2';
-import { ownedProducts } from './access.js?v=test2';
-import { PRODUCTS, perMonth } from './pricing.js?v=test2';
-import { billing, proLoader } from './services.js?v=test2';
+import { h, tp, tg, CFG, render, nav, topbar, toast } from './ctx.js?v=test3';
+import { read, write, KEYS } from './store.js?v=test3';
+import { ownedProducts } from './access.js?v=test3';
+import { PRODUCTS, perMonth } from './pricing.js?v=test3';
+import { billing, proLoader } from './services.js?v=test3';
 
 /** Карточка «Доступно в полной версии»: вместо технических заглушек. extra — дополнительные кнопки. */
 export function lockCard(feature, ...extra) {

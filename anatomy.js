@@ -1,12 +1,12 @@
 // «Анатомия невербалики»: схема с метками, нижняя панель со слоями, мини-тренажёр зоны, прогресс «Атлас».
-import { h, html, L, LA, lang, t, tp, data, render, nav, haptic, topbar, closeSheet, loadJson, CFG, toast } from './ctx.js?v=test2';
-import { read, write, KEYS } from './store.js?v=test2';
-import { hotspotUnlocked, hasAccess } from './access.js?v=test2';
-import { figureSvg, overlaySvg, attachHubArt } from './figures.js?v=test2';
-import { shuffle } from './engine.js?v=test2';
-import { openPaywall, lockCard } from './paywall.js?v=test2';
-import { ICONS, HUB_ICON } from './icons.js?v=test2';
-import { proLoader, refreshEntitlements } from './services.js?v=test2';
+import { h, html, L, LA, lang, t, tp, data, render, nav, haptic, topbar, closeSheet, loadJson, CFG, toast } from './ctx.js?v=test3';
+import { read, write, KEYS } from './store.js?v=test3';
+import { hotspotUnlocked, hasAccess } from './access.js?v=test3';
+import { figureSvg, overlaySvg, attachHubArt } from './figures.js?v=test3';
+import { shuffle } from './engine.js?v=test3';
+import { openPaywall, lockCard } from './paywall.js?v=test3';
+import { ICONS, HUB_ICON } from './icons.js?v=test3';
+import { proLoader, refreshEntitlements } from './services.js?v=test3';
 
 const A = { sec: 0, view: 0, full: false, sel: null, layer: 'seen', content: null, err: null };
 const ent = () => read(KEYS.ent, {});
@@ -89,6 +89,24 @@ function screen() {
   const chips = h('div', { class: 'chips', role: 'tablist' }, ...an.sections.map((s, i) =>
     h('button', { class: 'chip' + (i === A.sec ? ' on' : ''), role: 'tab', 'aria-selected': String(i === A.sec), type: 'button',
       onclick: () => { A.sec = i; A.view = 0; A.sel = null; screen(); } }, L(s.title))));
+  const step = (dir) => chips.scrollBy({ left: dir * Math.max(120, chips.clientWidth * 0.6), behavior: 'smooth' });
+  const arrow = (dir, label) => h('button', { class: 'chips-arrow ' + (dir < 0 ? 'prev' : 'next'), type: 'button', 'aria-label': label, onclick: () => step(dir) }, dir < 0 ? '‹' : '›');
+  const prev = arrow(-1, tp.carouselPrev), next = arrow(1, tp.carouselNext);
+  const syncArrows = () => {
+    const max = chips.scrollWidth - chips.clientWidth;
+    prev.disabled = chips.scrollLeft <= 1; next.disabled = chips.scrollLeft >= max - 1;
+    carousel.classList.toggle('no-overflow', max <= 1);
+  };
+  const carousel = h('div', { class: 'chips-carousel' }, prev, chips, next);
+  chips.addEventListener('scroll', syncArrows, { passive: true });
+  // колесо мыши листает вкладки по горизонтали; у края отдаём прокрутку странице
+  chips.addEventListener('wheel', (e) => {
+    const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    const max = chips.scrollWidth - chips.clientWidth;
+    if (!d || max <= 1) return;
+    if ((d < 0 && chips.scrollLeft <= 0) || (d > 0 && chips.scrollLeft >= max - 1)) return;
+    e.preventDefault(); chips.scrollLeft += d;
+  }, { passive: false });
   const viewSwitch = views.length > 1 ? h('div', { class: 'views', role: 'tablist', 'aria-label': tp.viewsLabel },
     ...views.map((v, i) => h('button', { class: 'view-btn' + (i === idx ? ' on' : ''), role: 'tab', 'aria-selected': String(i === idx), type: 'button',
       onclick: () => { A.view = i; screen(); } }, L(v.label)))) : '';
@@ -96,7 +114,7 @@ function screen() {
   // схема: SVG фигуры + подсветка + кнопки-метки (HTML, чтобы область касания была не меньше 44 px)
   const stage = h('div', { class: 'stage', style: `--asp:${view.aspect || 0.625}` });
   if (view.art) attachHubArt(stage, view.art);
-  if (idx === 0) stage.append(html('div', { class: 'fig-wrap' }, figureSvg(sec.figureView, L(sec.title))));   // запасная схема, если картинки нет
+  if (!view.art) stage.append(html('div', { class: 'fig-wrap' }, figureSvg(sec.figureView, L(sec.title))));   // схема только если у ракурса нет картинки: старая заглушка не мигает
   stage.append(html('div', { class: 'ov-wrap' }, overlaySvg(hotspots, A.sel)));
   hotspots.forEach((hs, i) => {
     const open = a.opened.includes(hs.id);
@@ -110,11 +128,18 @@ function screen() {
       h('span', { class: 'num' }, String(i + 1)), L(hs.label),
       hotspotUnlocked(hs, ent(), CFG) ? '' : h('span', { class: 'badge pro sm' }, tp.badges.pro))));
   list.open = false;
+  // «Все зоны списком»: шторка с описанием уезжает вниз, список раскрывается на странице с собственной прокруткой
+  list.addEventListener('toggle', () => {
+    document.body.classList.toggle('zones-open', list.open);
+    if (list.open) { A.full = false; requestAnimationFrame(() => list.scrollIntoView({ block: 'nearest', behavior: 'smooth' })); }
+  });
 
   render(topbar(tp.anatomyTitle), h('p', { class: 'muted sub' }, L(an.intro)),
     h('p', { class: 'atlas' }, tp.atlas(a.opened.length, totalZones(data.pro))),
-    chips, viewSwitch, stage, list);
+    carousel, viewSwitch, stage, list);
+  document.body.classList.remove('zones-open');
   const on = chips.querySelector('.on'); if (on) chips.scrollLeft = on.offsetLeft - (chips.clientWidth - on.offsetWidth) / 2;   // активный хаб по центру ленты
+  syncArrows();
   if (A.sel) renderSheet(A.sel);
 }
 
