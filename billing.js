@@ -58,7 +58,15 @@ export function createBilling({ apiBase = '', tg = null, fetchFn = (typeof fetch
       ({ pay_url: link } = await post('/api/pay-link', { plan_id: productId, method, user_id: userId }));
     if (!link || !/^https:\/\//.test(link)) throw new Error('no link');
     } catch (e) { console.error('[billing] /api/pay-link:', e && e.message); onState('unavailable'); return { state: 'unavailable' }; }
-    try { if (tg && typeof tg.openLink === 'function') tg.openLink(link); else window.open(link, '_blank', 'noopener'); }
+    try {
+      if (/^https:\/\/t\.me\//.test(link) && tg && typeof tg.openTelegramLink === 'function') {
+        tg.openTelegramLink(link);
+      } else if (tg && typeof tg.openLink === 'function') {
+        tg.openLink(link);
+      } else {
+        window.open(link, '_blank', 'noopener');
+      }
+    }
     catch (e) { console.error('[billing] openLink:', e && e.message); onState('error'); return { state: 'error' }; }
     onState('external'); return { state: 'external' };
   }
