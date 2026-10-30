@@ -1,8 +1,8 @@
-import { h, tp, tg, CFG, render, nav, topbar, toast } from './ctx.js?v=test4';
-import { read, write, KEYS } from './store.js?v=test4';
-import { ownedProducts } from './access.js?v=test4';
-import { PRODUCTS, perMonth } from './pricing.js?v=test4';
-import { billing, proLoader } from './services.js?v=test4';
+import { h, tp, tg, CFG, render, nav, topbar, toast } from './ctx.js?v=test5';
+import { read, write, KEYS } from './store.js?v=test5';
+import { ownedProducts } from './access.js?v=test5';
+import { PRODUCTS, perMonth } from './pricing.js?v=test5';
+import { billing, proLoader } from './services.js?v=test5';
 
 /** Карточка «Доступно в полной версии»: вместо технических заглушек. extra — дополнительные кнопки. */
 export function lockCard(feature, ...extra) {
@@ -50,14 +50,14 @@ function screen() {
     const mk = (cls, label, fn) => { const b = h('button', { class: 'btn pay-btn ' + cls, type: 'button', disabled: has, onclick: run(fn) }, label); btns.push(b); return b; };
     const payBtns = has ? h('button', { class: 'btn secondary', type: 'button', disabled: true }, P.ownedBadge)
       : h('div', { class: 'pay-btns', role: 'group', 'aria-label': P.methods.or },
-        mk(p.id === 'pro_lifetime' ? 'cta-gb' : 'pay-card', P.methods.card, (cb) => billing.checkoutExternal(p.id, 'card', cb)),
+        mk('pay-card', P.methods.card, (cb) => billing.checkoutExternal(p.id, 'card', cb)),
         mk('pay-crypto', P.methods.crypto, (cb) => billing.checkoutExternal(p.id, 'crypto', cb)),
         mk('pay-stars', P.methods.stars, (cb) => billing.checkout(p.id, cb)));
     const flag = p.id === 'pro_lifetime';
     const mo = PRODUCTS.find((x) => x.days === 30);
     return h('div', { class: 'card plan' + (has ? ' owned' : '') + (flag ? ' plan-flagship' : '') },
       flag ? h('div', { class: 'plan-ribbon' }, P.bestBadge) : '',
-      h('div', { class: 'plan-head' }, h('h3', {}, L.name), p.days === null ? h('span', { class: 'badge pro sm' }, P.onceBadge) : ''),
+      h('div', { class: 'plan-head' }, h('h3', {}, L.name)),
       flag && mo ? h('p', { class: 'plan-save' }, P.payback(Math.ceil(p.stars / mo.stars))) : '',
       h('p', { class: 'plan-price' }, `${p.stars} ⭐`), h('p', { class: 'sub muted' }, L.note(perMonth(p))), h('p', { class: 'sub' }, L.what), payBtns);
   };
@@ -70,6 +70,6 @@ function screen() {
     h('ul', { class: 'benefits' }, ...P.benefits.map((b) => h('li', {}, b))),
     CFG.apiBase ? '' : h('div', { class: 'banner' }, P.stubBanner),
     ...plans, status, checkBox,
-    h('p', { class: 'sub muted' }, P.payNote), h('p', { class: 'sub' }, P.refund(CFG.refundDays)), h('p', { class: 'sub muted' }, P.free),
+    h('p', { class: 'pay-note' }, P.payNote),
     h('button', { class: 'btn secondary', onclick: () => nav.back() }, tp.close));
 }

@@ -80,7 +80,7 @@ export function figureSvg(view, label) {
 }
 
 /** Фоновая иллюстрация хаба: assets/hub_N.webp (N — номер хаба, 1..5). Нет файла — остаётся векторная схема. */
-export const hubArtUrl = (file) => `assets/${file}?v=test4`;
+export const hubArtUrl = (file) => `assets/${file}?v=test5`;
 const artReady = new Set();
 /** Предзагрузка всех картинок атласа до показа экрана: потом они берутся из кэша мгновенно. */
 export function preloadArts(files, timeoutMs = 4000) {

@@ -1,12 +1,12 @@
 // «Анатомия невербалики»: схема с метками, нижняя панель со слоями, мини-тренажёр зоны, прогресс «Атлас».
-import { h, html, L, LA, lang, t, tp, data, render, nav, haptic, topbar, closeSheet, loadJson, CFG, toast } from './ctx.js?v=test4';
-import { read, write, KEYS } from './store.js?v=test4';
-import { hotspotUnlocked, hasAccess } from './access.js?v=test4';
-import { figureSvg, overlaySvg, attachHubArt, preloadArts } from './figures.js?v=test4';
-import { shuffle } from './engine.js?v=test4';
-import { openPaywall, lockCard } from './paywall.js?v=test4';
-import { ICONS, HUB_ICON } from './icons.js?v=test4';
-import { proLoader, refreshEntitlements } from './services.js?v=test4';
+import { h, html, L, LA, lang, t, tp, data, render, nav, haptic, topbar, closeSheet, loadJson, CFG, toast } from './ctx.js?v=test5';
+import { read, write, KEYS } from './store.js?v=test5';
+import { hotspotUnlocked, hasAccess } from './access.js?v=test5';
+import { figureSvg, overlaySvg, attachHubArt, preloadArts } from './figures.js?v=test5';
+import { shuffle } from './engine.js?v=test5';
+import { openPaywall, lockCard } from './paywall.js?v=test5';
+import { ICONS, HUB_ICON } from './icons.js?v=test5';
+import { proLoader, refreshEntitlements } from './services.js?v=test5';
 
 const A = { sec: 0, view: 0, full: false, sel: null, layer: 'seen', content: null, err: null };
 const ent = () => read(KEYS.ent, {});

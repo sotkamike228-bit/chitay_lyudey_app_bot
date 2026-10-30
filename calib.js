@@ -1,5 +1,5 @@
 // Калибровка уверенности: чистая логика (тестируется в Node).
-import { shuffle } from './engine.js?v=test4';
+import { shuffle } from './engine.js?v=test5';
 export const LEVELS = [
   { id: 1, p: 0.55 },
   { id: 2, p: 0.75 },
